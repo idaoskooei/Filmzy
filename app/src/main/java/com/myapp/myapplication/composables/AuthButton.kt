@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.myapp.myapplication.ui.theme.Peach
+import com.myapp.myapplication.ui.theme.Red
 
 @Composable
 @Preview
@@ -31,7 +31,7 @@ fun AuthButton(
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = Peach
+        containerColor = Red
     )
 ) {
     Button(
