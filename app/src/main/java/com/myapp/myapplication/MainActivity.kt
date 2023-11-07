@@ -15,6 +15,7 @@ import com.myapp.myapplication.model.AuthRepository
 import com.myapp.myapplication.signin.SignInScreen
 import com.myapp.myapplication.signin.SignInViewModel
 import com.myapp.myapplication.signup.SignUpScreen
+import com.myapp.myapplication.signup.SignUpViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,9 +56,17 @@ fun MyApp() {
         }
 
         composable("sign_up_screen") {
-            SignUpScreen(navController = navController,
-                onSignUpButtonClicked = { _, _, _ -> run {} })
+            SignUpScreen(
+                navController = navController,
+                viewModel = SignUpViewModel(
+                    authRepository = AuthRepository(),
+                    navController = navController
+                )
+            )
+        }
+
+        composable("movies_page") {
+            MoviesPage(navController = navController)
         }
     }
 }
-

@@ -27,7 +27,8 @@ class SignInViewModel @Inject constructor(
     )
 
     data class UiState(
-        val isLoading: Boolean = false, val errorMessage: String? = null
+        val isLoading: Boolean = false,
+        val errorMessage: String? = null
     )
 
     fun onSignInButtonClicked(email: String, password: String) {
@@ -60,7 +61,7 @@ class SignInViewModel @Inject constructor(
                 authRepository.signInUser(email, password) { responseState ->
                     when (responseState) {
                         is ResponseState.Success -> {
-                            navController.navigate("screen3")
+                            navController.navigate("movies_page")
                         }
 
                         is ResponseState.Failure -> {

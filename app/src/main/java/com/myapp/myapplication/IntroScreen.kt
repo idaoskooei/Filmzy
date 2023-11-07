@@ -20,7 +20,6 @@ fun IntroScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Log in button
         Button(
             onClick = {
                 navController.navigate("sign_in_screen")
