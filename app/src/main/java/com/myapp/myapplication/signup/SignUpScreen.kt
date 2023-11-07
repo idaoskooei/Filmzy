@@ -1,5 +1,6 @@
 package com.myapp.myapplication.signup
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,8 +13,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.AuthButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.PasswordTextField
@@ -33,6 +36,9 @@ fun SignUpScreen(
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val painter = painterResource(id = R.drawable.logo)
+        Image(painter = painter, contentDescription = "welcome back logo")
+
         EmailTextField(
             value = email,
             onValueChange = { email = it },
