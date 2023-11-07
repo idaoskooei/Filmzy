@@ -22,10 +22,11 @@ import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.AuthButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.PasswordTextField
+import com.myapp.myapplication.model.AuthRepository
 
 @Composable
 fun SignInScreen(
-    navController: NavController, onSignInButtonClicked: (email: String, password: String) -> Unit
+    navController: NavController, viewModel: SignInViewModel
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -48,9 +49,12 @@ fun SignInScreen(
         PasswordTextField(
             value = password, onValueChange = { password = it }, label = "Password"
         )
-        AuthButton(modifier = Modifier.padding(top = 30.dp, bottom = 30.dp),
+        AuthButton(
+            modifier = Modifier.padding(top = 30.dp, bottom = 30.dp),
             text = "SIGN IN",
-            onClick = { onSignInButtonClicked(email, password) })
+            onClick = {
+                viewModel.onSignInButtonClicked(email, password)
+            })
     }
 }
 
@@ -59,6 +63,9 @@ fun SignInScreen(
 fun SignInScreenPreview() {
     val navController = rememberNavController()
 
-    SignInScreen(navController = navController, onSignInButtonClicked = { _, _ -> run {} })
+    SignInScreen(
+        navController = navController, viewModel = SignInViewModel(
+            authRepository = AuthRepository(),navController
+        )
+    )
 }
-

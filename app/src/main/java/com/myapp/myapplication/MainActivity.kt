@@ -8,28 +8,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.FirebaseApp
+import com.myapp.myapplication.model.AuthRepository
 import com.myapp.myapplication.signin.SignInScreen
 import com.myapp.myapplication.signin.SignInViewModel
 import com.myapp.myapplication.signup.SignUpScreen
-import com.myapp.myapplication.signup.SignUpViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
-    private lateinit var signInViewModel: SignInViewModel
-    private lateinit var signUpViewModel: SignUpViewModel
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
-        signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
 
         setContent {
             MyApplicationTheme {
@@ -37,7 +27,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     MyApp()
-
                 }
             }
         }
@@ -58,16 +47,17 @@ fun MyApp() {
         composable("sign_in_screen") {
             SignInScreen(
                 navController = navController,
-                onSignInButtonClicked = { _, _ -> run {} }
+                viewModel = SignInViewModel(
+                    authRepository = AuthRepository(),
+                    navController = navController
+                )
             )
         }
 
         composable("sign_up_screen") {
-            SignUpScreen(
-                navController = navController,
+            SignUpScreen(navController = navController,
                 onSignUpButtonClicked = { _, _, _ -> run {} })
         }
-
     }
 }
 

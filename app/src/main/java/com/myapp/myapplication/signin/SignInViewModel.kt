@@ -1,18 +1,94 @@
 package com.myapp.myapplication.signin
 
+
+import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.myapp.myapplication.model.AuthRepository
+import com.myapp.myapplication.model.ResponseState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInViewModel : ViewModel() {
-    // Add properties for data and state if needed
+class SignInViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
+    private val navController: NavController
+) : ViewModel() {
 
-    fun onSignInButtonClicked(email: String, password: String): Boolean {
-        // Implement your sign-in logic here
-        // Return true if sign-in is successful, false otherwise
-        return !email.isBlank() && !password.isBlank()
+    private val viewModelState = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = viewModelState.stateIn(
+        scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState()
+    )
+
+    data class UiState(
+        val isLoading: Boolean = false, val errorMessage: String? = null
+    )
+
+    fun onSignInButtonClicked(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            viewModelState.value = UiState(errorMessage = "Please fill in both email and password")
+            return
+        }
+        if (!isEmailValid(email)) {
+            viewModelState.update { currentViewState ->
+                currentViewState.copy(
+                    errorMessage = INVALID_EMAIL_ADDRESS_FORMAT_ERROR_MESSAGE
+                )
+            }
+            return
+        }
+
+        if (!isPassValid(password)) {
+            viewModelState.update { currentViewState ->
+                currentViewState.copy(
+                    errorMessage = INVALID_PASS_FORMAT_ERROR_MESSAGE
+                )
+            }
+            return
+        }
+
+        viewModelState.value = UiState(isLoading = true, errorMessage = null)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                authRepository.signInUser(email, password) { responseState ->
+                    when (responseState) {
+                        is ResponseState.Success -> {
+                            navController.navigate("screen3")
+                        }
+
+                        is ResponseState.Failure -> {
+                            viewModelState.update { currentViewState ->
+                                currentViewState.copy(errorMessage = SIGN_IN_FAILED)
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                viewModelState.value = UiState(errorMessage = "An error occurred")
+            }
+        }
     }
-}
-fun validateSignIn(email: String, password: String): Boolean {
-    // You can add your sign-in validation logic here
-    // For example, check if the email and password are valid
-    return !email.isBlank() && !password.isBlank()
+
+    private fun isPassValid(pass: String): Boolean {
+        return !TextUtils.isEmpty(pass)
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return !(TextUtils.isEmpty(email)) && android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+            .matches()
+    }
+
+    companion object {
+        private const val INVALID_EMAIL_ADDRESS_FORMAT_ERROR_MESSAGE =
+            "PLEASE ENTER A VALID EMAIL ADDRESS"
+        private const val INVALID_PASS_FORMAT_ERROR_MESSAGE = "PLEASE ENTER A VALID PASSWORD"
+        private const val SIGN_IN_FAILED = "SIGN IN FAILED"
+    }
 }
