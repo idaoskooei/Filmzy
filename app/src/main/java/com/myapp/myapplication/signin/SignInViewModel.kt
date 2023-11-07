@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 class SignInViewModel : ViewModel() {
     // Add properties for data and state if needed
 
-    fun signIn(email: String, password: String): Boolean {
+    fun onSignInButtonClicked(email: String, password: String): Boolean {
         // Implement your sign-in logic here
         // Return true if sign-in is successful, false otherwise
         return !email.isBlank() && !password.isBlank()
