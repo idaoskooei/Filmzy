@@ -68,4 +68,22 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation ("androidx.navigation:navigation-compose:2.7.5")
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation ("androidx.compose.material:material:1.5.4")
+    debugImplementation ("androidx.compose.ui:ui-tooling")
+    implementation ("androidx.activity:activity-compose:1.8.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation ("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation ("androidx.navigation:navigation-compose:2.7.5")
+    implementation ("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
+
+    // Firebase BoM
+    implementation (platform("com.google.firebase:firebase-bom:31.2.2"))
+    //Firebase Authentication
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    //Firebase Analytics
+    implementation ("com.google.firebase:firebase-analytics-ktx")
+
+
 }

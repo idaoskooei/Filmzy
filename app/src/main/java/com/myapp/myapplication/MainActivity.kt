@@ -53,11 +53,16 @@ fun MyApp() {
         }
 
         composable("sign_in_screen") {
-            SignInScreen(navController = navController, viewModel = SignInViewModel())
+            SignInScreen(
+                navController = navController,
+                onSignInButtonClicked = { _, _ -> run {} }
+            )
         }
 
         composable("sign_up_screen") {
-            SignUpScreen(navController = navController, viewModel = SignUpViewModel())
+            SignUpScreen(
+                navController = navController,
+                onSignUpButtonClicked = { _, _, _ -> run {} })
         }
 
     }
