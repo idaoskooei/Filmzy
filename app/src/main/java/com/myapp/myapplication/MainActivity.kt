@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.FirebaseApp
 import com.myapp.myapplication.signin.SignInScreen
 import com.myapp.myapplication.signin.SignInViewModel
 import com.myapp.myapplication.signup.SignUpScreen
@@ -23,8 +24,10 @@ class MainActivity : ComponentActivity() {
     private lateinit var signUpViewModel: SignUpViewModel
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         signInViewModel = ViewModelProvider(this)[SignInViewModel::class.java]
         signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
 

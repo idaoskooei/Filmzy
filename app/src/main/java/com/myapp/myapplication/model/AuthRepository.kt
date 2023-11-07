@@ -1,4 +1,4 @@
-package com.myapp.myapplication.Model
+package com.myapp.myapplication.model
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
