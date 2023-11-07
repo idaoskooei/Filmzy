@@ -69,16 +69,11 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel) {
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-
-        // Sign In button
         Button(
             onClick = {
-                // Perform sign-in action when the button is clicked
                 if (validateSignIn(email, password)) {
-                    // If sign-in is successful, navigate to the next screen
                     navController.navigate("home_screen")
                 } else {
-                    // Handle sign-in failure (show error message, etc.)
                 }
             },
             modifier = Modifier
