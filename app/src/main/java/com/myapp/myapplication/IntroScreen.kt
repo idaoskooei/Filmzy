@@ -11,15 +11,11 @@ import androidx.navigation.NavController
 
 @Composable
 fun IntroScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Introductory content
         Text("Welcome to the App")
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -32,10 +28,8 @@ fun IntroScreen(navController: NavController) {
         ) {
             Text("Log In")
         }
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Sign up button
         Button(
             onClick = {
                 // Navigate to the sign-up screen

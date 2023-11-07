@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -75,15 +78,16 @@ dependencies {
     implementation ("androidx.activity:activity-compose:1.8.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation ("androidx.compose.material:material-icons-extended:1.5.4")
-    implementation ("androidx.navigation:navigation-compose:2.7.5")
-    implementation ("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
 
     // Firebase BoM
-    implementation (platform("com.google.firebase:firebase-bom:31.2.2"))
+    implementation(platform("com.google.firebase:firebase-bom:31.2.2"))
     //Firebase Authentication
-    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
     //Firebase Analytics
-    implementation ("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
-
+    // Dagger
+    implementation ("com.google.dagger:hilt-android:2.48")
 }
