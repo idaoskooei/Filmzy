@@ -81,12 +81,11 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
 
-    // Firebase BoM
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:31.2.2"))
-    //Firebase Authentication
     implementation("com.google.firebase:firebase-auth-ktx")
-    //Firebase Analytics
     implementation("com.google.firebase:firebase-analytics-ktx")
+//    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     // Dagger
     implementation ("com.google.dagger:hilt-android:2.48")

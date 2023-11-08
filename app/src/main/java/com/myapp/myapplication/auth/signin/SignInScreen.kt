@@ -1,4 +1,4 @@
-package com.myapp.myapplication.signup
+package com.myapp.myapplication.auth.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -8,12 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,17 +27,14 @@ import com.myapp.myapplication.composables.AuthButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.ErrorTextView
 import com.myapp.myapplication.composables.PasswordTextField
-import com.myapp.myapplication.model.AuthRepository
+import com.myapp.myapplication.auth.model.AuthRepository
 
 @Composable
-fun SignUpScreen(
-    navController: NavController,
-    viewModel: SignUpViewModel
+fun SignInScreen(
+    navController: NavController, viewModel: SignInViewModel
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    var confirmPassword by rememberSaveable { mutableStateOf("") }
-
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
 
     Column(
@@ -48,7 +44,8 @@ fun SignUpScreen(
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val painter = painterResource(id = R.drawable.logo)
+
+        val painter = painterResource(id = R.drawable.welcomeback)
         Image(painter = painter, contentDescription = "welcome back logo")
 
         EmailTextField(
@@ -62,20 +59,14 @@ fun SignUpScreen(
             onValueChange = { password = it },
             label = "Password"
         )
-
-        PasswordTextField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            label = "Confirm Password"
-        )
-
         AuthButton(
             modifier = Modifier.padding(top = 30.dp, bottom = 30.dp),
-            text = "SIGN UP",
-            onClick = { viewModel.onSignUpButtonClicked(email, password, confirmPassword) },
-        )
+            text = "SIGN IN",
+            onClick = {
+                viewModel.onSignInButtonClicked(email, password)
+            })
 
-        if (uiState.isInProgress) {
+        if (uiState.isLoading) {
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,14 +83,14 @@ fun SignUpScreen(
     }
 }
 
+@Preview(device = "id:pixel_2", showBackground = true)
 @Composable
-@Preview(showBackground = true, device = "id:pixel_2")
-fun SignUpScreenPreview() {
+fun SignInScreenPreview() {
     val navController = rememberNavController()
 
-    SignUpScreen(
-        navController = navController, viewModel = SignUpViewModel(
-            authRepository = AuthRepository(), navController
+    SignInScreen(
+        navController = navController, viewModel = SignInViewModel(
+            authRepository = AuthRepository(),navController
         )
     )
 }

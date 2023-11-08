@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.myapp.myapplication.model.AuthRepository
-import com.myapp.myapplication.signin.SignInScreen
-import com.myapp.myapplication.signin.SignInViewModel
-import com.myapp.myapplication.signup.SignUpScreen
-import com.myapp.myapplication.signup.SignUpViewModel
+import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.auth.signin.SignInScreen
+import com.myapp.myapplication.auth.signin.SignInViewModel
+import com.myapp.myapplication.auth.signup.SignUpScreen
+import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,9 +37,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
+    val authRepository = AuthRepository()
+
+    val startDestination = if (authRepository.isUserSignedIn()) {
+        "movies_page"
+    } else {
+        "intro_screen"
+    }
 
     NavHost(
-        navController = navController, startDestination = "intro_screen"
+        navController = navController, startDestination = startDestination
     ) {
         composable("intro_screen") {
             IntroScreen(navController = navController)
