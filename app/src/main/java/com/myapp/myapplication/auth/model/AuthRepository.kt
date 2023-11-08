@@ -1,13 +1,14 @@
-package com.myapp.myapplication.model
+package com.myapp.myapplication.auth.model
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-class AuthRepository {
+class AuthRepository @Inject constructor() {
+
     private lateinit var auth: FirebaseAuth
-
     fun signInUser(email: String, pass: String, onResponseReady: (ResponseState) -> Unit) {
         auth = Firebase.auth
         auth.signInWithEmailAndPassword(email, pass)
@@ -40,8 +41,12 @@ class AuthRepository {
             }
     }
 
-    fun isSignedIn(): Boolean {
+    fun isUserSignedIn(): Boolean {
         return Firebase.auth.currentUser != null
+    }
+
+    fun signOut() {
+        Firebase.auth.signOut()
     }
 
     private fun FirebaseUser?.toUser(): User {

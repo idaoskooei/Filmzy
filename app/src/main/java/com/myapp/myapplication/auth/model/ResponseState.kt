@@ -1,4 +1,4 @@
-package com.myapp.myapplication.model
+package com.myapp.myapplication.auth.model
 
 sealed interface ResponseState {
 

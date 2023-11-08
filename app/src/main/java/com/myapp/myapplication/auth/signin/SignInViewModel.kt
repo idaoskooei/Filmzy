@@ -1,12 +1,12 @@
-package com.myapp.myapplication.signin
+package com.myapp.myapplication.auth.signin
 
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.myapp.myapplication.model.AuthRepository
-import com.myapp.myapplication.model.ResponseState
+import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.auth.model.ResponseState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,7 +27,8 @@ class SignInViewModel @Inject constructor(
     )
 
     data class UiState(
-        val isLoading: Boolean = false, val errorMessage: String? = null
+        val isLoading: Boolean = false,
+        val errorMessage: String? = null
     )
 
     fun onSignInButtonClicked(email: String, password: String) {
@@ -60,7 +61,7 @@ class SignInViewModel @Inject constructor(
                 authRepository.signInUser(email, password) { responseState ->
                     when (responseState) {
                         is ResponseState.Success -> {
-                            navController.navigate("screen3")
+                            navController.navigate("movies_page")
                         }
 
                         is ResponseState.Failure -> {
