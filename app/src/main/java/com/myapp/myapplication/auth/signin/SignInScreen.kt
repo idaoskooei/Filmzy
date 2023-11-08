@@ -66,7 +66,7 @@ fun SignInScreen(
                 viewModel.onSignInButtonClicked(email, password)
             })
 
-        if (uiState.isLoading) {
+        if (uiState.isInProgress) {
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
