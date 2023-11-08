@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
 import kotlinx.coroutines.Dispatchers
@@ -27,13 +28,13 @@ class SignInViewModel @Inject constructor(
     )
 
     data class UiState(
-        val isLoading: Boolean = false,
+        val isInProgress: Boolean = false,
         val errorMessage: String? = null
     )
 
     fun onSignInButtonClicked(email: String, password: String) {
         if (email.isEmpty() || password.isEmpty()) {
-            viewModelState.value = UiState(errorMessage = "Please fill in both email and password")
+            viewModelState.value = UiState(errorMessage = FILL_IN_BOTH_FIELDS)
             return
         }
         if (!isEmailValid(email)) {
@@ -54,7 +55,7 @@ class SignInViewModel @Inject constructor(
             return
         }
 
-        viewModelState.value = UiState(isLoading = true, errorMessage = null)
+        viewModelState.value = UiState(isInProgress = true, errorMessage = null)
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
