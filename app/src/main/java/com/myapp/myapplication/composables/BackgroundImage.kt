@@ -7,11 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.myapp.myapplication.R
 
 @Composable
- fun BackgroundImage() {
-    val backgroundPainter: Painter = painterResource(id = R.drawable.untitled_design)
+fun BackgroundImage(id: Int) {
+    val backgroundPainter: Painter = painterResource(id = id)
     Image(
         painter = backgroundPainter,
         contentDescription = null,

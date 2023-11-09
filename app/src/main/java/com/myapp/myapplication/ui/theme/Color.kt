@@ -15,3 +15,5 @@ val Peach = Color(0xFFFFC8AF)
 val Gray = Color(0xFF808080)
 val customBackgroundColor = Color(0xFFEEEBEB)
 val customGray = Color(0xFFB3AFAF)
+val blue = Color(0xFFBCDFF1)
+
