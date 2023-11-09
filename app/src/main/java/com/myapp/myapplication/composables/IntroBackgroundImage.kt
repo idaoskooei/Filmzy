@@ -10,8 +10,8 @@ import androidx.compose.ui.res.painterResource
 import com.myapp.myapplication.R
 
 @Composable
- fun BackgroundImage() {
-    val backgroundPainter: Painter = painterResource(id = R.drawable.untitled_design)
+fun IntroBackgroundImage() {
+    val backgroundPainter: Painter = painterResource(id = R.drawable.untitled_design__3_)
     Image(
         painter = backgroundPainter,
         contentDescription = null,

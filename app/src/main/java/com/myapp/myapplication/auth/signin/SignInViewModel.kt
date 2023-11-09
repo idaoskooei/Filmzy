@@ -62,7 +62,7 @@ class SignInViewModel @Inject constructor(
                 authRepository.signInUser(email, password) { responseState ->
                     when (responseState) {
                         is ResponseState.Success -> {
-                            navController.navigate("movies_page")
+                            navController.navigate("home_screen")
                         }
 
                         is ResponseState.Failure -> {

@@ -1,6 +1,5 @@
 package com.myapp.myapplication.composables
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -15,25 +14,22 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.myapp.myapplication.ui.theme.Red
 
 @Composable
-fun AuthButton(text: String, onClick: () -> Unit) {
+fun ActionButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier
             .padding(8.dp)
             .height(60.dp)
-            .fillMaxWidth(),
+            .width(160.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            contentColor = Color.Black,
-            containerColor = Red
+            contentColor = Color.White, containerColor = Color.Gray
         ),
     ) {
         Text(
-            text = text,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            text = text, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
         )
     }
 }

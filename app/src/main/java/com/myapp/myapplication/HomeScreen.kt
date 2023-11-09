@@ -15,7 +15,7 @@ import com.myapp.myapplication.composables.MovieItem
 import com.myapp.myapplication.movie.Movie
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -46,6 +46,6 @@ fun HomeScreen(navController: NavController) {
 @Composable
 fun HomeScreenPreview() {
     val navController = rememberNavController()
-    HomeScreen(navController = navController)
+    HomeScreen()
 }
 

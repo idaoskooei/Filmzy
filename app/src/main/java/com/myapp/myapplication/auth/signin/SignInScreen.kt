@@ -20,18 +20,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
+import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.composables.AuthButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.ErrorTextView
 import com.myapp.myapplication.composables.PasswordTextField
-import com.myapp.myapplication.auth.model.AuthRepository
 
 @Composable
 fun SignInScreen(
-    navController: NavController, viewModel: SignInViewModel
+    viewModel: SignInViewModel
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -60,7 +59,6 @@ fun SignInScreen(
             label = "Password"
         )
         AuthButton(
-            modifier = Modifier.padding(top = 30.dp, bottom = 30.dp),
             text = "SIGN IN",
             onClick = {
                 viewModel.onSignInButtonClicked(email, password)
@@ -89,8 +87,8 @@ fun SignInScreenPreview() {
     val navController = rememberNavController()
 
     SignInScreen(
-        navController = navController, viewModel = SignInViewModel(
-            authRepository = AuthRepository(),navController
+        viewModel = SignInViewModel(
+            authRepository = AuthRepository(), navController
         )
     )
 }

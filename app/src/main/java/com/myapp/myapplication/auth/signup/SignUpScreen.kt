@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,11 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
-import com.myapp.myapplication.composables.AuthButton
+import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.ErrorTextView
 import com.myapp.myapplication.composables.PasswordTextField
 import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.composables.AuthButton
 
 @Composable
 fun SignUpScreen(
@@ -70,7 +70,6 @@ fun SignUpScreen(
         )
 
         AuthButton(
-            modifier = Modifier.padding(top = 30.dp, bottom = 30.dp),
             text = "SIGN UP",
             onClick = { viewModel.onSignUpButtonClicked(email, password, confirmPassword) },
         )

@@ -54,7 +54,7 @@ fun MyApp() {
 
         composable("sign_in_screen") {
             SignInScreen(
-                navController = navController,
+
                 viewModel = SignInViewModel(
                     authRepository = AuthRepository(),
                     navController = navController
@@ -73,7 +73,7 @@ fun MyApp() {
         }
 
         composable("home_screen") {
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
     }
 }
