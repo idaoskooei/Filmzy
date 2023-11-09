@@ -84,7 +84,7 @@ class SignUpViewModel @Inject constructor(
                             isInProgress = false
                         )
                     }
-                    navController.navigate("movies_page")
+                    navController.navigate("home_screen")
                 }
             }
         }
