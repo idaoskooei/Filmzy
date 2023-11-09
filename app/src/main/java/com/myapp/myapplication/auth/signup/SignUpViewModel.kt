@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.INVALID_EMAIL_ADDRESS_FORMAT
 import com.myapp.myapplication.auth.INVALID_PASS_FORMAT
 import com.myapp.myapplication.auth.PASSWORDS_DO_NOT_MATCH
@@ -36,14 +37,18 @@ class SignUpViewModel @Inject constructor(
         var errorMessage: String? = null,
     )
 
-    fun onSignUpButtonClicked(email: String, pass: String, confirmPass: String) {
+    fun onSignUpButtonClicked(email: String, password: String, confirmPass: String) {
         viewModelState.update { currentViewState ->
             currentViewState.copy(
                 isInProgress = true,
                 errorMessage = null
             )
         }
-        authRepository.signUpUser(email, pass) { state ->
+        if (email.isEmpty() || password.isEmpty()) {
+            viewModelState.value = UiState(errorMessage = FILL_IN_BOTH_FIELDS)
+            return
+        }
+        authRepository.signUpUser(email, password) { state ->
             when (state) {
                 is ResponseState.Failure -> {
                     if (!isEmailValid(email)) {
@@ -53,14 +58,18 @@ class SignUpViewModel @Inject constructor(
                                 errorMessage = INVALID_EMAIL_ADDRESS_FORMAT
                             )
                         }
-                    } else if (!isPassValid(pass)) {
+                    } else if (!isPassValid(password)) {
                         viewModelState.update { currentViewState ->
                             currentViewState.copy(
                                 isInProgress = false,
                                 errorMessage = INVALID_PASS_FORMAT
                             )
                         }
-                    } else if (isConfirmedPassValid(pass, confirmPass) != isPassValid(pass)) {
+                    } else if (isConfirmedPassValid(
+                            password,
+                            confirmPass
+                        ) != isPassValid(password)
+                    ) {
                         viewModelState.update { currentViewState ->
                             currentViewState.copy(
                                 isInProgress = false,
