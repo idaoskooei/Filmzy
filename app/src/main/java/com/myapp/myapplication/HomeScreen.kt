@@ -23,16 +23,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MyTopAppBar
 import com.myapp.myapplication.ui.theme.blue
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        MyTopAppBar()
+        MyTopAppBar(navController)
         Box {
             Box(
                 modifier = Modifier
@@ -56,14 +58,14 @@ fun HomeScreen() {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        ChoicesButton(text = "PICK A CATEGORY")
-                        ChoicesButton(text = "SPIN THE WHEEL")
+                        ChoicesButton(text = "PICK A CATEGORY", onClick = {})
+                        ChoicesButton(text = "SPIN THE WHEEL", onClick = {})
                     }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        ChoicesButton(text = "SEARCH")
+                        ChoicesButton(text = "SEARCH", onClick = {})
                     }
                 }
 
@@ -73,9 +75,9 @@ fun HomeScreen() {
 }
 
 @Composable
-private fun ChoicesButton(text: String) {
+private fun ChoicesButton(text: String, onClick: () -> Unit) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier.size(150.dp),
         colors = ButtonDefaults.buttonColors(containerColor = blue)
     ) {
@@ -97,6 +99,7 @@ private fun ChoicesButton(text: String) {
 )
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    val navController = rememberNavController()
+    HomeScreen(navController = navController)
 }
 
