@@ -16,6 +16,8 @@ import com.myapp.myapplication.auth.signin.SignInScreen
 import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.auth.signup.SignUpScreen
 import com.myapp.myapplication.auth.signup.SignUpViewModel
+import com.myapp.myapplication.composables.MyTopAppBar
+import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     MyApp()
                 }
@@ -73,7 +75,15 @@ fun MyApp() {
         }
 
         composable("home_screen") {
-            HomeScreen()
+            HomeScreen(navController = navController)
+        }
+
+        composable("my_top_app_bar") {
+            MyTopAppBar(navController = navController)
+        }
+
+        composable("profile_screen") {
+            ProfileScreen(navController = navController, displayName = "")
         }
     }
 }

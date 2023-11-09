@@ -29,36 +29,38 @@ fun IntroScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             IntroTextView(
-                text = "Tired of scrolling?", style = TextStyle(
+                text = "Tired of", style = TextStyle(
                     fontFamily = FontFamily.Serif,
-                    fontSize = 30.sp,
+                    fontSize = 33.sp,
                 )
             )
             Spacer(modifier = Modifier.height(10.dp))
-
             IntroTextView(
-                text = "Filmzy will help you pick a movie to watch!", style = TextStyle(
+                text = "Scrolling?", style = TextStyle(
                     fontFamily = FontFamily.Serif,
-                    fontSize = 15.sp,
+                    fontSize = 33.sp,
+                )
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            IntroTextView(
+                text = "Filmzy will help you pick something to watch!", style = TextStyle(
+                    fontFamily = FontFamily.Serif,
+                    fontSize = 14.sp,
                 )
             )
             Spacer(modifier = Modifier.height(70.dp))
-
             IntroButtons(navController)
-
         }
     }
-
 }
 
 @Composable
 private fun IntroButtons(navController: NavController) {
     Row {
-        ActionButton(text = "Sign In") {
+        ActionButton(text = "SIGN IN") {
             navController.navigate("sign_in_screen")
         }
-
-        ActionButton(text = "Sign Up") {
+        ActionButton(text = "SIGN UP") {
             navController.navigate("sign_up_screen")
         }
     }

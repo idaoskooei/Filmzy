@@ -18,10 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun MyTopAppBar() {
+fun MyTopAppBar(navController: NavController) {
     TopAppBar(
         modifier = Modifier
             .fillMaxWidth(),
@@ -34,8 +36,12 @@ fun MyTopAppBar() {
                 .padding(5.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            MyIconButton(icon = Icons.Filled.Home, contentDescription = "home") {}
-            MyIconButton(icon = Icons.Filled.Person, contentDescription = "profile") {}
+            MyIconButton(icon = Icons.Filled.Home, contentDescription = "home") {
+                navController.navigate("home_screen")
+            }
+            MyIconButton(icon = Icons.Filled.Person, contentDescription = "profile") {
+                navController.navigate("profile_screen")
+            }
         }
     }
 }
@@ -57,6 +63,7 @@ fun MyIconButton(icon: ImageVector, contentDescription: String, onClick: () -> U
 
 @Composable
 @Preview(device = "id:pixel_4", showBackground = true)
-fun appBarPreview() {
-    MyTopAppBar()
+fun AppBarPreview() {
+    val navController = rememberNavController()
+    MyTopAppBar(navController = navController)
 }
