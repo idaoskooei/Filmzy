@@ -40,7 +40,7 @@ fun MyApp() {
     val authRepository = AuthRepository()
 
     val startDestination = if (authRepository.isUserSignedIn()) {
-        "movies_page"
+        "home_screen"
     } else {
         "intro_screen"
     }
@@ -72,8 +72,8 @@ fun MyApp() {
             )
         }
 
-        composable("movies_page") {
-            MoviesPage(navController = navController)
+        composable("home_screen") {
+            HomeScreen(navController = navController)
         }
     }
 }
