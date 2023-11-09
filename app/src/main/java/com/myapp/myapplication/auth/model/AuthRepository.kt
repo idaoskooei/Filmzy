@@ -4,10 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import javax.inject.Inject
 
-class AuthRepository @Inject constructor() {
-
+class AuthRepository {
     private lateinit var auth: FirebaseAuth
     fun signInUser(email: String, pass: String, onResponseReady: (ResponseState) -> Unit) {
         auth = Firebase.auth
