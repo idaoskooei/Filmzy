@@ -20,19 +20,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
-import com.myapp.myapplication.composables.ActionButton
+import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.composables.AuthButton
 import com.myapp.myapplication.composables.EmailTextField
 import com.myapp.myapplication.composables.ErrorTextView
 import com.myapp.myapplication.composables.PasswordTextField
-import com.myapp.myapplication.auth.model.AuthRepository
-import com.myapp.myapplication.composables.AuthButton
 
 @Composable
 fun SignUpScreen(
-    navController: NavController,
     viewModel: SignUpViewModel
 ) {
     var email by rememberSaveable { mutableStateOf("") }
@@ -97,7 +94,7 @@ fun SignUpScreenPreview() {
     val navController = rememberNavController()
 
     SignUpScreen(
-        navController = navController, viewModel = SignUpViewModel(
+        viewModel = SignUpViewModel(
             authRepository = AuthRepository(), navController
         )
     )
