@@ -17,7 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SignInViewModel(
-    private val authRepository: AuthRepository, private val navController: NavController
+    private val authRepository: AuthRepository,
+    private val navController: NavController
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(UiState())

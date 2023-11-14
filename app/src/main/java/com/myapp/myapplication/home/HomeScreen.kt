@@ -1,4 +1,4 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,14 +23,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MyTopAppBar
 import com.myapp.myapplication.ui.theme.blue
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(viewModel: HomeViewModel) {
+
+    val navController = rememberNavController()
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -65,10 +67,10 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        ChoicesButton(text = "SEARCH", onClick = {})
+                        ChoicesButton(text = "SEARCH",
+                            onClick = { viewModel.onSearchButtonClicked() })
                     }
                 }
-
             }
         }
     }
@@ -92,7 +94,6 @@ private fun ChoicesButton(text: String, onClick: () -> Unit) {
         )
     }
 }
-
 @Preview(
     showBackground = true,
     device = "id:pixel_2"
@@ -100,6 +101,8 @@ private fun ChoicesButton(text: String, onClick: () -> Unit) {
 @Composable
 fun HomeScreenPreview() {
     val navController = rememberNavController()
-    HomeScreen(navController = navController)
+    HomeScreen(
+        viewModel = HomeViewModel(navController)
+    )
 }
 

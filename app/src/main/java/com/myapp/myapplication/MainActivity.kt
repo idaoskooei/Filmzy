@@ -16,6 +16,9 @@ import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.auth.signup.SignUpScreen
 import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.composables.MyTopAppBar
+import com.myapp.myapplication.home.HomeScreen
+import com.myapp.myapplication.home.HomeViewModel
+import com.myapp.myapplication.home.SearchScreen
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
@@ -73,7 +76,7 @@ fun MyApp() {
         }
 
         composable("home_screen") {
-            HomeScreen(navController = navController)
+            HomeScreen( viewModel = HomeViewModel(navController))
         }
 
         composable("my_top_app_bar") {
@@ -82,6 +85,10 @@ fun MyApp() {
 
         composable("profile_screen") {
             ProfileScreen(navController = navController, displayName = "")
+        }
+
+        composable("search_screen") {
+            SearchScreen()
         }
     }
 }
