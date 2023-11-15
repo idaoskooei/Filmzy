@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,17 +28,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
-import com.myapp.myapplication.composables.MyTopAppBar
+import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.ui.theme.blue
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
-
-    val navController = rememberNavController()
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        MyTopAppBar(navController)
         Box {
             Box(
                 modifier = Modifier
@@ -44,6 +43,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 BackgroundImage(id = R.drawable.background_1)
+            }
+            IconButton(icon = Icons.Filled.Person, contentDescription = "profile") {
+                viewModel.onProfileButtonClicked()
             }
             Box(
                 modifier = Modifier

@@ -15,12 +15,12 @@ import com.myapp.myapplication.auth.signin.SignInScreen
 import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.auth.signup.SignUpScreen
 import com.myapp.myapplication.auth.signup.SignUpViewModel
-import com.myapp.myapplication.composables.MyTopAppBar
-import com.myapp.myapplication.home.category.CategoryScreen
 import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
-import com.myapp.myapplication.home.SearchScreen
+import com.myapp.myapplication.home.category.CategoryScreen
+import com.myapp.myapplication.home.search.SearchScreen
 import com.myapp.myapplication.profile.ProfileScreen
+import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,17 +56,14 @@ fun MyApp() {
         composable("intro_screen") {
             IntroScreen(navController = navController)
         }
-
         composable("sign_in_screen") {
             SignInScreen(
-
                 viewModel = SignInViewModel(
                     authRepository = AuthRepository(),
                     navController = navController
                 )
             )
         }
-
         composable("sign_up_screen") {
             SignUpScreen(
                 viewModel = SignUpViewModel(
@@ -75,19 +72,12 @@ fun MyApp() {
                 )
             )
         }
-
         composable("home_screen") {
             HomeScreen( viewModel = HomeViewModel(navController))
         }
-
-        composable("my_top_app_bar") {
-            MyTopAppBar(navController = navController)
-        }
-
         composable("profile_screen") {
-            ProfileScreen(navController = navController, displayName = "")
+            ProfileScreen(viewModel = ProfileViewModel(navController))
         }
-
         composable("search_screen") {
             SearchScreen()
         }

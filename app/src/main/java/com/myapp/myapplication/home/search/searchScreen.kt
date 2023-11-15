@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home
+package com.myapp.myapplication.home.search
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +36,6 @@ fun SearchScreen(
                     list = emptyList()
                 )
             }
-
         }
     }
 }
