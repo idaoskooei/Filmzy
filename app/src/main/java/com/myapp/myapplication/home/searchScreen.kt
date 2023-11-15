@@ -1,6 +1,8 @@
 package com.myapp.myapplication.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,20 +21,23 @@ fun SearchScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
         var search by rememberSaveable { mutableStateOf("") }
 
+        Box(modifier = Modifier.fillMaxSize()) {
+            BackgroundImage(id = R.drawable.untitled_design)
+            Row {
+                AutoSuggestTextField(
+                    value = search,
+                    onValueChanged = { search = it },
+                    onItemClicked = {},
+                    onDismissed = {},
+                    onClearClick = { search = "" },
+                    expanded = false,
+                    list = emptyList()
+                )
+            }
 
-        AutoSuggestTextField(
-            value = search,
-            onValueChanged = { search = it },
-            onItemClicked = {},
-            onDismissed = {},
-            onClearClick = { search = "" },
-            expanded = false,
-            list = emptyList()
-        )
-        BackgroundImage(id = R.drawable.untitled_design)
+        }
     }
 }
 
