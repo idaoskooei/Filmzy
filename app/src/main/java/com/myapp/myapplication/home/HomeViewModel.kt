@@ -14,4 +14,8 @@ class HomeViewModel(
     fun onCategoryButtonClicked() {
         navController.navigate("category_screen")
     }
+
+    fun onProfileButtonClicked() {
+        navController.navigate("profile_screen")
+    }
 }

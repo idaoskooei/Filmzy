@@ -11,36 +11,39 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CircularImageView
 import com.myapp.myapplication.composables.HorizontalDivider
+import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.composables.IconButtonWithText
-import com.myapp.myapplication.composables.MyTopAppBar
 
 @Composable
-fun ProfileScreen(navController: NavController, displayName: String) {
+fun ProfileScreen(viewModel: ProfileViewModel) {
+
+    val displayName by remember { mutableStateOf("") }
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
-        MyTopAppBar(navController)
 
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
             BackgroundImage(id = R.drawable.untitled_design)
             Column(
@@ -48,28 +51,42 @@ fun ProfileScreen(navController: NavController, displayName: String) {
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    CircularImageView(imageUri = "", size = 200.dp) {}
-                }
+                NavigationButton(viewModel)
+                ProfileImage()
                 UserDetail(displayName = displayName)
                 HorizontalDivider()
-                ProfileContents(onFavoriteEventLayoutClicked = { /*TODO*/ }) {
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ActionButton(text = "SIGN OUT") {
-                    }
-                }
-
+                ProfileContents(onFavoriteEventLayoutClicked = { /*TODO*/ }) {}
+                SignOutButton()
             }
         }
+    }
+}
+
+@Composable
+private fun SignOutButton() {
+    Row(
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
+    ) {
+        ActionButton(text = "SIGN OUT") {}
+    }
+}
+
+@Composable
+private fun NavigationButton(viewModel: ProfileViewModel) {
+    IconButton(icon = Icons.Filled.Home, contentDescription = "home") {
+        viewModel.onProfileButtonClicked()
+    }
+}
+
+@Composable
+private fun ProfileImage() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        CircularImageView(imageUri = "", size = 200.dp) {}
     }
 }
 
@@ -121,5 +138,5 @@ private fun ProfileContents(
 @Preview(device = "id:pixel_4", showBackground = true)
 fun ProfilePreview() {
     val navController = rememberNavController()
-    ProfileScreen(navController = navController, displayName = "ida")
+    ProfileScreen(viewModel = ProfileViewModel(navController))
 }
