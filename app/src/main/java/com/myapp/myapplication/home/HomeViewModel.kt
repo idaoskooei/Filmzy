@@ -10,4 +10,8 @@ class HomeViewModel(
     fun onSearchButtonClicked() {
         navController.navigate("search_screen")
     }
+
+    fun onCategoryButtonClicked() {
+        navController.navigate("category_screen")
+    }
 }

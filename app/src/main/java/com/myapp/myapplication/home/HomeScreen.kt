@@ -60,7 +60,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        ChoicesButton(text = "PICK A CATEGORY", onClick = {})
+                        ChoicesButton(
+                            text = "PICK A CATEGORY",
+                            onClick = { viewModel.onCategoryButtonClicked() })
                         ChoicesButton(text = "SPIN THE WHEEL", onClick = {})
                     }
                     Row(

@@ -16,6 +16,7 @@ import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.auth.signup.SignUpScreen
 import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.composables.MyTopAppBar
+import com.myapp.myapplication.home.category.CategoryScreen
 import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
 import com.myapp.myapplication.home.SearchScreen
@@ -89,6 +90,9 @@ fun MyApp() {
 
         composable("search_screen") {
             SearchScreen()
+        }
+        composable("category_screen") {
+            CategoryScreen()
         }
     }
 }
