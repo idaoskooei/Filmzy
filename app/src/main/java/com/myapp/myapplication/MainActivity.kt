@@ -76,7 +76,12 @@ fun MyApp() {
             HomeScreen( viewModel = HomeViewModel(navController))
         }
         composable("profile_screen") {
-            ProfileScreen(viewModel = ProfileViewModel(navController))
+            ProfileScreen(
+                viewModel = ProfileViewModel(
+                    navController,
+                    authRepository = authRepository
+                )
+            )
         }
         composable("search_screen") {
             SearchScreen()

@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
+import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CircularImageView
@@ -56,18 +57,20 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
                 UserDetail(displayName = displayName)
                 HorizontalDivider()
                 ProfileContents(onFavoriteEventLayoutClicked = { /*TODO*/ }) {}
-                SignOutButton()
+                SignOutButton(onSignOut = { viewModel.onSignOutButtonClicked() })
             }
         }
     }
 }
 
 @Composable
-private fun SignOutButton() {
+private fun SignOutButton(onSignOut: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
     ) {
-        ActionButton(text = "SIGN OUT") {}
+        ActionButton(text = "SIGN OUT") {
+            onSignOut()
+        }
     }
 }
 
@@ -138,5 +141,11 @@ private fun ProfileContents(
 @Preview(device = "id:pixel_4", showBackground = true)
 fun ProfilePreview() {
     val navController = rememberNavController()
-    ProfileScreen(viewModel = ProfileViewModel(navController))
+    val authRepository = AuthRepository()
+    ProfileScreen(
+        viewModel = ProfileViewModel(
+            navController = navController,
+            authRepository = authRepository
+        )
+    )
 }
