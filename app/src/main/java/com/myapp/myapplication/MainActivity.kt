@@ -19,6 +19,7 @@ import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
 import com.myapp.myapplication.home.category.CategoryScreen
 import com.myapp.myapplication.home.search.SearchScreen
+import com.myapp.myapplication.home.search.SearchViewModel
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
@@ -84,7 +85,7 @@ fun MyApp() {
             )
         }
         composable("search_screen") {
-            SearchScreen()
+            SearchScreen(viewModel = SearchViewModel())
         }
         composable("category_screen") {
             CategoryScreen()
