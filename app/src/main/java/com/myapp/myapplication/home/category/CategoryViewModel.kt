@@ -24,7 +24,7 @@ class CategoryViewModel : ViewModel() {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-                val tmdbApiService = retrofit.create(TmdbApiService::class.java)
+                val tmdbApiService = retrofit.create(CategoryRemoteService::class.java)
 
                 val response = tmdbApiService.getMovieGenres(apiKey)
                 _categories.value = response.genres

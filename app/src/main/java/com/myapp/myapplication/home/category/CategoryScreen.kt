@@ -34,6 +34,7 @@ import com.myapp.myapplication.ui.theme.customBackgroundColor
 
 @Composable
 fun CategoryScreen(viewModel: CategoryViewModel = remember { CategoryViewModel() }) {
+
     val categories by viewModel.categories.collectAsState()
 
     DisposableEffect(Unit) {

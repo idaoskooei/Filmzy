@@ -55,6 +55,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("com.google.android.engage:engage-core:1.3.1")
 
     // test
     testImplementation("junit:junit:4.13.2")
@@ -80,7 +81,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("androidx.activity:activity-compose:1.8.0")
 
-    // imageloader
+    // image loader
     implementation("io.coil-kt:coil-compose:2.4.0")
 
 

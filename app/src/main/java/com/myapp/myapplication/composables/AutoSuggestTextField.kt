@@ -1,17 +1,14 @@
 package com.myapp.myapplication.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.DropdownMenu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -26,18 +23,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 
 @Composable
-fun AutoSuggestTextField(
+fun SearchTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChanged: (String) -> Unit,
-    onItemClicked: (String) -> Unit,
     onDismissed: () -> Unit,
-    onClearClick: () -> Unit,
-    expanded: Boolean,
-    list: List<String>,
+    onSearchClick: () -> Unit,
     label: String = ""
 ) {
 
@@ -70,43 +63,24 @@ fun AutoSuggestTextField(
             ),
             trailingIcon = {
                 IconButton(
-                    onClick = { onClearClick() }, colors = IconButtonDefaults.iconButtonColors(
+                    onClick = { onSearchClick() },
+                    colors = IconButtonDefaults.iconButtonColors(
                         contentColor = Color.Red
                     )
                 ) {
-                    Icon(imageVector = Icons.Filled.Close, contentDescription = "Clear")
+                    Icon(imageVector = Icons.Filled.Search, contentDescription = "search")
                 }
             })
-        DropdownMenu(
-            modifier = Modifier.padding(10.dp),
-            expanded = expanded,
-            properties = PopupProperties(
-                focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true
-            ),
-            onDismissRequest = onDismissed,
-        ) {
-            list.forEach { text ->
-                DropdownMenuItem(onClick = {
-                    onItemClicked(text)
-                    focusManager.clearFocus()
-                }) {
-                    Text(text = text)
-                }
-            }
-        }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    AutoSuggestTextField(modifier = Modifier,
+    SearchTextField(modifier = Modifier,
         label = "search",
         value = "hi",
-        expanded = true,
-        list = emptyList(),
-        onClearClick = {},
+        onSearchClick = {},
         onDismissed = {},
-        onItemClicked = {},
         onValueChanged = {})
 }
