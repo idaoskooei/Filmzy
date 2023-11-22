@@ -1,6 +1,5 @@
 package com.myapp.myapplication.home.search
 
-import android.app.DownloadManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.movie.BASE_URL
@@ -20,7 +19,6 @@ class SearchViewModel : ViewModel() {
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies: StateFlow<List<Movie>> = _movies.asStateFlow()
 
-
     private val apiService = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -39,7 +37,6 @@ class SearchViewModel : ViewModel() {
             }
         }
     }
-
     private fun handleError(error: Throwable) {
         _errorMessage.value = "An error occurred: ${error.message}"
     }
