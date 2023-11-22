@@ -35,7 +35,7 @@ Filmzy is your personalized movie companion, helping you discover and enjoy the 
 
 
 ### Contact Information
-For further assistance, contact our support team at info@lavista.studio.
+For further assistance, contact our support team at idaoskooei@lavista.studio.
 
 
 ## About the Author
