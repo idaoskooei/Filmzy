@@ -34,6 +34,10 @@ Filmzy is your personalized movie companion, helping you discover and enjoy the 
 - **Spin the Wheel:** Add an element of surprise by spinning the wheel for random movie suggestions.
 
 
+## Screenshots
+![Filmzy Screenshots](https://drive.google.com/file/d/1nZ_ItJjE1mBkj-Sog-oJ1d_SSMvTOp4u/view?usp=sharing)
+
+
 ### Contact Information
 For further assistance, contact our support team at idaoskooei@lavista.studio.
 
