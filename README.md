@@ -35,7 +35,8 @@ Filmzy is your personalized movie companion, helping you discover and enjoy the 
 
 
 ## Screenshots
-![Filmzy Screenshots](https://drive.google.com/file/d/1nZ_ItJjE1mBkj-Sog-oJ1d_SSMvTOp4u/view?usp=drive_link)
+![Filmzy Screenshots](https://drive.google.com/file/d/1nZ_ItJjE1mBkj-Sog-oJ1d_SSMvTOp4u/view?usp=sharing)
+
 
 
 ### Contact Information
