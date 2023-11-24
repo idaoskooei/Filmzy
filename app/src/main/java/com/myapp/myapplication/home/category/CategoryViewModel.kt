@@ -2,36 +2,32 @@ package com.myapp.myapplication.home.category
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myapp.myapplication.home.category.repo.CategoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class CategoryViewModel : ViewModel() {
+class CategoryViewModel(private val repository: CategoryRepository) : ViewModel() {
 
-    private val apiKey = "b374a90d9ab89653cff28333dccd5836"
+    private val _errorMessage = MutableStateFlow<String>("")
+    val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
 
+    private val _uiState = MutableStateFlow<List<TmdbGenre>>(emptyList())
+    val uiState: StateFlow<List<TmdbGenre>> get() = _uiState
 
-    private val _categories = MutableStateFlow<List<TmdbGenre>>(emptyList())
-    val categories: StateFlow<List<TmdbGenre>> get() = _categories
-
-    fun fetchGenres() {
+    init {
         viewModelScope.launch {
             try {
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.themoviedb.org/3/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-
-                val tmdbApiService = retrofit.create(CategoryRemoteService::class.java)
-
-                val response = tmdbApiService.getMovieGenres(apiKey)
-                _categories.value = response.genres
+                _uiState.value = repository.getGenres()
             } catch (e: Exception) {
-                // Handle error
+                handleError(e)
             }
         }
+    }
+
+    private fun handleError(error: Throwable) {
+        _errorMessage.value = "An error occurred: ${error.message}"
     }
 }
 

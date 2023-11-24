@@ -1,6 +1,7 @@
 package com.myapp.myapplication.home.category
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,18 +27,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.ui.theme.customBackgroundColor
 
 
 @Composable
-fun CategoryScreen(viewModel: CategoryViewModel = remember { CategoryViewModel() }) {
-
-    val categories by viewModel.categories.collectAsState()
+fun CategoryScreen(
+    viewModel: CategoryViewModel,
+    navController: NavController
+) {
+    val categories by viewModel.uiState.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
 
     DisposableEffect(Unit) {
-        viewModel.fetchGenres()
         onDispose {}
     }
     Box(
@@ -52,30 +57,41 @@ fun CategoryScreen(viewModel: CategoryViewModel = remember { CategoryViewModel()
                 .padding(10.dp)
         ) {
             IntroText()
-            CategoryList(categories)
+            CategoryList(
+                onItemClick = { navController.navigate("movie_list_screen") },
+                categories = categories,
+                errorMessage = errorMessage
+            )
         }
     }
 }
 
 @Composable
-private fun CategoryList(categories: List<TmdbGenre>) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Transparent)
-    ) {
-        items(categories) { category ->
-            CategoryItem(category)
+private fun CategoryList(
+    categories: List<TmdbGenre>, onItemClick: () -> Unit, errorMessage: String
+) {
+    if (errorMessage.isNotEmpty()) {
+        Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
+    } else {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent)
+        ) {
+            items(categories) { category ->
+                CategoryItem(category, onItemClick)
+            }
         }
     }
 }
 
 @Composable
-fun CategoryItem(category: TmdbGenre) {
+fun CategoryItem(category: TmdbGenre, onItemClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+            .clickable { onItemClick() },
         colors = CardDefaults.cardColors(
             containerColor = customBackgroundColor
         )
@@ -115,5 +131,9 @@ private fun IntroText() {
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    CategoryScreen()
+    val navController = rememberNavController()
+    CategoryScreen(
+        navController = navController,
+        viewModel = viewModel()
+    )
 }
