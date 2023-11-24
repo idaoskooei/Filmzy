@@ -13,13 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MovieItem
@@ -28,9 +28,9 @@ import com.myapp.myapplication.movie.Movie
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = remember { SearchViewModel() }
+    viewModel: SearchViewModel
 ) {
-    val movies by viewModel.movies.collectAsState()
+    val movies by viewModel.uiState.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
 
     Column(
@@ -70,9 +70,9 @@ private fun SearchBar(viewModel: SearchViewModel) {
             value = search,
             onValueChanged = { search = it },
             onDismissed = { },
-            onSearchClick = { viewModel.searchMovies(search) },
+            onSearchClick = { viewModel.onSearchClicked(search) },
         )
-        Button(onClick = { viewModel.searchMovies(search) }) {
+        Button(onClick = { viewModel.onSearchClicked(search) }) {
             Text("Search")
         }
     }
@@ -81,5 +81,7 @@ private fun SearchBar(viewModel: SearchViewModel) {
 @Composable
 @Preview(showBackground = true)
 fun SearchScreenPreview() {
-    SearchScreen(viewModel = SearchViewModel())
+    SearchScreen(
+        viewModel = viewModel()
+    )
 }

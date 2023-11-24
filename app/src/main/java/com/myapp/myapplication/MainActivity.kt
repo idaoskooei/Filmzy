@@ -18,11 +18,23 @@ import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
 import com.myapp.myapplication.home.category.CategoryScreen
+import com.myapp.myapplication.home.category.CategoryViewModel
+import com.myapp.myapplication.home.category.repo.CategoryRemoteService
+import com.myapp.myapplication.home.category.repo.CategoryRepository
 import com.myapp.myapplication.home.search.SearchScreen
 import com.myapp.myapplication.home.search.SearchViewModel
+import com.myapp.myapplication.home.search.repo.SearchRemoteService
+import com.myapp.myapplication.home.search.repo.SearchRepository
+import com.myapp.myapplication.movie.API_TOKEN
+import com.myapp.myapplication.movie.BASE_URL
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.ui.theme.MyApplicationTheme
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +51,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+val client = OkHttpClient.Builder().addNetworkInterceptor(object : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        val request: Request = chain.request()
+
+        val newRequest: Request = request.newBuilder().addHeader("Authorization", API_TOKEN).build()
+        return chain.proceed(newRequest)
+    }
+}).build()
+
+
+val retrofit = Retrofit.Builder().client(client).baseUrl(BASE_URL)
+    .addConverterFactory(GsonConverterFactory.create()).build()
 
 @Composable
 fun MyApp() {
@@ -85,10 +110,26 @@ fun MyApp() {
             )
         }
         composable("search_screen") {
-            SearchScreen(viewModel = SearchViewModel())
+            SearchScreen(
+                viewModel = SearchViewModel(
+                    SearchRepository(
+                        retrofit.create(
+                            SearchRemoteService::class.java
+                        )
+                    )
+                )
+            )
         }
         composable("category_screen") {
-            CategoryScreen()
+            CategoryScreen(
+                navController = navController, viewModel = CategoryViewModel(
+                    CategoryRepository(
+                        retrofit.create(
+                            CategoryRemoteService::class.java
+                        )
+                    )
+                )
+            )
         }
     }
 }
