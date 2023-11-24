@@ -40,7 +40,7 @@ fun SearchScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, movies)
+                SearchResult(errorMessage, movies, onClick = { viewModel.onItemClicked() })
             }
         }
     }
@@ -49,14 +49,15 @@ fun SearchScreen(
 @Composable
 private fun SearchResult(
     errorMessage: String,
-    movies: List<Movie>
+    movies: List<Movie>,
+    onClick: () -> Unit
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
     } else {
         LazyColumn {
             items(movies) { movie ->
-                MovieItem(movie = movie)
+                MovieItem(movie = movie, onClick = onClick, showImage = true)
             }
         }
     }

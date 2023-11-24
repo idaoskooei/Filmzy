@@ -19,6 +19,7 @@ import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
 import com.myapp.myapplication.home.category.CategoryScreen
 import com.myapp.myapplication.home.category.CategoryViewModel
+import com.myapp.myapplication.home.category.MovieListScreen
 import com.myapp.myapplication.home.category.repo.CategoryRemoteService
 import com.myapp.myapplication.home.category.repo.CategoryRepository
 import com.myapp.myapplication.home.search.SearchScreen
@@ -130,6 +131,9 @@ fun MyApp() {
                     )
                 )
             )
+        }
+        composable("movie_list_screen") {
+            MovieListScreen(movies = emptyList(), onMovieClick = {})
         }
     }
 }

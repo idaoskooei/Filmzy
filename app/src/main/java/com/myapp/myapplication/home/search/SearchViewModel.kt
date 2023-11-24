@@ -29,6 +29,10 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
         }
     }
 
+    fun onItemClicked(){
+        TODO()
+    }
+
     private fun handleError(error: Throwable) {
         _errorMessage.value = "An error occurred: ${error.message}"
     }
