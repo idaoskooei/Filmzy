@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,7 +19,18 @@ import com.myapp.myapplication.movie.Movie
 
 @Composable
 fun MovieListScreen(
-    movies: List<Movie>, onMovieClick: (Movie) -> Unit
+    onMovieClick: (Movie) -> Unit,
+    viewModel: MovieListViewModel
+) {
+    val movies by viewModel.uiState.collectAsState()
+
+    MoviesList(movies, onMovieClick)
+}
+
+@Composable
+private fun MoviesList(
+    movies: List<Movie>,
+    onMovieClick: (Movie) -> Unit
 ) {
     Box {
         BackgroundImage(id = R.drawable.untitled_design)
@@ -38,25 +51,26 @@ fun MovieListScreen(
 @Composable
 @Preview(showBackground = true)
 fun MovieListPreview() {
-    MovieListScreen(movies = listOf(
-        Movie(
-            overview = "love story",
-            releaseDate = "2023",
-            title = "love",
-            id = 12,
-            posterPath = ""
-        ), Movie(
-            overview = "love story",
-            releaseDate = "2023",
-            title = "love",
-            id = 12,
-            posterPath = ""
-        ), Movie(
-            overview = "love story",
-            releaseDate = "2023",
-            title = "love",
-            id = 12,
-            posterPath = ""
-        )
-    ), onMovieClick = {})
+    MoviesList(
+        movies = listOf(
+            Movie(
+                overview = "love story",
+                releaseDate = "2023",
+                title = "love",
+                id = 12,
+                posterPath = ""
+            ), Movie(
+                overview = "love story",
+                releaseDate = "2023",
+                title = "love",
+                id = 12,
+                posterPath = ""
+            ), Movie(
+                overview = "love story",
+                releaseDate = "2023",
+                title = "love",
+                id = 12,
+                posterPath = ""
+            )
+        ), onMovieClick = {})
 }

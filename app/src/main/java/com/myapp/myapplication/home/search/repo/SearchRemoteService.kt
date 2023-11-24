@@ -9,4 +9,10 @@ interface SearchRemoteService {
     suspend fun searchMovies(
         @Query("query") query: String,
     ): MovieResponse
+
+    @GET("discover/movie")
+    suspend fun searchMoviesByGenre(
+        @Query("with_genres") genre: String,
+        @Query("include_adult") includeAdult: Boolean = true
+    ): MovieResponse
 }

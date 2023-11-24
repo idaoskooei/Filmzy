@@ -40,7 +40,7 @@ fun SearchScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, movies, onClick = { viewModel.onItemClicked() })
+                SearchResult(errorMessage, movies, onClick = {viewModel.onItemClicked()})
             }
         }
     }
