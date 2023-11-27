@@ -1,26 +1,26 @@
-package com.myapp.myapplication.home.search
+package com.myapp.myapplication.home.searchByTerm.shows
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapp.myapplication.home.search.repo.SearchRepository
-import com.myapp.myapplication.movie.Movie
+import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
+import com.myapp.myapplication.model.TVShow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
+class SearchShowsViewModel(private val repository: SearchRepository) : ViewModel() {
 
     private val _errorMessage = MutableStateFlow<String>("")
     val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
 
-    private val _uiState = MutableStateFlow<List<Movie>>(emptyList())
-    val uiState: StateFlow<List<Movie>> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<List<TVShow>>(emptyList())
+    val uiState: StateFlow<List<TVShow>> = _uiState.asStateFlow()
 
     fun onSearchClicked(query: String) {
         viewModelScope.launch {
             try {
-                _uiState.value = repository.searchMovies(query)
+                _uiState.value = repository.searchTvShows(searchTerm = query)
                 _errorMessage.value = ""
             } catch (e: Exception) {
                 handleError(e)
@@ -29,7 +29,7 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
         }
     }
 
-    fun onItemClicked(){
+    fun onItemClicked() {
         TODO()
     }
 
@@ -37,4 +37,3 @@ class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
         _errorMessage.value = "An error occurred: ${error.message}"
     }
 }
-

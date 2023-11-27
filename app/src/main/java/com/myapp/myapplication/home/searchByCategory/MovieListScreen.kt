@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MovieItem
-import com.myapp.myapplication.movie.Movie
+import com.myapp.myapplication.model.Movie
 
 @Composable
 fun MovieListScreen(

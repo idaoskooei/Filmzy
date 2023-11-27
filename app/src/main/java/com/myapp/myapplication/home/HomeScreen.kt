@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -64,15 +65,23 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     ) {
                         ChoicesButton(
                             text = "PICK A CATEGORY",
-                            onClick = { viewModel.onCategoryButtonClicked() })
-                        ChoicesButton(text = "SPIN THE WHEEL", onClick = {})
+                            onClick = { viewModel.onCategoryButtonClicked() }
+                        )
+                        ChoicesButton(
+                            text = "SPIN THE WHEEL",
+                            onClick = {})
                     }
+                    Spacer(modifier = Modifier.padding(10.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
+                        horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        ChoicesButton(text = "SEARCH",
-                            onClick = { viewModel.onSearchButtonClicked() })
+                        ChoicesButton(
+                            text = "SEARCH MOVIES",
+                            onClick = { viewModel.onSearchMoviesButtonClicked() })
+                        ChoicesButton(
+                            text = "SEARCH SHOWS",
+                            onClick = { viewModel.onSearchShowsButtonClicked() })
                     }
                 }
             }

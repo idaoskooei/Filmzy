@@ -6,6 +6,7 @@ object Destinations {
     const val SIGN_IN_ROUTE = "sign_in_screen"
     const val SIGN_UP_ROUTE = "sign_up_screen"
     const val PROFILE_ROUTE = "profile_screen"
-    const val SEARCH_SCREEN_ROUTE = "search_screen"
+    const val SEARCH_MOVIES_SCREEN_ROUTE = "search_movies_screen"
+    const val SEARCH_SHOWS_SCREEN_ROUTE = "search_shows_screen"
     const val CATEGORY_SCREEN_ROUTE = "category_screen"
 }

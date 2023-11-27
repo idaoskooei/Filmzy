@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -34,25 +34,29 @@ fun SearchTextField(
     label: String = ""
 ) {
 
-    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Box(
         modifier
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        OutlinedTextField(modifier = modifier
-            .fillMaxWidth()
-            .onFocusChanged { focusState ->
-                if (!focusState.isFocused) {
-                    onDismissed()
-                }
-            },
+        OutlinedTextField(
+            modifier = modifier
+                .fillMaxWidth()
+                .onFocusChanged { focusState ->
+                    if (!focusState.isFocused) {
+                        onDismissed()
+                    }
+                },
             value = TextFieldValue(value, TextRange(value.length)),
             onValueChange = { onValueChanged(it.text) },
             label = { Text(label) },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = {
-                focusManager.clearFocus()
+                onSearchClick()
+                keyboardController?.hide()
+
             }),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color.White,
@@ -73,7 +77,6 @@ fun SearchTextField(
             })
     }
 }
-
 @Composable
 @Preview(showBackground = true)
 fun Preview() {

@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.search
+package com.myapp.myapplication.home.searchByTerm.movies
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,11 +23,11 @@ import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MovieItem
 import com.myapp.myapplication.composables.SearchTextField
-import com.myapp.myapplication.movie.Movie
+import com.myapp.myapplication.model.Movie
 
 @Composable
-fun SearchScreen(
-    viewModel: SearchViewModel
+fun SearchMoviesScreen(
+    viewModel: SearchMoviesViewModel
 ) {
     val movies by viewModel.uiState.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -40,7 +39,7 @@ fun SearchScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, movies, onClick = {viewModel.onItemClicked()})
+                SearchResult(errorMessage, movies, onClick = {})
             }
         }
     }
@@ -64,7 +63,7 @@ private fun SearchResult(
 }
 
 @Composable
-private fun SearchBar(viewModel: SearchViewModel) {
+private fun SearchBar(viewModel: SearchMoviesViewModel) {
     var search by rememberSaveable { mutableStateOf("") }
     Row {
         SearchTextField(
@@ -73,16 +72,13 @@ private fun SearchBar(viewModel: SearchViewModel) {
             onDismissed = { },
             onSearchClick = { viewModel.onSearchClicked(search) },
         )
-        Button(onClick = { viewModel.onSearchClicked(search) }) {
-            Text("Search")
-        }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun SearchScreenPreview() {
-    SearchScreen(
+    SearchMoviesScreen(
         viewModel = viewModel()
     )
 }

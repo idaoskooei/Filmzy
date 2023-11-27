@@ -1,6 +1,7 @@
-package com.myapp.myapplication.movie
+package com.myapp.myapplication.model
 
 import com.google.gson.annotations.SerializedName
+import com.myapp.myapplication.BASE_IMAGE_URL
 
 data class Movie(
     val id: Int,

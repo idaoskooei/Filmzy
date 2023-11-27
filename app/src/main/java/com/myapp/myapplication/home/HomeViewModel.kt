@@ -8,8 +8,12 @@ class HomeViewModel(
     private val navController: NavController
 ) : ViewModel() {
 
-    fun onSearchButtonClicked() {
-        navController.navigate(Destinations.SEARCH_SCREEN_ROUTE)
+    fun onSearchMoviesButtonClicked() {
+        navController.navigate(Destinations.SEARCH_MOVIES_SCREEN_ROUTE)
+    }
+
+    fun onSearchShowsButtonClicked() {
+        navController.navigate(Destinations.SEARCH_SHOWS_SCREEN_ROUTE)
     }
 
     fun onCategoryButtonClicked() {

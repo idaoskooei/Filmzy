@@ -19,10 +19,12 @@ import com.myapp.myapplication.home.categoryList.CategoryScreen
 import com.myapp.myapplication.home.categoryList.CategoryViewModel
 import com.myapp.myapplication.home.categoryList.repo.CategoryRemoteService
 import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
-import com.myapp.myapplication.home.search.SearchScreen
-import com.myapp.myapplication.home.search.SearchViewModel
-import com.myapp.myapplication.home.search.repo.SearchRemoteService
-import com.myapp.myapplication.home.search.repo.SearchRepository
+import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesScreen
+import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesViewModel
+import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsScreen
+import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
+import com.myapp.myapplication.home.searchByTerm.repo.SearchRemoteService
+import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.home.searchByCategory.MovieListScreen
 import com.myapp.myapplication.home.searchByCategory.MovieListViewModel
 import com.myapp.myapplication.profile.ProfileScreen
@@ -75,9 +77,20 @@ fun NavGraph(
                 )
             )
         }
-        composable(Destinations.SEARCH_SCREEN_ROUTE) {
-            SearchScreen(
-                viewModel = SearchViewModel(
+        composable(Destinations.SEARCH_MOVIES_SCREEN_ROUTE) {
+            SearchMoviesScreen(
+                viewModel = SearchMoviesViewModel(
+                    SearchRepository(
+                        retrofit.create(
+                            SearchRemoteService::class.java
+                        )
+                    )
+                )
+            )
+        }
+        composable(Destinations.SEARCH_SHOWS_SCREEN_ROUTE) {
+            SearchShowsScreen(
+                viewModel = SearchShowsViewModel(
                     SearchRepository(
                         retrofit.create(
                             SearchRemoteService::class.java
