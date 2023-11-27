@@ -3,6 +3,7 @@ package com.myapp.myapplication.profile
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.navigation.Destinations
 
 class ProfileViewModel(
     private val navController: NavController,
@@ -10,11 +11,11 @@ class ProfileViewModel(
 ) : ViewModel() {
 
     fun onProfileButtonClicked() {
-        navController.navigate("home_screen")
+        navController.navigate(Destinations.HOME_ROUTE)
     }
 
     fun onSignOutButtonClicked() {
         authRepository.signOut()
-        navController.navigate("intro_screen")
+        navController.navigate(Destinations.INTRO_ROUTE)
     }
 }

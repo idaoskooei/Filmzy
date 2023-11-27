@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
+import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -61,7 +62,7 @@ class SignInViewModel(
                 authRepository.signInUser(email, password) { responseState ->
                     when (responseState) {
                         is ResponseState.Success -> {
-                            navController.navigate("home_screen")
+                            navController.navigate(Destinations.HOME_ROUTE)
                         }
 
                         is ResponseState.Failure -> {

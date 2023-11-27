@@ -13,6 +13,7 @@ import com.myapp.myapplication.auth.PASSWORD_REGEX
 import com.myapp.myapplication.auth.SIGN_UP_FAILED
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
+import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -93,7 +94,7 @@ class SignUpViewModel @Inject constructor(
                             isInProgress = false
                         )
                     }
-                    navController.navigate("home_screen")
+                    navController.navigate(Destinations.HOME_ROUTE)
                 }
             }
         }

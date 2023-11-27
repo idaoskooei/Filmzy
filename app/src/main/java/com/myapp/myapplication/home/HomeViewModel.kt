@@ -2,20 +2,21 @@ package com.myapp.myapplication.home
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.myapp.myapplication.navigation.Destinations
 
 class HomeViewModel(
     private val navController: NavController
 ) : ViewModel() {
 
     fun onSearchButtonClicked() {
-        navController.navigate("search_screen")
+        navController.navigate(Destinations.SEARCH_SCREEN_ROUTE)
     }
 
     fun onCategoryButtonClicked() {
-        navController.navigate("category_screen")
+        navController.navigate(Destinations.CATEGORY_SCREEN_ROUTE)
     }
 
     fun onProfileButtonClicked() {
-        navController.navigate("profile_screen")
+        navController.navigate(Destinations.PROFILE_ROUTE)
     }
 }
