@@ -4,13 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,13 +25,6 @@ fun ImageView(show: TVShow) {
                 placeholder(R.drawable.ic_launcher_foreground)
             }).build()
     )
-    Card(
-        modifier = Modifier
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        )
-    ) {
         Image(
             painter = painter,
             contentDescription = null,
@@ -44,7 +33,6 @@ fun ImageView(show: TVShow) {
                 .height(200.dp)
                 .clip(shape = RoundedCornerShape(8.dp)),
         )
-    }
 }
 
 @Composable
@@ -56,13 +44,6 @@ fun ImageView(movie: Movie) {
                 placeholder(R.drawable.ic_launcher_foreground)
             }).build()
     )
-    Card(
-        modifier = Modifier
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        )
-    ) {
         Image(
             painter = painter,
             contentDescription = null,
@@ -71,9 +52,7 @@ fun ImageView(movie: Movie) {
                 .height(200.dp)
                 .clip(shape = RoundedCornerShape(8.dp))
         )
-    }
 }
-
 @Composable
 @Preview(showBackground = true)
 fun ImageViewPreview() {
@@ -83,7 +62,8 @@ fun ImageViewPreview() {
             id = 2,
             title = "love",
             releaseDate = "2023",
-            overview = "love story"
+            overview = "love story",
+            adult = true
         )
     )
 }

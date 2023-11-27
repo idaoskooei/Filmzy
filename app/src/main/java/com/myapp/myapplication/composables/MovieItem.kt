@@ -41,15 +41,15 @@ fun MovieItem(movie: Movie, onClick: () -> Unit, showImage: Boolean) {
                 .wrapContentSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                TitleTextView(movie)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Overview: ${movie.overview}")
-            }
-            Spacer(modifier = Modifier.height(8.dp))
             if (showImage) {
                 ImageView(movie = movie)
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            TitleTextView(movie)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Adult: ${movie.adult}")
+            Text(text = "Overview: ${movie.overview}")
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -73,7 +73,8 @@ fun ItemPreview() {
             overview = "epic love story",
             posterPath = "",
             releaseDate = "2023",
-            title = "love story", id = 123
+            title = "love story", id = 123,
+            adult = true
         ),
         onClick = {},
         showImage = true

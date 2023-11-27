@@ -9,6 +9,7 @@ data class Movie(
     @SerializedName("overview") val overview: String?,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("release_date") val releaseDate: String?,
+    @SerializedName("adult") val adult: Boolean,
 ){
     val fullPosterPath: String
         get() = "$BASE_IMAGE_URL/$posterPath"

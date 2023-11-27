@@ -9,7 +9,8 @@ data class TVShow(
     @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("original_language") val originalLanguage: String?,
-    @SerializedName("first_air_date") val airDate: String?
+    @SerializedName("first_air_date") val airDate: String?,
+    @SerializedName("adult") val adult: Boolean,
 ) {
     val fullPosterPath: String
         get() = "$BASE_IMAGE_URL/$posterPath"
