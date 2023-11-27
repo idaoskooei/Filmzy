@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.searchByCategory
+package com.myapp.myapplication.home.searchByTerm.movies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,21 +9,32 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class MovieListViewModel(
-    private val repository: SearchRepository,
-    private val genre: Int
-) : ViewModel() {
+class SearchMoviesViewModel(private val repository: SearchRepository) : ViewModel() {
+
+    private val _errorMessage = MutableStateFlow<String>("")
+    val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
 
     private val _uiState = MutableStateFlow<List<Movie>>(emptyList())
     val uiState: StateFlow<List<Movie>> = _uiState.asStateFlow()
 
-    init {
+    fun onSearchClicked(query: String) {
         viewModelScope.launch {
             try {
-                _uiState.value = repository.searchMoviesByGenre(genre = genre)
+                _uiState.value = repository.searchMovies(query)
+                _errorMessage.value = ""
             } catch (e: Exception) {
+                handleError(e)
                 _uiState.value = emptyList()
             }
         }
     }
+
+    fun onItemClicked(){
+        TODO()
+    }
+
+    private fun handleError(error: Throwable) {
+        _errorMessage.value = "An error occurred: ${error.message}"
+    }
 }
+
