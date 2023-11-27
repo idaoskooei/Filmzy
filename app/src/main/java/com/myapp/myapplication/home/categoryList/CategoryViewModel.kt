@@ -1,8 +1,8 @@
-package com.myapp.myapplication.home.category
+package com.myapp.myapplication.home.categoryList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapp.myapplication.home.category.repo.CategoryRepository
+import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

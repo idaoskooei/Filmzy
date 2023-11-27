@@ -1,6 +1,7 @@
 package com.myapp.myapplication.composables
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +26,13 @@ import androidx.compose.ui.unit.sp
 import com.myapp.myapplication.movie.Movie
 
 @Composable
-fun MovieItem(movie: Movie) {
+fun MovieItem(movie: Movie, onClick: () -> Unit, showImage: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(10.dp))
+            .clickable { onClick() }
             .border(width = 2.dp, color = Color.DarkGray, shape = RoundedCornerShape(10.dp)),
     ) {
         Column(
@@ -45,7 +47,9 @@ fun MovieItem(movie: Movie) {
                 Text(text = "Overview: ${movie.overview}")
             }
             Spacer(modifier = Modifier.height(8.dp))
-            MovieImage(movie = movie)
+            if (showImage) {
+                MovieImage(movie = movie)
+            }
         }
     }
 }
@@ -71,6 +75,8 @@ fun ItemPreview() {
             posterPath = "",
             releaseDate = "2023",
             title = "love story", id = 123
-        )
+        ),
+        onClick = {},
+        showImage = true
     )
 }

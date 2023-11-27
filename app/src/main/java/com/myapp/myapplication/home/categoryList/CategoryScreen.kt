@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.category
+package com.myapp.myapplication.home.categoryList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
@@ -46,6 +45,15 @@ fun CategoryScreen(
     DisposableEffect(Unit) {
         onDispose {}
     }
+    MoviesList(navController, categories, errorMessage)
+}
+
+@Composable
+private fun MoviesList(
+    navController: NavController,
+    categories: List<TmdbGenre>,
+    errorMessage: String
+) {
     Box(
         Modifier
             .fillMaxSize()
@@ -58,7 +66,7 @@ fun CategoryScreen(
         ) {
             IntroText()
             CategoryList(
-                onItemClick = { navController.navigate("movie_list_screen") },
+                onItemClick = { genreId -> navController.navigate("movie_list_screen/$genreId") },
                 categories = categories,
                 errorMessage = errorMessage
             )
@@ -68,7 +76,7 @@ fun CategoryScreen(
 
 @Composable
 private fun CategoryList(
-    categories: List<TmdbGenre>, onItemClick: () -> Unit, errorMessage: String
+    categories: List<TmdbGenre>, onItemClick: (Int) -> Unit, errorMessage: String
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -86,12 +94,12 @@ private fun CategoryList(
 }
 
 @Composable
-fun CategoryItem(category: TmdbGenre, onItemClick: () -> Unit) {
+fun CategoryItem(category: TmdbGenre, onItemClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .clickable { onItemClick() },
+            .clickable { onItemClick(category.id) },
         colors = CardDefaults.cardColors(
             containerColor = customBackgroundColor
         )
@@ -132,8 +140,16 @@ private fun IntroText() {
 @Preview(showBackground = true)
 fun Preview() {
     val navController = rememberNavController()
-    CategoryScreen(
+    MoviesList(
         navController = navController,
-        viewModel = viewModel()
+        errorMessage = "",
+        categories = listOf(
+            TmdbGenre(1, "comedy"),
+            TmdbGenre(3, "romance"),
+            TmdbGenre(3, "action"),
+            TmdbGenre(3, "adventure"),
+            TmdbGenre(3, "drama"),
+            TmdbGenre(3, "horror")
+        )
     )
 }
