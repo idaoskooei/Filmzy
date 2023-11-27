@@ -19,16 +19,16 @@ import com.myapp.myapplication.auth.signup.SignUpScreen
 import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
-import com.myapp.myapplication.home.category.CategoryScreen
-import com.myapp.myapplication.home.category.CategoryViewModel
-import com.myapp.myapplication.home.category.MovieListScreen
-import com.myapp.myapplication.home.category.MovieListViewModel
-import com.myapp.myapplication.home.category.repo.CategoryRemoteService
-import com.myapp.myapplication.home.category.repo.CategoryRepository
+import com.myapp.myapplication.home.categoryList.CategoryScreen
+import com.myapp.myapplication.home.categoryList.CategoryViewModel
+import com.myapp.myapplication.home.categoryList.repo.CategoryRemoteService
+import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
 import com.myapp.myapplication.home.search.SearchScreen
 import com.myapp.myapplication.home.search.SearchViewModel
 import com.myapp.myapplication.home.search.repo.SearchRemoteService
 import com.myapp.myapplication.home.search.repo.SearchRepository
+import com.myapp.myapplication.home.searchByCategory.MovieListScreen
+import com.myapp.myapplication.home.searchByCategory.MovieListViewModel
 import com.myapp.myapplication.movie.API_TOKEN
 import com.myapp.myapplication.movie.BASE_URL
 import com.myapp.myapplication.profile.ProfileScreen
@@ -139,22 +139,21 @@ fun MyApp() {
                 )
             )
         }
-
-        composable("movie_list_screen/{genre}", arguments = listOf(navArgument("genre") {
-            type = NavType.StringType
+        composable("movie_list_screen/{genreId}", arguments = listOf(navArgument("genreId") {
+            type = NavType.IntType
         })) { backStackEntry ->
 
-            val genre =
-                backStackEntry.arguments?.getString("genre")
+            val genreId =
+                backStackEntry.arguments?.getInt("genreId") ?: 0
 
-            if (genre == null) {
-                throw Exception("MovieListScreen needs a {genre} to operate !!")
+            if (genreId == 0) {
+                throw IllegalArgumentException("MovieListScreen needs a {genreId} to operate!!")
             } else {
                 MovieListScreen(
                     onMovieClick = {},
                     viewModel = MovieListViewModel(
                         SearchRepository(retrofit.create()),
-                        genre = genre
+                        genre = genreId
                     )
                 )
             }

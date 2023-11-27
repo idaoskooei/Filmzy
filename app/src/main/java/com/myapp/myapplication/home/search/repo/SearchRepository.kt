@@ -7,7 +7,7 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
         return remoteService.searchMovies(searchTerm).results
     }
 
-    suspend fun searchMoviesByGenre(genre: String): List<Movie> {
+    suspend fun searchMoviesByGenre(genre: Int): List<Movie> {
         return remoteService.searchMoviesByGenre(genre).results
     }
 }

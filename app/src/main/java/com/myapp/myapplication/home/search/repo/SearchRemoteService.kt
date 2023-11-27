@@ -7,12 +7,13 @@ import retrofit2.http.Query
 interface SearchRemoteService {
     @GET("search/movie")
     suspend fun searchMovies(
-        @Query("query") query: String,
+        @Query("query") query: String
     ): MovieResponse
 
     @GET("discover/movie")
     suspend fun searchMoviesByGenre(
-        @Query("with_genres") genre: String,
+//        @Query("with_genres") genre: String,
+        @Query("with_genres") genreId: Int,
         @Query("include_adult") includeAdult: Boolean = true
     ): MovieResponse
 }

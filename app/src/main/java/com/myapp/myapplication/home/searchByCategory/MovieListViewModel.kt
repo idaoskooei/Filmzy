@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.category
+package com.myapp.myapplication.home.searchByCategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class MovieListViewModel(
     private val repository: SearchRepository,
-    private val genre: String
+    private val genre: Int
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<List<Movie>>(emptyList())
@@ -22,7 +22,6 @@ class MovieListViewModel(
             try {
                 _uiState.value = repository.searchMoviesByGenre(genre = genre)
             } catch (e: Exception) {
-                // handle error
                 _uiState.value = emptyList()
             }
         }

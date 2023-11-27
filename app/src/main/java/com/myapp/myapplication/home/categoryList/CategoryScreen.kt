@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.category
+package com.myapp.myapplication.home.categoryList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -66,7 +66,7 @@ private fun MoviesList(
         ) {
             IntroText()
             CategoryList(
-                onItemClick = { genre -> navController.navigate("movie_list_screen/{$genre}") },
+                onItemClick = { genreId -> navController.navigate("movie_list_screen/$genreId") },
                 categories = categories,
                 errorMessage = errorMessage
             )
@@ -76,7 +76,7 @@ private fun MoviesList(
 
 @Composable
 private fun CategoryList(
-    categories: List<TmdbGenre>, onItemClick: (String) -> Unit, errorMessage: String
+    categories: List<TmdbGenre>, onItemClick: (Int) -> Unit, errorMessage: String
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -94,12 +94,12 @@ private fun CategoryList(
 }
 
 @Composable
-fun CategoryItem(category: TmdbGenre, onItemClick: (String) -> Unit) {
+fun CategoryItem(category: TmdbGenre, onItemClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
-            .clickable { onItemClick(category.name) },
+            .clickable { onItemClick(category.id) },
         colors = CardDefaults.cardColors(
             containerColor = customBackgroundColor
         )

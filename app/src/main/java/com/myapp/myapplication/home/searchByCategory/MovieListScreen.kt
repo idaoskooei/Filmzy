@@ -1,4 +1,4 @@
-package com.myapp.myapplication.home.category
+package com.myapp.myapplication.home.searchByCategory
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +41,11 @@ private fun MoviesList(
         ) {
             LazyColumn {
                 items(movies) { movie ->
-                    MovieItem(movie = movie, onClick = { onMovieClick(movie) }, showImage = false)
+                    MovieItem(
+                        movie = movie,
+                        onClick = { onMovieClick(movie) },
+                        showImage = false
+                    )
                 }
             }
         }
