@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.sp
 import com.myapp.myapplication.model.Movie
 
 @Composable
-fun MovieItem(movie: Movie, onClick: () -> Unit, showImage: Boolean) {
+fun MovieItem(movie: Movie, onClick: (Movie) -> Unit, showImage: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(10.dp))
-            .clickable { onClick() }
+            .clickable { onClick(movie) }
             .border(width = 2.dp, color = Color.DarkGray, shape = RoundedCornerShape(10.dp)),
     ) {
         Column(

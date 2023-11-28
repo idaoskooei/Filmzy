@@ -45,7 +45,7 @@ fun CategoryScreen(
     DisposableEffect(Unit) {
         onDispose {}
     }
-    MoviesList(navController, categories, errorMessage)
+    MoviesList(navController = navController, categories = categories, errorMessage = errorMessage)
 }
 
 @Composable

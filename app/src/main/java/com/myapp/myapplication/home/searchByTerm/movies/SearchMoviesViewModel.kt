@@ -1,7 +1,9 @@
 package com.myapp.myapplication.home.searchByTerm.movies
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import androidx.paging.PagingData
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
@@ -11,7 +13,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SearchMoviesViewModel(private val repository: SearchRepository) : ViewModel() {
+class SearchMoviesViewModel(
+    private val repository: SearchRepository,
+    private val navController: NavController
+) : ViewModel() {
 
     private val _errorMessage = MutableStateFlow<String>("")
     val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
@@ -29,6 +34,10 @@ class SearchMoviesViewModel(private val repository: SearchRepository) : ViewMode
                 handleError(e)
             }
         }
+    }
+
+    fun onMovieClicked(movie: Movie) {
+        Log.e("wtf", "movie clicked")
     }
 
     private fun handleError(error: Throwable) {
