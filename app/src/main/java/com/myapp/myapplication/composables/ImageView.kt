@@ -63,7 +63,10 @@ fun ImageViewPreview() {
             title = "love",
             releaseDate = "2023",
             overview = "love story",
-            adult = true
+            adult = true,
+            website = "love,com",
+            genres = listOf(),
+            duration = 120
         )
     )
 }

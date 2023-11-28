@@ -74,7 +74,10 @@ fun ItemPreview() {
             posterPath = "",
             releaseDate = "2023",
             title = "love story", id = 123,
-            adult = true
+            adult = true,
+            duration = 120,
+            genres = listOf(),
+            website = "epiclovestory.com"
         ),
         onClick = {},
         showImage = true
