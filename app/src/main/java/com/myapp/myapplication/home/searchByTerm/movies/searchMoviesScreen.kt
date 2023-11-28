@@ -71,6 +71,7 @@ private fun SearchBar(viewModel: SearchMoviesViewModel) {
             onValueChanged = { search = it },
             onDismissed = { },
             onSearchClick = { viewModel.onSearchClicked(search) },
+            label = "Enter Movie Name"
         )
     }
 }
