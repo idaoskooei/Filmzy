@@ -71,6 +71,7 @@ private fun SearchBar(viewModel: SearchShowsViewModel) {
             onValueChanged = { search = it },
             onDismissed = {},
             onSearchClick = { viewModel.onSearchClicked(search) },
+            label = "Enter Show Name"
         )
     }
 }
