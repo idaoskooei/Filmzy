@@ -63,21 +63,30 @@ fun MovieListPreview() {
                 title = "love",
                 id = 12,
                 posterPath = "",
-                adult = true
+                adult = true,
+                website = "",
+                genres = listOf(),
+                duration = 120
             ), Movie(
                 overview = "love story",
                 releaseDate = "2023",
                 title = "love",
                 id = 12,
                 posterPath = "",
-                adult = true
+                adult = true,
+                website = "",
+                genres = listOf(),
+                duration = 120
             ), Movie(
                 overview = "love story",
                 releaseDate = "2023",
                 title = "love",
                 id = 12,
                 posterPath = "",
-                adult = true
+                adult = true,
+                website = "",
+                genres = listOf(),
+                duration = 120
             )
         ), onMovieClick = {})
 }
