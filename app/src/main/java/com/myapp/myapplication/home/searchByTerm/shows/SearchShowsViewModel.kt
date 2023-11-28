@@ -20,7 +20,7 @@ class SearchShowsViewModel(private val repository: SearchRepository) : ViewModel
     fun onSearchClicked(query: String) {
         viewModelScope.launch {
             try {
-                _uiState.value = repository.searchTvShows(searchTerm = query)
+                _uiState.value = repository.getShowsSearchResults(searchTerm = query)
                 _errorMessage.value = ""
             } catch (e: Exception) {
                 handleError(e)
