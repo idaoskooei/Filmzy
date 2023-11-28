@@ -2,11 +2,13 @@ package com.myapp.myapplication.home.searchByTerm.movies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SearchMoviesViewModel(private val repository: SearchRepository) : ViewModel() {
@@ -14,23 +16,19 @@ class SearchMoviesViewModel(private val repository: SearchRepository) : ViewMode
     private val _errorMessage = MutableStateFlow<String>("")
     val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
 
-    private val _uiState = MutableStateFlow<List<Movie>>(emptyList())
-    val uiState: StateFlow<List<Movie>> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
+    val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
 
-    fun onSearchClicked(query: String) {
+    fun onSearchClicked(searchTerm: String) {
         viewModelScope.launch {
             try {
-                _uiState.value = repository.searchMovies(query)
-                _errorMessage.value = ""
+                repository.getMoviesSearchResults(searchTerm).collectLatest { pagingData ->
+                    _uiState.value = pagingData
+                }
             } catch (e: Exception) {
                 handleError(e)
-                _uiState.value = emptyList()
             }
         }
-    }
-
-    fun onItemClicked(){
-        TODO()
     }
 
     private fun handleError(error: Throwable) {
