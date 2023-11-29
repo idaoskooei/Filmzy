@@ -1,4 +1,4 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.myapp.myapplication.IntroScreen
+import com.myapp.myapplication.auth.IntroScreen
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.signin.SignInScreen
 import com.myapp.myapplication.auth.signin.SignInViewModel
@@ -19,14 +19,16 @@ import com.myapp.myapplication.home.categoryList.CategoryScreen
 import com.myapp.myapplication.home.categoryList.CategoryViewModel
 import com.myapp.myapplication.home.categoryList.repo.CategoryRemoteService
 import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
-import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesScreen
-import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesViewModel
-import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsScreen
-import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
-import com.myapp.myapplication.home.searchByTerm.repo.SearchRemoteService
-import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.home.searchByCategory.MovieListScreen
 import com.myapp.myapplication.home.searchByCategory.MovieListViewModel
+import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesScreen
+import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesViewModel
+import com.myapp.myapplication.home.searchByTerm.repo.SearchRemoteService
+import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
+import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsScreen
+import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
+import com.myapp.myapplication.movie.MovieDetailsScreen
+import com.myapp.myapplication.movie.MovieDetailsViewModel
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.retrofit
@@ -84,7 +86,7 @@ fun NavGraph(
                         retrofit.create(
                             SearchRemoteService::class.java
                         )
-                    )
+                    ), navController
                 )
             )
         }
@@ -125,6 +127,25 @@ fun NavGraph(
                     viewModel = MovieListViewModel(
                         SearchRepository(retrofit.create()),
                         genre = genreId
+                    )
+                )
+            }
+        }
+        composable(route = "movie_detail_screen/{id}", arguments = listOf(navArgument("id") {
+            type = NavType.IntType
+        })) { backStackEntry ->
+
+            val id = backStackEntry.arguments?.getInt("id") ?: 0
+
+            if (id == 0) {
+                throw IllegalArgumentException("MovieDetailScreen needs an {id} to operate!!")
+            } else {
+                MovieDetailsScreen(
+                    viewModel = MovieDetailsViewModel(
+                        SearchRepository(
+                            retrofit.create(SearchRemoteService::class.java)
+                        ),
+                        id = id
                     )
                 )
             }

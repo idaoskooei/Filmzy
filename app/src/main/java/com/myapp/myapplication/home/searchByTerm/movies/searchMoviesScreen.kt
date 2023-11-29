@@ -17,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -26,9 +25,10 @@ import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MovieItem
 import com.myapp.myapplication.composables.SearchTextField
 import com.myapp.myapplication.model.Movie
+
 @Composable
 fun SearchMoviesScreen(
-    viewModel: SearchMoviesViewModel
+    viewModel: SearchMoviesViewModel = viewModel()
 ) {
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -40,7 +40,9 @@ fun SearchMoviesScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, movies, onClick = {})
+                SearchResult(errorMessage, movies, onClick = {
+                    viewModel.onMovieClicked(it)
+                })
             }
         }
     }
@@ -50,7 +52,7 @@ fun SearchMoviesScreen(
 private fun SearchResult(
     errorMessage: String,
     movies: LazyPagingItems<Movie>,
-    onClick: () -> Unit
+    onClick: (Movie) -> Unit
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -59,12 +61,13 @@ private fun SearchResult(
             items(movies.itemCount) { index ->
                 val movie = movies[index]
                 if (movie != null) {
-                    MovieItem(movie = movie, onClick = onClick, showImage = true)
+                    MovieItem(movie = movie, onClick = { onClick(movie) }, showImage = true)
                 }
             }
         }
     }
 }
+
 @Composable
 private fun SearchBar(viewModel: SearchMoviesViewModel) {
     var search by rememberSaveable { mutableStateOf("") }
@@ -77,12 +80,4 @@ private fun SearchBar(viewModel: SearchMoviesViewModel) {
             label = "Enter Movie Name"
         )
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun SearchScreenPreview() {
-    SearchMoviesScreen(
-        viewModel = viewModel()
-    )
 }

@@ -1,20 +1,19 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.movie
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.NoAdultContent
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
 import androidx.compose.material3.Card
@@ -22,6 +21,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -29,48 +34,55 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.HorizontalDivider
 import com.myapp.myapplication.composables.ImageView
-import com.myapp.myapplication.home.categoryList.TmdbGenre
-import com.myapp.myapplication.model.Movie
+import com.myapp.myapplication.home.searchByTerm.movies.MovieResponse
 
 @Composable
-fun MovieDetailScreen(movie: Movie) {
-    Box {
+fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
+    val details by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
+    ScreenContent(details)
+}
+
+@Composable
+private fun ScreenContent(details: State<MovieResponse?>) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp)
+    ) {
         BackgroundImage(id = R.drawable.untitled_design__19_)
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp)
-        )
-        {
-            ImageView(movie = movie)
-            HorizontalDivider()
-            Spacer(modifier = Modifier.padding(10.dp))
-            TextInfo(text = "Title:  ${movie.title ?: ""}", imageVector = Icons.Filled.Title)
-            TextInfo(
-                text = "Release Date: ${movie.releaseDate ?: ""}",
-                imageVector = Icons.Filled.DateRange
-            )
-            TextInfo(text = "Duration: ${movie.duration} minutes", imageVector = Icons.Filled.Timer)
-            TextInfo(
-                text = "Adult: ${if (movie.adult) "Yes" else "No"}",
-                imageVector = Icons.Filled.NoAdultContent
-            )
-            TextInfo(
-                text = "Genres: ${movie.genres.joinToString(", ") { it.name }}",
-                imageVector = Icons.Filled.Category
-            )
-            TextInfo(
-                text = "Website: ${movie.website}",
-                imageVector = Icons.Filled.Info
-            )
-            TextInfo(
-                text = "Overview:  ${movie.overview ?: ""}",
-                imageVector = Icons.Filled.Description
-            )
+        LazyColumn {
+            item {
+                MovieDetailsHeader(details)
+                MovieDetailsInfo(details)
+            }
         }
+    }
+}
+
+@Composable
+private fun MovieDetailsHeader(details: State<MovieResponse?>) {
+    ImageView(posterPath = details.value?.fullPosterPath ?: "")
+    Spacer(modifier = Modifier.padding(25.dp))
+    HorizontalDivider()
+    Spacer(modifier = Modifier.padding(10.dp))
+}
+
+@Composable
+private fun MovieDetailsInfo(details: State<MovieResponse?>) {
+    details.value?.let {
+        TextInfo("Title:  ${it.title}", Icons.Filled.Title)
+        TextInfo("Release Date:  ${it.releaseDate}", Icons.Filled.DateRange)
+        TextInfo("Duration:  ${it.duration} minutes", Icons.Filled.Timer)
+        TextInfo(
+            "Genres:  ${it.genres.joinToString(", ") { genre -> genre.name }}",
+            Icons.Filled.Category
+        )
+        TextInfo("Website: ${it.website}", Icons.Filled.Info)
+        TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
 }
 
@@ -93,7 +105,6 @@ fun TextInfo(text: String, imageVector: ImageVector) {
     }
 }
 
-
 @Composable
 private fun CustomIcon(imageVector: ImageVector) {
     Card(
@@ -108,20 +119,26 @@ private fun CustomIcon(imageVector: ImageVector) {
     }
 }
 
-@Composable
 @Preview(showBackground = true)
-fun MovieDetailPreview() {
-    MovieDetailScreen(
-        Movie(
-            adult = true,
-            posterPath = "",
-            title = "what if",
-            id = 2,
-            releaseDate = "2023",
-            overview = "story about love tha starts in a foreign city between two young students who have moved from paris.",
-            duration = 120,
-            genres = listOf(TmdbGenre(1, "comedy")),
-            website = "whatif.com"
-        )
+@Composable
+fun ScreenContentPreview() {
+    val sampleDetails = remember { mutableStateOf<MovieResponse?>(generateSampleMovieDetails()) }
+    ScreenContent(details = sampleDetails)
+}
+
+private fun generateSampleMovieDetails(): MovieResponse {
+    return MovieResponse(
+        movieId = 1,
+        duration = 200,
+        genres = listOf(),
+        website = "",
+        overview = "",
+        title = "",
+        adult = true,
+        releaseDate = "",
+        poster = "",
+        results = listOf(),
+        totalPages = 2,
+        totalResults = 3
     )
 }
