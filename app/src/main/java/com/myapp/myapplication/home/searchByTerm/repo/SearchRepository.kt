@@ -3,6 +3,7 @@ package com.myapp.myapplication.home.searchByTerm.repo
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.myapp.myapplication.home.searchByTerm.movies.MovieResponse
 import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.model.TVShow
 import com.myapp.myapplication.paging.MoviePagingSource
@@ -23,5 +24,9 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
 
     suspend fun searchMoviesByGenre(genre: Int): List<Movie> {
         return remoteService.searchMoviesByGenre(genreId = genre).results
+    }
+
+    suspend fun getMovieDetails(id: Int): MovieResponse {
+        return remoteService.getMovieDetails(id)
     }
 }

@@ -3,6 +3,7 @@ package com.myapp.myapplication.home.searchByTerm.repo
 import com.myapp.myapplication.home.searchByTerm.movies.MovieResponse
 import com.myapp.myapplication.home.searchByTerm.shows.TVShowResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SearchRemoteService {
@@ -24,5 +25,10 @@ interface SearchRemoteService {
     suspend fun searchMoviesByGenre(
         @Query("with_genres") genreId: Int,
         @Query("include_adult") includeAdult: Boolean = true
+    ): MovieResponse
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") id: Int
     ): MovieResponse
 }

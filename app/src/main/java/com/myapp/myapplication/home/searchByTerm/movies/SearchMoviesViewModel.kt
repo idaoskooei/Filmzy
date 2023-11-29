@@ -1,12 +1,12 @@
 package com.myapp.myapplication.home.searchByTerm.movies
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
+import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,7 +37,14 @@ class SearchMoviesViewModel(
     }
 
     fun onMovieClicked(movie: Movie) {
-        Log.e("wtf", "movie clicked")
+        viewModelScope.launch {
+            try {
+                val movieDetails = repository.getMovieDetails(movie.id)
+                navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")
+            } catch (e: Exception) {
+                handleError(e)
+            }
+        }
     }
 
     private fun handleError(error: Throwable) {
