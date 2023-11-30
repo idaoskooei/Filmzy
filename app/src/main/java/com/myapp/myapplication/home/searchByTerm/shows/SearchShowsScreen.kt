@@ -41,7 +41,9 @@ fun SearchShowsScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, shows, onClick = {})
+                SearchResult(errorMessage, shows, onClick = {
+                    viewModel.onTvShowClicked(it)
+                })
             }
         }
     }
@@ -50,8 +52,7 @@ fun SearchShowsScreen(
 @Composable
 private fun SearchResult(
     errorMessage: String,
-    shows: LazyPagingItems<TVShow>,
-    onClick: () -> Unit
+    shows: LazyPagingItems<TVShow>, onClick: (TVShow) -> Unit
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -60,7 +61,7 @@ private fun SearchResult(
             items(shows.itemCount) { index ->
                 val show = shows[index]
                 if (show != null) {
-                    ShowItem(show = show, onClick = onClick, showImage = true)
+                    ShowItem(show = show, onClick = { onClick(show) }, showImage = true)
                 }
             }
         }

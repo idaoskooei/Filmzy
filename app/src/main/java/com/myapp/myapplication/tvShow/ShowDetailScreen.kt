@@ -80,7 +80,10 @@ private fun ShowDetailsInfo(details: State<TVShowResponse?>) {
         TextInfo("Title:  ${it.name}", Icons.Filled.Title)
         TextInfo("First Air Date:  ${it.firstAirDate}", Icons.Filled.DateRange)
         TextInfo("Last Air Date:  ${it.lastAirDate}", Icons.Filled.DateRange)
-        TextInfo("Next Episode To Air:  ${it.nextEpisodeToAir}", Icons.Filled.DateRange)
+        TextInfo(
+            "Next Episode To Air:  ${it.nextEpisodeToAir?.name ?: "Not Available"}",
+            Icons.Filled.DateRange
+        )
         TextInfo("Number of Episodes:  ${it.numberOfEpisodes}", Icons.Filled.FormatListNumbered)
         TextInfo("Number of Seasons: ${it.numberOfSeasons}", Icons.Filled.FormatListNumbered)
         TextInfo("Episode Run Time:  ${it.episodeRunTime} minutes", Icons.Filled.Timer)
@@ -88,7 +91,7 @@ private fun ShowDetailsInfo(details: State<TVShowResponse?>) {
             "Genres:  ${it.genres.joinToString(", ") { genre -> genre.name }}",
             Icons.Filled.Category
         )
-        TextInfo("Website: ${it.website}", Icons.Filled.Info)
+        TextInfo("Website: ${it.website?.ifEmpty { "Not Available" }}", Icons.Filled.Info)
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
 }
