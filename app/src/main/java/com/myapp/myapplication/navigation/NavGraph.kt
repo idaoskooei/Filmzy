@@ -32,6 +32,8 @@ import com.myapp.myapplication.movie.MovieDetailsViewModel
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.retrofit
+import com.myapp.myapplication.tvShow.ShowDetailScreen
+import com.myapp.myapplication.tvShow.ShowDetailViewModel
 import retrofit2.create
 
 @Composable
@@ -86,7 +88,7 @@ fun NavGraph(
                         retrofit.create(
                             SearchRemoteService::class.java
                         )
-                    ), navController
+                    ), navController = navController
                 )
             )
         }
@@ -97,7 +99,8 @@ fun NavGraph(
                         retrofit.create(
                             SearchRemoteService::class.java
                         )
-                    )
+                    ),
+                    navController = navController
                 )
             )
         }
@@ -142,6 +145,25 @@ fun NavGraph(
             } else {
                 MovieDetailsScreen(
                     viewModel = MovieDetailsViewModel(
+                        SearchRepository(
+                            retrofit.create(SearchRemoteService::class.java)
+                        ),
+                        id = id
+                    )
+                )
+            }
+        }
+        composable(route = "show_detail_screen/{id}", arguments = listOf(navArgument("id") {
+            type = NavType.IntType
+        })) { backStackEntry ->
+
+            val id = backStackEntry.arguments?.getInt("id") ?: 0
+
+            if (id == 0) {
+                throw IllegalArgumentException("TvShow detail screen needs an {id} to operate!!")
+            } else {
+                ShowDetailScreen(
+                    viewModel = ShowDetailViewModel(
                         SearchRepository(
                             retrofit.create(SearchRemoteService::class.java)
                         ),

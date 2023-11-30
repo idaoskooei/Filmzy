@@ -81,7 +81,10 @@ private fun MovieDetailsInfo(details: State<MovieResponse?>) {
             "Genres:  ${it.genres.joinToString(", ") { genre -> genre.name }}",
             Icons.Filled.Category
         )
-        TextInfo("Website: ${it.website}", Icons.Filled.Info)
+        TextInfo(
+            "Website: ${it.website?.ifEmpty { "Not Available" }}",
+            Icons.Filled.Info
+        )
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
 }

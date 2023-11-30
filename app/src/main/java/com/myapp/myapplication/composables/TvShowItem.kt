@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -22,16 +23,17 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.model.TVShow
 
 @Composable
-fun ShowItem(show: TVShow, onClick: () -> Unit, showImage: Boolean) {
+fun ShowItem(show: TVShow, onClick: (TVShow) -> Unit, showImage: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(10.dp))
-            .clickable { onClick() }
+            .clickable { onClick(show) }
             .border(width = 2.dp, color = Color.DarkGray, shape = RoundedCornerShape(10.dp)),
     ) {
         Column(
