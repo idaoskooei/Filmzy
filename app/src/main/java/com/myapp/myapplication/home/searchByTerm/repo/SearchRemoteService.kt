@@ -31,4 +31,9 @@ interface SearchRemoteService {
     suspend fun getMovieDetails(
         @Path("movie_id") id: Int
     ): MovieResponse
+
+    @GET("tv/{series_id}")
+    suspend fun getTvShowDetails(
+        @Path("series_id") id: Int
+    ): TVShowResponse
 }
