@@ -24,7 +24,8 @@ interface SearchRemoteService {
     @GET("discover/movie")
     suspend fun searchMoviesByGenre(
         @Query("with_genres") genreId: Int,
-        @Query("include_adult") includeAdult: Boolean = true
+        @Query("include_adult") includeAdult: Boolean = true,
+        @Query("page") page: Int
     ): MovieResponse
 
     @GET("movie/{movie_id}")

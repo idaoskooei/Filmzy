@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.MovieItem
@@ -22,15 +22,14 @@ fun MovieListScreen(
     onMovieClick: (Movie) -> Unit,
     viewModel: MovieListViewModel
 ) {
-    val movies by viewModel.uiState.collectAsState()
+    val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
     MoviesList(movies, onMovieClick)
 }
 
 @Composable
 private fun MoviesList(
-    movies: List<Movie>,
-    onMovieClick: (Movie) -> Unit
+    movies: LazyPagingItems<Movie>, onMovieClick: (Movie) -> Unit
 ) {
     Box {
         BackgroundImage(id = R.drawable.untitled_design)
@@ -40,53 +39,17 @@ private fun MoviesList(
                 .padding(10.dp)
         ) {
             LazyColumn {
-                items(movies) { movie ->
-                    MovieItem(
-                        movie = movie,
-                        onClick = { onMovieClick(movie) },
-                        showImage = false
-                    )
+                items(movies.itemCount) { index ->
+                    val movie = movies[index]
+                    if (movie != null) {
+                        MovieItem(
+                            movie = movie,
+                            onClick = { onMovieClick(movie) },
+                            showImage = false
+                        )
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun MovieListPreview() {
-    MoviesList(
-        movies = listOf(
-            Movie(
-                overview = "love story",
-                releaseDate = "2023",
-                title = "love",
-                id = 12,
-                posterPath = "",
-                adult = true,
-                website = "",
-                genres = listOf(),
-                duration = 120
-            ), Movie(
-                overview = "love story",
-                releaseDate = "2023",
-                title = "love",
-                id = 12,
-                posterPath = "",
-                adult = true,
-                website = "",
-                genres = listOf(),
-                duration = 120
-            ), Movie(
-                overview = "love story",
-                releaseDate = "2023",
-                title = "love",
-                id = 12,
-                posterPath = "",
-                adult = true,
-                website = "",
-                genres = listOf(),
-                duration = 120
-            )
-        ), onMovieClick = {})
 }
