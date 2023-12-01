@@ -14,6 +14,7 @@ data class Movie(
     @SerializedName("genres") val genres: List<TmdbGenre>,
     @SerializedName("homepage") val website: String,
     @SerializedName("runtime") val duration: Int,
+    val liked: Boolean
 ){
     val fullPosterPath: String
         get() = "$BASE_IMAGE_URL/$posterPath"
