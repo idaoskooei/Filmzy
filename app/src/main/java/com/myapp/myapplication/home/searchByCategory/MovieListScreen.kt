@@ -19,12 +19,11 @@ import com.myapp.myapplication.model.Movie
 
 @Composable
 fun MovieListScreen(
-    onMovieClick: (Movie) -> Unit,
     viewModel: MovieListViewModel
 ) {
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
-    MoviesList(movies, onMovieClick)
+    MoviesList(movies = movies, onMovieClick = { viewModel.onMovieClicked(it) })
 }
 
 @Composable

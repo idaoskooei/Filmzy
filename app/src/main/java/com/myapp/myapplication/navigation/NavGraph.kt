@@ -126,10 +126,10 @@ fun NavGraph(
                 throw IllegalArgumentException("MovieListScreen needs a {genreId} to operate!!")
             } else {
                 MovieListScreen(
-                    onMovieClick = {},
                     viewModel = MovieListViewModel(
-                        SearchRepository(retrofit.create()),
-                        genre = genreId
+                        repository = SearchRepository(retrofit.create()),
+                        genre = genreId,
+                        navController = navController
                     )
                 )
             }
