@@ -17,7 +17,8 @@ data class MovieResponse(
     @SerializedName("release_date") val releaseDate: String?,
     @SerializedName("runtime") val duration: Int,
     @SerializedName("title") val title: String?,
-    @SerializedName("genres") val genres: List<TmdbGenre>
+    @SerializedName("genres") val genres: List<TmdbGenre>,
+    @SerializedName("original_language") val language: String?
 ) {
     val fullPosterPath: String
         get() = "$BASE_IMAGE_URL/$poster"
