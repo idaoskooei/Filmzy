@@ -25,13 +25,13 @@ data class TVShowResponse(
     @SerializedName("number_of_seasons") val numberOfSeasons: Int,
     @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val posterPath: String,
-    @SerializedName("seasons") val seasons: List<Season>
+    @SerializedName("seasons") val seasons: List<Season>,
+    @SerializedName("status") val status: String,
+    @SerializedName("languages") val languages: List<String>,
 ) {
     val fullPosterPath: String
         get() = "$BASE_IMAGE_URL/$posterPath"
 }
-
-
 
 
 
