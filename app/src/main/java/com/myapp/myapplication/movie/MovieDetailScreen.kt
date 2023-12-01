@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
 import androidx.compose.material3.Card
@@ -81,6 +82,7 @@ private fun MovieDetailsInfo(details: State<MovieResponse?>) {
             "Genres:  ${it.genres.joinToString(", ") { genre -> genre.name }}",
             Icons.Filled.Category
         )
+        TextInfo("Language:  ${it.language}", Icons.Filled.Language)
         TextInfo(
             "Website: ${it.website?.ifEmpty { "Not Available" }}",
             Icons.Filled.Info
@@ -142,6 +144,7 @@ private fun generateSampleMovieDetails(): MovieResponse {
         poster = "",
         results = listOf(),
         totalPages = 2,
-        totalResults = 3
+        totalResults = 3,
+        language = "english"
     )
 }
