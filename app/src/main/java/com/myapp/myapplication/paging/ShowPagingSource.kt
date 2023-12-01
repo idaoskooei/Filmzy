@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRemoteService
 import com.myapp.myapplication.model.TVShow
 
-class TVShowPagingSource(
+class ShowPagingSource(
     private val remoteService: SearchRemoteService,
     private var searchTerm: String
 ) : PagingSource<Int, TVShow>() {

@@ -9,7 +9,7 @@ import com.myapp.myapplication.model.TVShow
 import com.myapp.myapplication.paging.MoviePagingSource
 import com.myapp.myapplication.paging.MoviesByGenrePagingSource
 import com.myapp.myapplication.paging.PagingUtils.getPagingConfig
-import com.myapp.myapplication.paging.TVShowPagingSource
+import com.myapp.myapplication.paging.ShowPagingSource
 import kotlinx.coroutines.flow.Flow
 
 class SearchRepository(private val remoteService: SearchRemoteService) {
@@ -21,7 +21,7 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
 
     fun getShowsSearchResults(searchTerm: String): Flow<PagingData<TVShow>> =
         Pager(config = getPagingConfig()) {
-            TVShowPagingSource(remoteService, searchTerm)
+            ShowPagingSource(remoteService, searchTerm)
         }.flow
 
     fun searchMoviesByGenre(id: Int): Flow<PagingData<Movie>> =

@@ -42,7 +42,9 @@ fun SearchMoviesScreen(
                 SearchBar(viewModel)
                 SearchResult(errorMessage, movies, onClick = {
                     viewModel.onMovieClicked(it)
-                })
+                },
+                    onFavClick = {viewModel.onLikeClicked()}
+                    )
             }
         }
     }
@@ -52,7 +54,8 @@ fun SearchMoviesScreen(
 private fun SearchResult(
     errorMessage: String,
     movies: LazyPagingItems<Movie>,
-    onClick: (Movie) -> Unit
+    onClick: (Movie) -> Unit,
+    onFavClick: () -> Unit
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -61,7 +64,11 @@ private fun SearchResult(
             items(movies.itemCount) { index ->
                 val movie = movies[index]
                 if (movie != null) {
-                    MovieItem(movie = movie, onClick = { onClick(movie) }, showImage = true)
+                    MovieItem(
+                        movie = movie,
+                        onClick = { onClick(movie) },
+                        showImage = true,
+                        onFavClick = { onFavClick() })
                 }
             }
         }
