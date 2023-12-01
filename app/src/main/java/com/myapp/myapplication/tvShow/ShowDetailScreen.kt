@@ -15,6 +15,8 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
 import androidx.compose.material3.Card
@@ -84,6 +86,7 @@ private fun ShowDetailsInfo(details: State<TVShowResponse?>) {
             "Next Episode To Air:  ${it.nextEpisodeToAir?.name ?: "Not Available"}",
             Icons.Filled.DateRange
         )
+        TextInfo("Status:  ${it.status}", Icons.Filled.SkipNext)
         TextInfo("Number of Episodes:  ${it.numberOfEpisodes}", Icons.Filled.FormatListNumbered)
         TextInfo("Number of Seasons: ${it.numberOfSeasons}", Icons.Filled.FormatListNumbered)
         TextInfo("Episode Run Time:  ${it.episodeRunTime} minutes", Icons.Filled.Timer)
@@ -91,6 +94,7 @@ private fun ShowDetailsInfo(details: State<TVShowResponse?>) {
             "Genres:  ${it.genres.joinToString(", ") { genre -> genre.name }}",
             Icons.Filled.Category
         )
+        TextInfo("Languages: ${it.languages}", Icons.Filled.Language)
         TextInfo("Website: ${it.website?.ifEmpty { "Not Available" }}", Icons.Filled.Info)
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
@@ -171,7 +175,9 @@ private fun generateSampleTvShowDetails(): TVShowResponse {
             runtime = 2,
             seasonNumber = 3
         ),
-        numberOfEpisodes = 3, numberOfSeasons = 4, seasons = listOf(
+        numberOfEpisodes = 3,
+        numberOfSeasons = 4,
+        seasons = listOf(
             Season(
                 seasonNumber = 2,
                 airDate = "",
@@ -181,6 +187,8 @@ private fun generateSampleTvShowDetails(): TVShowResponse {
                 posterPath = "",
                 episodeCount = 4
             )
-        )
+        ),
+        status = "finished",
+        languages = listOf()
     )
 }
