@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.myapp.myapplication.model.Movie
 
 @Composable
-fun MovieItem(movie: Movie, onClick: (Movie) -> Unit, showImage: Boolean, onFavClick: () -> Unit) {
+fun MovieItem(movie: Movie, onClick: (Movie) -> Unit, showImage: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +44,6 @@ fun MovieItem(movie: Movie, onClick: (Movie) -> Unit, showImage: Boolean, onFavC
             if (showImage) {
                 ImageView(movie = movie)
             }
-            FavoriteIcon(movie = movie, onFavClick = { onFavClick() })
             Spacer(modifier = Modifier.height(8.dp))
             TitleTextView(movie)
             Spacer(modifier = Modifier.height(8.dp))
@@ -83,6 +82,5 @@ fun ItemPreview() {
         ),
         onClick = {},
         showImage = true,
-        onFavClick = {}
     )
 }

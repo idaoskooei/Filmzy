@@ -40,11 +40,7 @@ fun SearchMoviesScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(errorMessage, movies, onClick = {
-                    viewModel.onMovieClicked(it)
-                },
-                    onFavClick = {viewModel.onLikeClicked()}
-                    )
+                SearchResult(errorMessage, movies, onClick = { viewModel.onMovieClicked(it) })
             }
         }
     }
@@ -55,7 +51,6 @@ private fun SearchResult(
     errorMessage: String,
     movies: LazyPagingItems<Movie>,
     onClick: (Movie) -> Unit,
-    onFavClick: () -> Unit
 ) {
     if (errorMessage.isNotEmpty()) {
         Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
@@ -68,7 +63,7 @@ private fun SearchResult(
                         movie = movie,
                         onClick = { onClick(movie) },
                         showImage = true,
-                        onFavClick = { onFavClick() })
+                    )
                 }
             }
         }
