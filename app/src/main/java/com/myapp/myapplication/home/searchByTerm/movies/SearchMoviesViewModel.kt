@@ -46,11 +46,6 @@ class SearchMoviesViewModel(
             }
         }
     }
-
-    fun onLikeClicked() {
-        println("clicked on like")
-    }
-
     private fun handleError(error: Throwable) {
         _errorMessage.value = "An error occurred: ${error.message}"
     }

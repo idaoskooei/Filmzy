@@ -24,13 +24,12 @@ fun MovieListScreen(
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
     MoviesList(movies = movies,
-        onMovieClick = { viewModel.onMovieClicked(it) },
-        onFavClick = { viewModel.onLikedClicked() })
+        onMovieClick = { viewModel.onMovieClicked(it) })
 }
 
 @Composable
 private fun MoviesList(
-    movies: LazyPagingItems<Movie>, onMovieClick: (Movie) -> Unit, onFavClick: () -> Unit
+    movies: LazyPagingItems<Movie>, onMovieClick: (Movie) -> Unit
 ) {
     Box {
         BackgroundImage(id = R.drawable.untitled_design)
@@ -46,7 +45,7 @@ private fun MoviesList(
                         MovieItem(movie = movie,
                             onClick = { onMovieClick(movie) },
                             showImage = false,
-                            onFavClick = { onFavClick() })
+                        )
                     }
                 }
             }

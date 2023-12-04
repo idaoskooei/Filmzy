@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -56,7 +54,7 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
                 ProfileImage()
                 UserDetail(displayName = displayName)
                 HorizontalDivider()
-                ProfileContents(onFavoriteEventLayoutClicked = { /*TODO*/ }) {}
+                ProfileContents() {}
                 SignOutButton(onSignOut = { viewModel.onSignOutButtonClicked() })
             }
         }
@@ -111,7 +109,7 @@ fun UserDetail(displayName: String) {
 
 @Composable
 private fun ProfileContents(
-    onFavoriteEventLayoutClicked: () -> Unit, onPersonalDataLayoutClicked: () -> Unit
+    onPersonalDataLayoutClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -121,19 +119,10 @@ private fun ProfileContents(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         IconButtonWithText(
-            icon = Icons.Filled.Favorite, text = "MY FAVORITE MOVIES"
-        ) {
-            onFavoriteEventLayoutClicked()
-        }
-        IconButtonWithText(
             icon = Icons.Filled.Person2, text = "EDIT MY PROFILE"
         ) {
             onPersonalDataLayoutClicked()
         }
-
-        IconButtonWithText(
-            icon = Icons.Filled.NotificationsActive, text = "NOTIFICATIONS"
-        ) {}
     }
 }
 

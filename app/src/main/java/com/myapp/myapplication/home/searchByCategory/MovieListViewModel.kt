@@ -44,8 +44,4 @@ class MovieListViewModel(
             }
         }
     }
-
-    fun onLikedClicked() {
-        println("clicked on like")
-    }
 }
