@@ -14,9 +14,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,20 +37,14 @@ fun CategoryScreen(
     viewModel: CategoryViewModel,
     navController: NavController
 ) {
-    val categories by viewModel.uiState.collectAsState()
-    val errorMessage by viewModel.errorMessage.collectAsState()
+    val state = viewModel.uiState.collectAsState()
 
-    DisposableEffect(Unit) {
-        onDispose {}
-    }
-    MoviesList(navController = navController, categories = categories, errorMessage = errorMessage)
+    MoviesList(navController = navController, categories = state.value.genres)
 }
-
 @Composable
 private fun MoviesList(
     navController: NavController,
     categories: List<TmdbGenre>,
-    errorMessage: String
 ) {
     Box(
         Modifier
@@ -68,7 +60,6 @@ private fun MoviesList(
             CategoryList(
                 onItemClick = { genreId -> navController.navigate("movie_list_screen/$genreId") },
                 categories = categories,
-                errorMessage = errorMessage
             )
         }
     }
@@ -76,11 +67,8 @@ private fun MoviesList(
 
 @Composable
 private fun CategoryList(
-    categories: List<TmdbGenre>, onItemClick: (Int) -> Unit, errorMessage: String
+    categories: List<TmdbGenre>, onItemClick: (Int) -> Unit,
 ) {
-    if (errorMessage.isNotEmpty()) {
-        Text(text = "Error: $errorMessage", style = TextStyle(color = Color.Black))
-    } else {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -90,7 +78,7 @@ private fun CategoryList(
                 CategoryItem(category, onItemClick)
             }
         }
-    }
+
 }
 
 @Composable
@@ -142,7 +130,6 @@ fun Preview() {
     val navController = rememberNavController()
     MoviesList(
         navController = navController,
-        errorMessage = "",
         categories = listOf(
             TmdbGenre(1, "comedy"),
             TmdbGenre(3, "romance"),
