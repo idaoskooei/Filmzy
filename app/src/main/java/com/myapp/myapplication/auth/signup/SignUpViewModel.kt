@@ -3,6 +3,7 @@ package com.myapp.myapplication.auth.signup
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
@@ -14,6 +15,7 @@ import com.myapp.myapplication.auth.SIGN_UP_FAILED
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
 import com.myapp.myapplication.navigation.Destinations
+import com.myapp.myapplication.profile.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -120,6 +122,21 @@ class SignUpViewModel @Inject constructor(
     private fun isConfirmedPassValid(pass: String, confirmedPass: String): Boolean {
         val matcher = Pattern.compile(PASSWORD_REGEX).matcher(confirmedPass)
         return (pass == confirmedPass && matcher.matches())
+    }
+
+    companion object {
+        fun provideFactory(
+            repository: AuthRepository,
+            navController: NavController
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignUpViewModel(
+                    navController = navController,
+                    authRepository = repository
+                ) as T
+            }
+        }
     }
 
 }

@@ -1,7 +1,10 @@
 package com.myapp.myapplication.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.myapp.myapplication.auth.model.AuthRepository
+import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.navigation.Destinations
 
 class HomeViewModel(
@@ -23,4 +26,18 @@ class HomeViewModel(
     fun onProfileButtonClicked() {
         navController.navigate(Destinations.PROFILE_ROUTE)
     }
+
+    companion object{
+        fun provideFactory(
+            navController: NavController
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return HomeViewModel(
+                    navController = navController
+                ) as T
+            }
+        }
+    }
+
 }

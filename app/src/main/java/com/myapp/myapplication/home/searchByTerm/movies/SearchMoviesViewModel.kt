@@ -1,6 +1,8 @@
 package com.myapp.myapplication.home.searchByTerm.movies
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
@@ -18,8 +20,6 @@ class SearchMoviesViewModel(
     private val navController: NavController
 ) : ViewModel() {
 
-    private val _errorMessage = MutableStateFlow<String>("")
-    val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
 
     private val _uiState = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
@@ -31,7 +31,7 @@ class SearchMoviesViewModel(
                     _uiState.value = pagingData
                 }
             } catch (e: Exception) {
-                handleError(e)
+                Log.e("wtf", "something wrong clicked on search in search movies screen")
             }
         }
     }
@@ -42,12 +42,21 @@ class SearchMoviesViewModel(
                 val movieDetails = repository.getMovieDetails(movie.id)
                 navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")
             } catch (e: Exception) {
-                handleError(e)
+                Log.e("wtf", "something wrong when searching movies")
             }
         }
     }
-    private fun handleError(error: Throwable) {
-        _errorMessage.value = "An error occurred: ${error.message}"
+
+    companion object {
+        fun provideFactory(
+            repository: SearchRepository,
+            navController: NavController
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SearchMoviesViewModel(repository, navController) as T
+            }
+        }
     }
 }
 
