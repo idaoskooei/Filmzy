@@ -57,51 +57,68 @@ fun NavGraph(
         }
         composable(Destinations.SIGN_IN_ROUTE) {
             SignInScreen(
-                viewModel = SignInViewModel(
-                    authRepository = AuthRepository(),
-                    navController = navController
+                viewModel = viewModel(
+                    factory = SignInViewModel.provideFactory(
+                        navController = navController,
+                        repository = authRepository
+                    )
                 )
             )
         }
         composable(Destinations.SIGN_UP_ROUTE) {
             SignUpScreen(
-                viewModel = SignUpViewModel(
-                    authRepository = AuthRepository(),
-                    navController = navController
+                viewModel = viewModel(
+                    factory = SignUpViewModel.provideFactory(
+                        navController = navController,
+                        repository = authRepository
+                    )
                 )
             )
         }
         composable(Destinations.HOME_ROUTE) {
-            HomeScreen(viewModel = HomeViewModel(navController))
+            HomeScreen(
+                viewModel = viewModel(
+                    factory = HomeViewModel.provideFactory(
+                        navController
+                    )
+                )
+            )
         }
         composable(Destinations.PROFILE_ROUTE) {
             ProfileScreen(
-                viewModel = ProfileViewModel(
-                    navController,
-                    authRepository = authRepository
+                viewModel = viewModel(
+                    factory = ProfileViewModel.provideFactory(
+                        navController = navController,
+                        repository = authRepository
+                    )
                 )
             )
         }
         composable(Destinations.SEARCH_MOVIES_SCREEN_ROUTE) {
             SearchMoviesScreen(
-                viewModel = SearchMoviesViewModel(
-                    SearchRepository(
-                        retrofit.create(
-                            SearchRemoteService::class.java
+                viewModel = viewModel(
+                    factory = SearchMoviesViewModel.provideFactory(
+                        navController = navController,
+                        repository = SearchRepository(
+                            retrofit.create(
+                                SearchRemoteService::class.java
+                            )
                         )
-                    ), navController = navController
+                    )
                 )
             )
         }
         composable(Destinations.SEARCH_SHOWS_SCREEN_ROUTE) {
             SearchShowsScreen(
-                viewModel = SearchShowsViewModel(
-                    SearchRepository(
-                        retrofit.create(
-                            SearchRemoteService::class.java
-                        )
-                    ),
-                    navController = navController
+                viewModel = viewModel(
+                    factory = SearchShowsViewModel.provideFactory(
+                        repository = SearchRepository(
+                            retrofit.create(
+                                SearchRemoteService::class.java
+                            )
+                        ),
+                        navController = navController
+                    )
                 )
             )
         }
@@ -129,10 +146,14 @@ fun NavGraph(
                 throw IllegalArgumentException("MovieListScreen needs a {genreId} to operate!!")
             } else {
                 MovieListScreen(
-                    viewModel = MovieListViewModel(
-                        repository = SearchRepository(retrofit.create()),
-                        genre = genreId,
-                        navController = navController
+                    viewModel = viewModel(
+                        factory = MovieListViewModel.provideFactory(
+                            repository = SearchRepository(
+                                retrofit.create()
+                            ),
+                            navController = navController,
+                            genre = genreId
+                        )
                     )
                 )
             }

@@ -3,11 +3,13 @@ package com.myapp.myapplication.auth.signin
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
+import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -86,11 +88,22 @@ class SignInViewModel(
         return !(TextUtils.isEmpty(email)) && android.util.Patterns.EMAIL_ADDRESS.matcher(email)
             .matches()
     }
-
     companion object {
         private const val INVALID_EMAIL_ADDRESS_FORMAT_ERROR_MESSAGE =
             "PLEASE ENTER A VALID EMAIL ADDRESS"
         private const val INVALID_PASS_FORMAT_ERROR_MESSAGE = "PLEASE ENTER A VALID PASSWORD"
         private const val SIGN_IN_FAILED = "SIGN IN FAILED"
+        fun provideFactory(
+            repository: AuthRepository,
+            navController: NavController
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return SignInViewModel(
+                    navController = navController,
+                    authRepository = repository
+                ) as T
+            }
+        }
     }
 }

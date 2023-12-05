@@ -1,6 +1,7 @@
 package com.myapp.myapplication.home.searchByCategory
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
@@ -41,6 +42,19 @@ class MovieListViewModel(
                 navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")
             } catch (e: Exception) {
                 println(e.message)
+            }
+        }
+    }
+
+    companion object {
+        fun provideFactory(
+            repository: SearchRepository,
+            genre: Int,
+            navController: NavController
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MovieListViewModel(repository, genre, navController) as T
             }
         }
     }
