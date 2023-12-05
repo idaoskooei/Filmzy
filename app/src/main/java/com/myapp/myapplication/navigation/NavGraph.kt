@@ -1,6 +1,7 @@
 package com.myapp.myapplication.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -106,10 +107,12 @@ fun NavGraph(
         }
         composable(Destinations.CATEGORY_SCREEN_ROUTE) {
             CategoryScreen(
-                navController = navController, viewModel = CategoryViewModel(
-                    CategoryRepository(
-                        retrofit.create(
-                            CategoryRemoteService::class.java
+                navController = navController, viewModel = viewModel(
+                    factory = CategoryViewModel.provideFactory(
+                        CategoryRepository(
+                            retrofit.create(
+                                CategoryRemoteService::class.java
+                            )
                         )
                     )
                 )

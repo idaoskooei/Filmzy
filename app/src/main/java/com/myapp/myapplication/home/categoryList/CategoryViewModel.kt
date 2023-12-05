@@ -1,6 +1,8 @@
 package com.myapp.myapplication.home.categoryList
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +32,17 @@ class CategoryViewModel(private val repository: CategoryRepository) : ViewModel(
                 currentState.copy(
                     genres = repository.getGenres()
                 )
+            }
+        }
+    }
+
+    companion object {
+        fun provideFactory(
+            categoryRepository: CategoryRepository,
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return CategoryViewModel(categoryRepository) as T
             }
         }
     }
