@@ -147,11 +147,13 @@ fun NavGraph(
                 throw IllegalArgumentException("MovieDetailScreen needs an {id} to operate!!")
             } else {
                 MovieDetailsScreen(
-                    viewModel = MovieDetailsViewModel(
-                        SearchRepository(
-                            retrofit.create(SearchRemoteService::class.java)
-                        ),
-                        id = id
+                    viewModel = viewModel(
+                        factory = MovieDetailsViewModel.provideFactory(
+                            id = id,
+                            repository = SearchRepository(
+                                retrofit.create(SearchRemoteService::class.java)
+                            )
+                        )
                     )
                 )
             }
