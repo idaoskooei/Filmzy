@@ -168,11 +168,13 @@ fun NavGraph(
                 throw IllegalArgumentException("TvShow detail screen needs an {id} to operate!!")
             } else {
                 ShowDetailScreen(
-                    viewModel = ShowDetailViewModel(
-                        SearchRepository(
-                            retrofit.create(SearchRemoteService::class.java)
-                        ),
-                        id = id
+                    viewModel = viewModel(
+                        factory = ShowDetailViewModel.provideFactory(
+                            repository = SearchRepository(
+                                retrofit.create(SearchRemoteService::class.java)
+                            ),
+                            id = id
+                        )
                     )
                 )
             }
