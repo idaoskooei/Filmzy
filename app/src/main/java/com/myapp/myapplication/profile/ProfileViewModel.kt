@@ -21,6 +21,10 @@ class ProfileViewModel(
         navController.navigate(Destinations.INTRO_ROUTE)
     }
 
+    fun onTestClicked() {
+        navController.navigate(Destinations.ADD_PIC_SCREEN)
+    }
+
     companion object {
         fun provideFactory(
             repository: AuthRepository,

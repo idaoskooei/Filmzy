@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.myapp.myapplication.AddPicScreen
+import com.myapp.myapplication.AddPicViewModel
 import com.myapp.myapplication.CategoryPicker
 import com.myapp.myapplication.RandomMovieScreen
 import com.myapp.myapplication.RandomMovieViewModel
@@ -240,6 +242,15 @@ fun NavGraph(
                     )
                 )
             }
+        }
+        composable(route = Destinations.ADD_PIC_SCREEN) {
+            AddPicScreen(
+                viewModel = viewModel(
+                    factory = AddPicViewModel.provideFactory(
+                        navController = navController
+                    )
+                )
+            )
         }
     }
 }

@@ -30,7 +30,7 @@ class HomeViewModel(
         navController.navigate(Destinations.PROFILE_ROUTE)
     }
 
-    companion object{
+    companion object {
         fun provideFactory(
             navController: NavController
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {

@@ -27,10 +27,10 @@ import com.myapp.myapplication.R
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
-import com.myapp.myapplication.composables.CircularImageView
 import com.myapp.myapplication.composables.HorizontalDivider
 import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.composables.IconButtonWithText
+import com.myapp.myapplication.composables.ProfileImage
 
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel) {
@@ -54,7 +54,9 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
                 ProfileImage()
                 UserDetail(displayName = displayName)
                 HorizontalDivider()
-                ProfileContents() {}
+                ProfileContents {
+                    viewModel.onTestClicked()
+                }
                 SignOutButton(onSignOut = { viewModel.onSignOutButtonClicked() })
             }
         }
@@ -79,17 +81,6 @@ private fun NavigationButton(viewModel: ProfileViewModel) {
     }
 }
 
-@Composable
-private fun ProfileImage() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        CircularImageView(imageUri = "", size = 200.dp) {}
-    }
-}
 
 @Composable
 fun UserDetail(displayName: String) {
