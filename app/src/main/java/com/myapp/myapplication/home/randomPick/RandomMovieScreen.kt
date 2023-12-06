@@ -1,4 +1,4 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.home.randomPick
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.ImageView

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.home.searchByTerm.shows.TVShowResponse
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,7 @@ class ShowDetailViewModel(
     val uiState: StateFlow<TVShowResponse?> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val details = repository.getTvShowDetails(id)
                 _uiState.value = details

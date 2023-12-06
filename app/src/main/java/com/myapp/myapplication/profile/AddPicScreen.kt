@@ -1,4 +1,4 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.profile
 
 import android.Manifest
 import android.os.Build
@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.ProfileImage

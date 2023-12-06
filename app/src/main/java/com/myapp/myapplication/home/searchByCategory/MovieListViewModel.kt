@@ -9,6 +9,7 @@ import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.navigation.Destinations
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +26,7 @@ class MovieListViewModel(
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.searchMoviesByGenre(genre).collectLatest { pagingData ->
                     _uiState.value = pagingData
@@ -37,7 +38,7 @@ class MovieListViewModel(
     }
 
     fun onMovieClicked(movie: Movie) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val movieDetails = repository.getMovieDetails(movie.id)
                 navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")

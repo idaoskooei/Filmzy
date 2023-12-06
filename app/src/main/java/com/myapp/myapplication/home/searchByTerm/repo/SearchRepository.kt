@@ -42,6 +42,6 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
     }
 
     suspend fun getMovieRecommendationByGenre(id: Int): MovieResponse {
-        return remoteService.getMovieRecommendationByGenre(genreId = id, includeAdult = true)
+        return remoteService.getMovieRecommendationByGenre(genreId = id, includeAdult = false)
     }
 }

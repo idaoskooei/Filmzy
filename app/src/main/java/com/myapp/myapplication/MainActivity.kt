@@ -39,5 +39,5 @@ val client = OkHttpClient.Builder().addNetworkInterceptor(Interceptor { chain ->
     .build()
 
 
-val retrofit = Retrofit.Builder().client(client).baseUrl(BASE_URL)
+val retrofit: Retrofit = Retrofit.Builder().client(client).baseUrl(BASE_URL)
     .addConverterFactory(GsonConverterFactory.create()).build()
