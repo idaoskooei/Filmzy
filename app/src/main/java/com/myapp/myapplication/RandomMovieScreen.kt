@@ -67,7 +67,7 @@ private fun ScreenContent(
     state.randomMovie?.let {
         TextInfo("Title:  ${it.title}", Icons.Filled.Title)
         TextInfo("Release Date:  ${it.releaseDate}", Icons.Filled.DateRange)
-        TextInfo("Duration:  ${it.duration} minutes", Icons.Filled.Timer)
+//        TextInfo("Duration:  ${it.duration} minutes", Icons.Filled.Timer)
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
     Spacer(modifier = Modifier.height(16.dp))
