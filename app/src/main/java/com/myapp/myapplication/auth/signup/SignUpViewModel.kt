@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.INVALID_EMAIL_ADDRESS_FORMAT
 import com.myapp.myapplication.auth.INVALID_PASS_FORMAT
@@ -15,7 +16,6 @@ import com.myapp.myapplication.auth.SIGN_UP_FAILED
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
 import com.myapp.myapplication.navigation.Destinations
-import com.myapp.myapplication.profile.ProfileViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -28,11 +28,13 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val navController: NavController
-) : ViewModel() {
+) : FilmzyViewModel() {
 
     private val viewModelState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = viewModelState.stateIn(
-        scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState()
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = UiState()
     )
 
     data class UiState(

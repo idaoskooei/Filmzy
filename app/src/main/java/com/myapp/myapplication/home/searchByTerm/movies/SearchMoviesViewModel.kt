@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.navigation.Destinations
@@ -18,8 +19,7 @@ import kotlinx.coroutines.launch
 class SearchMoviesViewModel(
     private val repository: SearchRepository,
     private val navController: NavController
-) : ViewModel() {
-
+) : FilmzyViewModel() {
 
     private val _uiState = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()

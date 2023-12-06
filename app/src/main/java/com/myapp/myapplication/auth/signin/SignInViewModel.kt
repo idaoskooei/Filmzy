@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.auth.FILL_IN_BOTH_FIELDS
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.model.ResponseState
-import com.myapp.myapplication.auth.signup.SignUpViewModel
 import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,11 +22,13 @@ import kotlinx.coroutines.launch
 class SignInViewModel(
     private val authRepository: AuthRepository,
     private val navController: NavController
-) : ViewModel() {
+) : FilmzyViewModel() {
 
     private val viewModelState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = viewModelState.stateIn(
-        scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = UiState()
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = UiState()
     )
 
     data class UiState(
