@@ -3,8 +3,6 @@ package com.myapp.myapplication.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import com.myapp.myapplication.auth.model.AuthRepository
-import com.myapp.myapplication.auth.signin.SignInViewModel
 import com.myapp.myapplication.navigation.Destinations
 
 class HomeViewModel(
@@ -23,9 +21,10 @@ class HomeViewModel(
         navController.navigate(Destinations.CATEGORY_SCREEN_ROUTE)
     }
 
-    fun onSpinTheWheelButtonClicked() {
+    fun onPickRandomButtonClicked() {
         navController.navigate(Destinations.CATEGORY_PICKER_SCREEN)
     }
+
     fun onProfileButtonClicked() {
         navController.navigate(Destinations.PROFILE_ROUTE)
     }

@@ -10,21 +10,21 @@ interface SearchRemoteService {
     @GET("search/movie")
     suspend fun searchMovies(
         @Query("query") query: String,
-        @Query("include_adult") includeAdult: Boolean = true,
+        @Query("include_adult") includeAdult: Boolean,
         @Query("page") page: Int
     ): MovieResponse
 
     @GET("search/tv")
     suspend fun searchTv(
         @Query("query") query: String,
-        @Query("include_adult") includeAdult: Boolean = true,
+        @Query("include_adult") includeAdult: Boolean,
         @Query("page") page: Int
     ): TVShowResponse
 
     @GET("discover/movie")
     suspend fun searchMoviesByGenre(
         @Query("with_genres") genreId: Int,
-        @Query("include_adult") includeAdult: Boolean = true,
+        @Query("include_adult") includeAdult: Boolean,
         @Query("page") page: Int
     ): MovieResponse
 

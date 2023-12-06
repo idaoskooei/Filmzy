@@ -47,7 +47,6 @@ fun MovieItem(movie: Movie, onClick: (Movie) -> Unit, showImage: Boolean) {
             Spacer(modifier = Modifier.height(8.dp))
             TitleTextView(movie)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Adult: ${movie.adult}")
             Text(text = "Overview: ${movie.overview}")
             Spacer(modifier = Modifier.height(8.dp))
         }

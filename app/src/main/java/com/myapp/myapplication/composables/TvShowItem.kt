@@ -45,7 +45,7 @@ fun ShowItem(show: TVShow, onClick: (TVShow) -> Unit, showImage: Boolean) {
             Spacer(modifier = Modifier.height(8.dp))
             TitleTextView(show)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Adult: ${show.adult}")
+
             Text(text = "Overview: ${show.overview}")
             Spacer(modifier = Modifier.height(8.dp))
         }
