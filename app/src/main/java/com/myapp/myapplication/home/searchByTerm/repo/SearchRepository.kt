@@ -16,7 +16,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 
 class SearchRepository(private val remoteService: SearchRemoteService) {
-
     @OptIn(DelicateCoroutinesApi::class)
     fun getMoviesSearchResults(searchTerm: String): Flow<PagingData<Movie>> =
         Pager(config = getPagingConfig()) {
@@ -40,5 +39,9 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
 
     suspend fun getTvShowDetails(id: Int): TVShowResponse {
         return remoteService.getTvShowDetails(id)
+    }
+
+    suspend fun getMovieRecommendationByGenre(id: Int): MovieResponse {
+        return remoteService.getMovieRecommendationByGenre(genreId = id, includeAdult = true)
     }
 }

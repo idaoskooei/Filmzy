@@ -13,7 +13,7 @@ class MoviePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return try {
             val currentPage = params.key ?: 1
-            val response = remoteService.searchMovies(query = searchTerm, page = currentPage)
+            val response = remoteService.searchMovies(query = searchTerm, page = currentPage, includeAdult = false)
             val movies = response.results
 
             LoadResult.Page(

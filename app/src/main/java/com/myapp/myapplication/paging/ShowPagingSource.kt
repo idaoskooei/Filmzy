@@ -13,7 +13,8 @@ class ShowPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TVShow> {
         return try {
             val currentPage = params.key ?: 1
-            val response = remoteService.searchTv(query = searchTerm, page = currentPage)
+            val response =
+                remoteService.searchTv(query = searchTerm, page = currentPage, includeAdult = false)
             val movies = response.results
 
             LoadResult.Page(

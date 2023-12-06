@@ -48,7 +48,7 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
 }
 
 @Composable
-private fun ScreenContent(details: State<MovieResponse?>) {
+fun ScreenContent(details: State<MovieResponse?>) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +65,7 @@ private fun ScreenContent(details: State<MovieResponse?>) {
 }
 
 @Composable
-private fun MovieDetailsHeader(details: State<MovieResponse?>) {
+fun MovieDetailsHeader(details: State<MovieResponse?>) {
     ImageView(posterPath = details.value?.fullPosterPath ?: "")
     Spacer(modifier = Modifier.padding(25.dp))
     HorizontalDivider()
@@ -73,7 +73,7 @@ private fun MovieDetailsHeader(details: State<MovieResponse?>) {
 }
 
 @Composable
-private fun MovieDetailsInfo(details: State<MovieResponse?>) {
+fun MovieDetailsInfo(details: State<MovieResponse?>) {
     details.value?.let {
         TextInfo("Title:  ${it.title}", Icons.Filled.Title)
         TextInfo("Release Date:  ${it.releaseDate}", Icons.Filled.DateRange)

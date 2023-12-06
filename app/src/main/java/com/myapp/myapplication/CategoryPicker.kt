@@ -8,14 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CategoryList
 import com.myapp.myapplication.composables.IntroText
 import com.myapp.myapplication.home.categoryList.CategoryViewModel
+import com.myapp.myapplication.navigation.Destinations
 
 @Composable
-fun CategoryPicker(viewModel: CategoryViewModel) {
-
+fun CategoryPicker(
+    viewModel: CategoryViewModel,
+    navController: NavController
+) {
     val state = viewModel.uiState.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -29,9 +33,9 @@ fun CategoryPicker(viewModel: CategoryViewModel) {
                     .fillMaxSize()
                     .padding(10.dp)
             ) {
-                IntroText(text = "choose a category and spin the wheel!")
+                IntroText(text = "choose a category to see a random movie recommendation!")
                 CategoryList(
-                    onItemClick = {},
+                    onItemClick = { genreId -> navController.navigate("${Destinations.RANDOM_MOVIE_SCREEN}/$genreId") },
                     categories = state.value.genres,
                 )
             }

@@ -68,8 +68,8 @@ fun HomeScreen(viewModel: HomeViewModel) {
                             onClick = { viewModel.onCategoryButtonClicked() }
                         )
                         ChoicesButton(
-                            text = "SPIN THE WHEEL",
-                            onClick = { viewModel.onSpinTheWheelButtonClicked() })
+                            text = "PICK A RANDOM MOVIE",
+                            onClick = { viewModel.onPickRandomButtonClicked() })
                     }
                     Spacer(modifier = Modifier.padding(10.dp))
                     Row(
