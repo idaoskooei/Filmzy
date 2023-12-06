@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.myapp.myapplication.CategoryPicker
 import com.myapp.myapplication.auth.IntroScreen
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.signin.SignInScreen
@@ -128,6 +129,19 @@ fun NavGraph(
                     factory = CategoryViewModel.provideFactory(
                         CategoryRepository(
                             retrofit.create(
+                                CategoryRemoteService::class.java
+                            )
+                        )
+                    )
+                )
+            )
+        }
+        composable(Destinations.CATEGORY_PICKER_SCREEN) {
+            CategoryPicker(
+                viewModel = viewModel(
+                    factory = CategoryViewModel.provideFactory(
+                        categoryRepository = CategoryRepository(
+                            remoteService = retrofit.create(
                                 CategoryRemoteService::class.java
                             )
                         )

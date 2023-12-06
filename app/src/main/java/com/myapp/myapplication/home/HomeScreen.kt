@@ -69,7 +69,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         )
                         ChoicesButton(
                             text = "SPIN THE WHEEL",
-                            onClick = {})
+                            onClick = { viewModel.onSpinTheWheelButtonClicked() })
                     }
                     Spacer(modifier = Modifier.padding(10.dp))
                     Row(

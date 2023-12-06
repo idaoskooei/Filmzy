@@ -23,6 +23,9 @@ class HomeViewModel(
         navController.navigate(Destinations.CATEGORY_SCREEN_ROUTE)
     }
 
+    fun onSpinTheWheelButtonClicked() {
+        navController.navigate(Destinations.CATEGORY_PICKER_SCREEN)
+    }
     fun onProfileButtonClicked() {
         navController.navigate(Destinations.PROFILE_ROUTE)
     }
