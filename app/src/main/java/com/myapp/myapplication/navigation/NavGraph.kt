@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.myapp.myapplication.CategoryPicker
+import com.myapp.myapplication.RandomMovieScreen
+import com.myapp.myapplication.RandomMovieViewModel
 import com.myapp.myapplication.auth.IntroScreen
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.signin.SignInScreen
@@ -146,8 +148,33 @@ fun NavGraph(
                             )
                         )
                     )
-                )
+                ),
+                navController = navController
             )
+        }
+        composable(
+            "${Destinations.RANDOM_MOVIE_SCREEN}/{genreId}",
+            arguments = listOf(navArgument("genreId") {
+                type = NavType.IntType
+            })
+        ) { backStackEntry ->
+            val genreId = backStackEntry.arguments?.getInt("genreId") ?: 0
+            if (genreId == 0) {
+                throw IllegalArgumentException("random movie screen needs a {genreId} to operate!!")
+            } else {
+                RandomMovieScreen(
+                    viewModel = viewModel(
+                        factory = RandomMovieViewModel.provideFactory(
+                            repository = SearchRepository(
+                                retrofit.create(SearchRemoteService::class.java)
+
+                            )
+                        )
+                    ),
+                    categoryId = genreId,
+                    navController = navController
+                )
+            }
         }
         composable("movie_list_screen/{genreId}", arguments = listOf(navArgument("genreId") {
             type = NavType.IntType

@@ -7,7 +7,7 @@ import com.myapp.myapplication.home.categoryList.TmdbGenre
 data class Movie(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String?,
-    @SerializedName("overview") val overview: String?,
+    @SerializedName("overview") val overview: String,
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("release_date") val releaseDate: String?,
     @SerializedName("adult") val adult: Boolean,

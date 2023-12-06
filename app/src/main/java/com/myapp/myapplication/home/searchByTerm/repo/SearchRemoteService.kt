@@ -28,6 +28,12 @@ interface SearchRemoteService {
         @Query("page") page: Int
     ): MovieResponse
 
+    @GET("discover/movie")
+    suspend fun getMovieRecommendationByGenre(
+        @Query("with_genres") genreId: Int,
+        @Query("include_adult") includeAdult: Boolean
+    ): MovieResponse
+
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") id: Int
