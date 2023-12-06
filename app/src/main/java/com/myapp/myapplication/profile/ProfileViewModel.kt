@@ -3,13 +3,14 @@ package com.myapp.myapplication.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.navigation.Destinations
 
 class ProfileViewModel(
     private val navController: NavController,
     private val authRepository: AuthRepository
-) : ViewModel() {
+) : FilmzyViewModel() {
 
     fun onProfileButtonClicked() {
         navController.navigate(Destinations.HOME_ROUTE)

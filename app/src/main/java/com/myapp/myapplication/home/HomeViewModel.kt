@@ -3,11 +3,12 @@ package com.myapp.myapplication.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.navigation.Destinations
 
 class HomeViewModel(
     private val navController: NavController
-) : ViewModel() {
+) : FilmzyViewModel() {
 
     fun onSearchMoviesButtonClicked() {
         navController.navigate(Destinations.SEARCH_MOVIES_SCREEN_ROUTE)

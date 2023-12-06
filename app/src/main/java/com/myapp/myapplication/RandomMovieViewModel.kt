@@ -3,7 +3,6 @@ package com.myapp.myapplication
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class RandomMovieViewModel(private val repository: SearchRepository) : ViewModel() {
+class RandomMovieViewModel(
+    private val repository: SearchRepository
+) : FilmzyViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
@@ -24,7 +25,7 @@ class RandomMovieViewModel(private val repository: SearchRepository) : ViewModel
     )
 
     fun pickRandomMovie(categoryId: Int) {
-        viewModelScope.launch {
+        launch {
             try {
                 val movies = repository.getMovieRecommendationByGenre(categoryId)
 

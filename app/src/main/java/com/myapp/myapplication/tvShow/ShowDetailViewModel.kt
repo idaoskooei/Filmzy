@@ -1,9 +1,9 @@
 package com.myapp.myapplication.tvShow
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.home.searchByTerm.shows.TVShowResponse
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +12,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ShowDetailViewModel(
-    private val repository: SearchRepository, private val id: Int
-) : ViewModel() {
+    private val repository: SearchRepository,
+    private val id: Int
+) : FilmzyViewModel() {
 
     private val _uiState = MutableStateFlow<TVShowResponse?>(null)
     val uiState: StateFlow<TVShowResponse?> = _uiState.asStateFlow()
