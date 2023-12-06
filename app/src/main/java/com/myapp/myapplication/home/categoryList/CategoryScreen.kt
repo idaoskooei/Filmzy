@@ -1,17 +1,11 @@
 package com.myapp.myapplication.home.categoryList
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,7 +23,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
-import com.myapp.myapplication.ui.theme.customBackgroundColor
+import com.myapp.myapplication.composables.CategoryList
+import com.myapp.myapplication.composables.IntroText
 
 
 @Composable
@@ -56,7 +51,7 @@ private fun MoviesList(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-            IntroText()
+            IntroText(text = "Choose a category to see movie recommendations!")
             CategoryList(
                 onItemClick = { genreId -> navController.navigate("movie_list_screen/$genreId") },
                 categories = categories,
@@ -65,64 +60,9 @@ private fun MoviesList(
     }
 }
 
-@Composable
-private fun CategoryList(
-    categories: List<TmdbGenre>, onItemClick: (Int) -> Unit,
-) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Transparent)
-        ) {
-            items(categories) { category ->
-                CategoryItem(category, onItemClick)
-            }
-        }
 
-}
 
-@Composable
-fun CategoryItem(category: TmdbGenre, onItemClick: (Int) -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .clickable { onItemClick(category.id) },
-        colors = CardDefaults.cardColors(
-            containerColor = customBackgroundColor
-        )
-    ) {
-        Text(
-            text = category.name,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            style = TextStyle(
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 18.sp,
-                color = Color.Black
-            )
-        )
-    }
-}
 
-@Composable
-private fun IntroText() {
-    Text(
-        text = "Choose a category to see movie recommendations!",
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(30.dp)
-            .wrapContentSize(Alignment.Center),
-        textAlign = TextAlign.Center,
-        style = TextStyle(
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Bold,
-            fontSize = 19.sp,
-            color = Color.Black
-        )
-    )
-}
 
 @Composable
 @Preview(showBackground = true)

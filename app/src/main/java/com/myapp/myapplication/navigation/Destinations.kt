@@ -11,4 +11,5 @@ object Destinations {
     const val CATEGORY_SCREEN_ROUTE = "category_screen"
     const val MOVIE_DETAIL_SCREEN = "movie_detail_screen"
     const val TV_SHOW_DETAIL_SCREEN = "show_detail_screen"
+    const val CATEGORY_PICKER_SCREEN = "category_picker_screen"
 }
