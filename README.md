@@ -5,11 +5,10 @@ Filmzy is your personalized movie companion, helping you discover and enjoy the 
 
 ## Features
 - **Account Creation:** Sign up and create your Filmzy account to unlock personalized movie recommendations.
-- **Favorite Movies:** Like and save your favorite movies for quick access and personalized recommendations.
 - **Profile Customization:** Personalize your profile with your name and image for a unique Filmzy experience.
 - **Category Search:** Explore movies by categories to find new gems in your favorite genres.
 - **Text Search:** Search for movies by typing the name directly, making it easy to find specific titles.
-- **Spin the Wheel:** Let Filmzy surprise you by spinning the wheel for random movie recommendations.
+- **Random Pick:** Let Filmzy surprise you by choosing a movie for you based on your chosen category!
 
 
 ## Getting Started
@@ -25,17 +24,14 @@ Filmzy is your personalized movie companion, helping you discover and enjoy the 
 1. Navigate to the Profile section.
 2. Edit your profile with your name and an image of your choice.
 
-### Movie Likings
-1. Browse movies and click the 'Like' button to save your favorites.
-
 ### Search Options
 - **Category Search:** Explore movies by categories in the dedicated section.
-- **Text Search:** Use the search bar to find movies by typing their names.
-- **Spin the Wheel:** Add an element of surprise by spinning the wheel for random movie suggestions.
+- **Text Search:** Use the search bar to find movies and shows by typing their names.
+- **Random pick:** Choose a category of your linking and get a random movie recommendation!
 
 
 ### Contact Information
-For further assistance, contact our support team at idaoskooei@lavista.studio.
+If you would like more help, please contact our support team at idaoskooei@lavista.studio.
 
 
 ## About the Author
