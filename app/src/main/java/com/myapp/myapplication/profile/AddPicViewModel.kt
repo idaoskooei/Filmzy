@@ -1,5 +1,6 @@
 package com.myapp.myapplication.profile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -26,7 +27,7 @@ import java.io.IOException
 
 class AddPicViewModel(
     private val navController: NavController,
-    private val context: Context
+    @SuppressLint("StaticFieldLeak") private val context: Context
 ) : FilmzyViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())

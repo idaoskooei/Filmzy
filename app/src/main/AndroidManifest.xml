@@ -19,7 +19,6 @@
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="tiramisu">
 
-        <!-- FileProvider setup -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.myapp.myapplication.provider"
