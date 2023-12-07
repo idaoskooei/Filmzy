@@ -20,15 +20,3 @@ fun ProfileImage() {
         CircularImageView(imageUri = "", size = 200.dp) {}
     }
 }
-
-@Composable
-fun ProfileImage(bmp: Bitmap?) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        CircularImageView(imageUri = "", size = 200.dp) {}
-    }
-}

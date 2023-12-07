@@ -1,5 +1,6 @@
 package com.myapp.myapplication.composables
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,6 +38,36 @@ fun CircularImageView(imageUri: String?, size: Dp, onClick: () -> Unit) {
         } else {
             rememberAsyncImagePainter(model = imageUri)
         }
+        Image(
+            contentScale = ContentScale.Crop,
+            painter = painter,
+            contentDescription = "",
+            modifier = Modifier
+                .size(size)
+                .background(Color.White, RoundedCornerShape(40.dp))
+                .clickable { onClick() }
+        )
+    }
+}
+
+@Composable
+fun CircularImageView(bmp: Bitmap?, size: Dp, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .padding(20.dp)
+            .clip(RoundedCornerShape(40.dp))
+            .border(2.dp, Color.Gray, RoundedCornerShape(40.dp)),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
+    ) {
+        val painter =
+            if (bmp?.width != null && bmp.width > 0 && bmp.height > 0) {
+                rememberAsyncImagePainter(model = bmp)
+            } else {
+                painterResource(id = R.drawable.logo)
+            }
+
         Image(
             contentScale = ContentScale.Crop,
             painter = painter,

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:name=".MyApplication"
@@ -15,6 +18,18 @@
         android:theme="@style/Theme.MyApplication"
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="tiramisu">
+
+        <!-- FileProvider setup -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.myapp.myapplication.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
