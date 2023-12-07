@@ -43,7 +43,7 @@ class SearchShowsViewModel(
     }
 
     fun onTvShowClicked(tvShow: TVShow) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val showDetails = repository.getTvShowDetails(tvShow.id)
                 navController.navigate("${Destinations.TV_SHOW_DETAIL_SCREEN}/${showDetails.id}")

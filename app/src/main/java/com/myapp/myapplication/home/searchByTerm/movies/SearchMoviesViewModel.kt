@@ -42,7 +42,7 @@ class SearchMoviesViewModel(
     }
 
     fun onMovieClicked(movie: Movie) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch{
             try {
                 val movieDetails = repository.getMovieDetails(movie.id)
                 navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")
