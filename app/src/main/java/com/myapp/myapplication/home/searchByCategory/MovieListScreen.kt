@@ -2,9 +2,15 @@ package com.myapp.myapplication.home.searchByCategory
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -14,6 +20,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
+import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.composables.MovieItem
 import com.myapp.myapplication.model.Movie
 
@@ -23,13 +30,20 @@ fun MovieListScreen(
 ) {
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
-    MoviesList(movies = movies,
-        onMovieClick = { viewModel.onMovieClicked(it) })
+    MoviesList(
+        movies = movies,
+        onMovieClick = { viewModel.onMovieClicked(it) },
+        onHomeClick = { viewModel.onHomeButtonClicked() },
+        onBackClick = { viewModel.onBackButtonClicked() }
+    )
 }
 
 @Composable
 private fun MoviesList(
-    movies: LazyPagingItems<Movie>, onMovieClick: (Movie) -> Unit
+    movies: LazyPagingItems<Movie>,
+    onMovieClick: (Movie) -> Unit,
+    onHomeClick: () -> Unit,
+    onBackClick: () -> Unit
 ) {
     Box {
         BackgroundImage(id = R.drawable.untitled_design)
@@ -38,17 +52,36 @@ private fun MoviesList(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
+            TopBarButtons(onBackClick, onHomeClick)
             LazyColumn {
                 items(movies.itemCount) { index ->
                     val movie = movies[index]
                     if (movie != null) {
-                        MovieItem(movie = movie,
+                        MovieItem(
+                            movie = movie,
                             onClick = { onMovieClick(movie) },
                             showImage = false,
                         )
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun TopBarButtons(onBackClick: () -> Unit, onHomeClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+        IconButton(icon = Icons.Filled.ArrowBack, contentDescription = "back") {
+            onBackClick()
+        }
+        Spacer(modifier = Modifier.padding(5.dp))
+        IconButton(icon = Icons.Filled.Home, contentDescription = "home") {
+            onHomeClick()
         }
     }
 }

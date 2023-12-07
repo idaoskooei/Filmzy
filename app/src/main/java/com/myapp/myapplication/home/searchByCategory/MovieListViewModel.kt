@@ -48,6 +48,14 @@ class MovieListViewModel(
         }
     }
 
+    fun onHomeButtonClicked() {
+        navController.navigate(Destinations.HOME_ROUTE)
+    }
+
+    fun onBackButtonClicked() {
+        navController.popBackStack()
+    }
+
     companion object {
         fun provideFactory(
             repository: SearchRepository,

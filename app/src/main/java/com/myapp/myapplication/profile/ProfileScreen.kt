@@ -40,7 +40,6 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
