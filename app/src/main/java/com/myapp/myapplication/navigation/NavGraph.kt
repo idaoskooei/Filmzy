@@ -219,7 +219,8 @@ fun NavGraph(
                                 retrofit.create(SearchRemoteService::class.java)
                             )
                         )
-                    )
+                    ),
+                    navController = navController
                 )
             }
         }
