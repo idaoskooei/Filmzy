@@ -1,5 +1,6 @@
 package com.myapp.myapplication.profile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -15,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.myapp.myapplication.FilmzyViewModel
-import com.myapp.myapplication.navigation.Destinations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +26,7 @@ import java.io.IOException
 
 class AddPicViewModel(
     private val navController: NavController,
-    private val context: Context
+    @SuppressLint("StaticFieldLeak") private val context: Context
 ) : FilmzyViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -116,7 +116,7 @@ class AddPicViewModel(
 
 
     fun onSaveButtonClicked(bitmap: Bitmap) {
-        navController.navigate(Destinations.PROFILE_ROUTE)
+        navController.popBackStack()
     }
 
     companion object {

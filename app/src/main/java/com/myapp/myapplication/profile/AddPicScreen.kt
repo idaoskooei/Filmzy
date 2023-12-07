@@ -1,14 +1,15 @@
 package com.myapp.myapplication.profile
 
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,12 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CircularImageView
+import com.myapp.myapplication.composables.IconButtonWithText
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -30,8 +33,6 @@ fun AddPicScreen(viewModel: AddPicViewModel) {
 
     val uiState by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
-    val galleryPermissionState =
-        rememberPermissionState(android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
     Box(
         modifier = Modifier
@@ -42,37 +43,48 @@ fun AddPicScreen(viewModel: AddPicViewModel) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             CircularImageView(bmp = uiState.value.showImage, size = 200.dp) {}
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                ActionButton(onClick = {
-                    if (cameraPermissionState.status.isGranted) {
-                        viewModel.openCamera()
-                    } else {
-                        cameraPermissionState.launchPermissionRequest()
-                    }
-                }, text = "OPEN CAMERA")
-                Spacer(modifier = Modifier.padding(10.dp))
-                ActionButton(onClick = {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        viewModel.openGallery()
-                    } else {
-                        galleryPermissionState.launchPermissionRequest()
-                    }
-                }, text = "OPEN GALLERY")
-            }
-
+            CameraAndGalleryButtons(
+                onGalleryClick = { viewModel.openGallery() },
+                onCameraClick = { viewModel.openCamera() },
+                cameraPermissionState = cameraPermissionState,
+            )
             ActionButton(text = "SAVE", onClick = {
                 uiState.value.showImage?.let { bitmap ->
                     viewModel.onSaveButtonClicked(bitmap)
                 }
             })
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalPermissionsApi::class)
+private fun CameraAndGalleryButtons(
+    cameraPermissionState: PermissionState,
+    onCameraClick: () -> Unit,
+    onGalleryClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconButtonWithText(icon = Icons.Filled.CameraAlt, text = "OPEN CAMERA") {
+            if (cameraPermissionState.status.isGranted) {
+                onCameraClick()
+            } else {
+                cameraPermissionState.launchPermissionRequest()
+            }
+        }
+        Spacer(modifier = Modifier.padding(10.dp))
+        IconButtonWithText(icon = Icons.Filled.PhotoLibrary, text = "OPEN GALLERY") {
+            onGalleryClick()
         }
     }
 }
