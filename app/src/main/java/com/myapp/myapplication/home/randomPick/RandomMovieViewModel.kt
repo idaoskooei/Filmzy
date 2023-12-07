@@ -1,10 +1,12 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.home.randomPick
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +27,7 @@ class RandomMovieViewModel(
     )
 
     fun pickRandomMovie(categoryId: Int) {
-        launch {
+        launch(Dispatchers.IO) {
             try {
                 val movies = repository.getMovieRecommendationByGenre(categoryId)
 

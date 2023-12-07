@@ -35,7 +35,9 @@ fun SearchMoviesScreen(
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
                 SearchBar(viewModel)
-                SearchResult(movies, onClick = { viewModel.onMovieClicked(it) })
+                SearchResult(
+                    movies = movies,
+                    onClick = { viewModel.onMovieClicked(it) })
             }
         }
     }
@@ -67,7 +69,7 @@ private fun SearchBar(viewModel: SearchMoviesViewModel) {
         SearchTextField(
             value = search,
             onValueChanged = { search = it },
-            onDismissed = { },
+            onDismissed = {},
             onSearchClick = { viewModel.onSearchClicked(search) },
             label = "Enter Movie Name"
         )

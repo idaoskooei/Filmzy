@@ -1,6 +1,7 @@
 package com.myapp.myapplication.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -8,9 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.myapp.myapplication.CategoryPicker
-import com.myapp.myapplication.RandomMovieScreen
-import com.myapp.myapplication.RandomMovieViewModel
 import com.myapp.myapplication.auth.IntroScreen
 import com.myapp.myapplication.auth.model.AuthRepository
 import com.myapp.myapplication.auth.signin.SignInScreen
@@ -23,6 +21,9 @@ import com.myapp.myapplication.home.categoryList.CategoryScreen
 import com.myapp.myapplication.home.categoryList.CategoryViewModel
 import com.myapp.myapplication.home.categoryList.repo.CategoryRemoteService
 import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
+import com.myapp.myapplication.home.randomPick.CategoryPicker
+import com.myapp.myapplication.home.randomPick.RandomMovieScreen
+import com.myapp.myapplication.home.randomPick.RandomMovieViewModel
 import com.myapp.myapplication.home.searchByCategory.MovieListScreen
 import com.myapp.myapplication.home.searchByCategory.MovieListViewModel
 import com.myapp.myapplication.home.searchByTerm.movies.SearchMoviesScreen
@@ -33,6 +34,8 @@ import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsScreen
 import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
 import com.myapp.myapplication.movie.MovieDetailsScreen
 import com.myapp.myapplication.movie.MovieDetailsViewModel
+import com.myapp.myapplication.profile.AddPicScreen
+import com.myapp.myapplication.profile.AddPicViewModel
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.retrofit
@@ -240,6 +243,17 @@ fun NavGraph(
                     )
                 )
             }
+        }
+        composable(route = Destinations.ADD_PIC_SCREEN) {
+            val context = LocalContext.current
+            AddPicScreen(
+                viewModel = viewModel(
+                    factory = AddPicViewModel.provideFactory(
+                        navController = navController,
+                        context = context
+                    )
+                )
+            )
         }
     }
 }

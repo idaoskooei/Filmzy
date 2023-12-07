@@ -10,6 +10,7 @@ import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.TVShow
 import com.myapp.myapplication.navigation.Destinations
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,12 +26,16 @@ class SearchShowsViewModel(
     val uiState: StateFlow<PagingData<TVShow>> = _uiState.asStateFlow()
 
     fun onSearchClicked(searchTerm: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.getShowsSearchResults(searchTerm = searchTerm)
-                    .collectLatest { pagingData ->
-                        _uiState.value = pagingData
-                    }
+                if (searchTerm.isNotBlank()) {
+                    repository.getShowsSearchResults(searchTerm = searchTerm)
+                        .collectLatest { pagingData ->
+                            _uiState.value = pagingData
+                        }
+                } else {
+                    Log.d("wtf", "Search term is empty")
+                }
             } catch (e: Exception) {
                 Log.e("WTF", "something wrong when clicked on search in search shows screen")
             }

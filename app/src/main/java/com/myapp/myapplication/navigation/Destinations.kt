@@ -13,4 +13,5 @@ object Destinations {
     const val TV_SHOW_DETAIL_SCREEN = "show_detail_screen"
     const val CATEGORY_PICKER_SCREEN = "category_picker_screen"
     const val RANDOM_MOVIE_SCREEN = "random_movie_screen"
+    const val ADD_PIC_SCREEN = "add_pic_screen"
 }

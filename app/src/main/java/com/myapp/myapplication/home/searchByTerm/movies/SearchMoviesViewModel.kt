@@ -10,6 +10,7 @@ import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.navigation.Destinations
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,19 +26,23 @@ class SearchMoviesViewModel(
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
 
     fun onSearchClicked(searchTerm: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.getMoviesSearchResults(searchTerm).collectLatest { pagingData ->
-                    _uiState.value = pagingData
+                if (searchTerm.isNotBlank()) {
+                    repository.getMoviesSearchResults(searchTerm).collectLatest { pagingData ->
+                        _uiState.value = pagingData
+                    }
+                } else {
+                    Log.d("wtf", "Search term is empty")
                 }
             } catch (e: Exception) {
-                Log.e("wtf", "something wrong clicked on search in search movies screen")
+                Log.e("wtf", "something wrong when clicked on search in search movies screen")
             }
         }
     }
 
     fun onMovieClicked(movie: Movie) {
-        viewModelScope.launch {
+        viewModelScope.launch{
             try {
                 val movieDetails = repository.getMovieDetails(movie.id)
                 navController.navigate("${Destinations.MOVIE_DETAIL_SCREEN}/${movieDetails.movieId}")

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.searchByTerm.movies.MovieResponse
 import com.myapp.myapplication.home.searchByTerm.repo.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +20,7 @@ class MovieDetailsViewModel(
     val uiState: StateFlow<MovieResponse?> = _uiState.asStateFlow()
 
     init {
-        launch {
+        launch(Dispatchers.IO) {
             try {
                 val details = repository.getMovieDetails(id)
                 _uiState.value = details

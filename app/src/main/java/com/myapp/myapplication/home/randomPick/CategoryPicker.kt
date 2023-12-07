@@ -1,4 +1,4 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.home.randomPick
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CategoryList
 import com.myapp.myapplication.composables.IntroText

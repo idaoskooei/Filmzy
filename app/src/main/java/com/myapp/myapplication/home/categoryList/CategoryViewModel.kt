@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.FilmzyViewModel
 import com.myapp.myapplication.home.categoryList.repo.CategoryRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +30,7 @@ class CategoryViewModel(
     )
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO){
             _uiState.update { currentState ->
                 currentState.copy(
                     genres = repository.getGenres()
