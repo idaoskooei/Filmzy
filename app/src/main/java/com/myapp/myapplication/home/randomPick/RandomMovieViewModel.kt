@@ -1,6 +1,5 @@
 package com.myapp.myapplication.home.randomPick
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.myapp.myapplication.FilmzyViewModel
@@ -34,9 +33,6 @@ class RandomMovieViewModel(
                 if (movies.results.isNotEmpty()) {
 
                     val randomMovie = movies.results.random()
-
-                    Log.d("WTF1", "Duration: ${randomMovie.duration}")
-
 
                     _uiState.update { currentState ->
                         currentState.copy(

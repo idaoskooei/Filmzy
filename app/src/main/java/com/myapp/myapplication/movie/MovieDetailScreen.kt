@@ -2,6 +2,7 @@ package com.myapp.myapplication.movie
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +56,6 @@ fun ScreenContent(details: State<MovieResponse?>, navController: NavController) 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp)
     ) {
         BackgroundImage(id = R.drawable.untitled_design__19_)
         LazyColumn {
@@ -69,10 +69,14 @@ fun ScreenContent(details: State<MovieResponse?>, navController: NavController) 
 
 @Composable
 fun MovieDetailsHeader(details: State<MovieResponse?>) {
-    ImageView(posterPath = details.value?.fullPosterPath ?: "")
-    Spacer(modifier = Modifier.padding(25.dp))
-    HorizontalDivider()
-    Spacer(modifier = Modifier.padding(10.dp))
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(5.dp)) {
+        ImageView(posterPath = details.value?.fullPosterPath ?: "")
+        Spacer(modifier = Modifier.padding(25.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.padding(10.dp))
+    }
 }
 
 @Composable

@@ -70,7 +70,7 @@ private fun MoviesList(
 }
 
 @Composable
-private fun TopBarButtons(onBackClick: () -> Unit, onHomeClick: () -> Unit) {
+fun TopBarButtons(onBackClick: () -> Unit, onHomeClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

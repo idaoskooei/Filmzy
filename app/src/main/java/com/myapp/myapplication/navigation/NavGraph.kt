@@ -35,7 +35,7 @@ import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
 import com.myapp.myapplication.movie.MovieDetailsScreen
 import com.myapp.myapplication.movie.MovieDetailsViewModel
 import com.myapp.myapplication.profile.AddPicScreen
-import com.myapp.myapplication.profile.AddPicViewModel
+import com.myapp.myapplication.profile.EditProfileViewModel
 import com.myapp.myapplication.profile.ProfileScreen
 import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.retrofit
@@ -241,7 +241,8 @@ fun NavGraph(
                             ),
                             id = id
                         )
-                    )
+                    ),
+                    navController = navController
                 )
             }
         }
@@ -249,7 +250,7 @@ fun NavGraph(
             val context = LocalContext.current
             AddPicScreen(
                 viewModel = viewModel(
-                    factory = AddPicViewModel.provideFactory(
+                    factory = EditProfileViewModel.provideFactory(
                         navController = navController,
                         context = context
                     )
