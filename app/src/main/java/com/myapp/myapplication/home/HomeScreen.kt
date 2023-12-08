@@ -38,16 +38,10 @@ fun HomeScreen(viewModel: HomeViewModel) {
         modifier = Modifier.fillMaxSize(),
     ) {
         Box {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-            ) {
-                BackgroundImage(id = R.drawable.background_1)
-            }
-            IconButton(icon = Icons.Filled.Person, contentDescription = "profile") {
-                viewModel.onProfileButtonClicked()
-            }
+            BackGroundImage()
+            IconButton(
+                icon = Icons.Filled.Person,
+                contentDescription = "profile") { viewModel.onProfileButtonClicked() }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -59,33 +53,54 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         .fillMaxWidth()
                         .padding(top = 150.dp)
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        ChoicesButton(
-                            text = "PICK A CATEGORY",
-                            onClick = { viewModel.onCategoryButtonClicked() }
-                        )
-                        ChoicesButton(
-                            text = "PICK A RANDOM MOVIE",
-                            onClick = { viewModel.onPickRandomButtonClicked() })
-                    }
+                    CategoryButtons(viewModel)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        ChoicesButton(
-                            text = "SEARCH MOVIES",
-                            onClick = { viewModel.onSearchMoviesButtonClicked() })
-                        ChoicesButton(
-                            text = "SEARCH SHOWS",
-                            onClick = { viewModel.onSearchShowsButtonClicked() })
-                    }
+                    SearchButtons(viewModel)
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun SearchButtons(viewModel: HomeViewModel) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        ChoicesButton(
+            text = "SEARCH MOVIES",
+            onClick = { viewModel.onSearchMoviesButtonClicked() })
+        ChoicesButton(
+            text = "SEARCH SHOWS",
+            onClick = { viewModel.onSearchShowsButtonClicked() })
+    }
+}
+
+@Composable
+private fun CategoryButtons(viewModel: HomeViewModel) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        ChoicesButton(
+            text = "PICK A CATEGORY",
+            onClick = { viewModel.onCategoryButtonClicked() }
+        )
+        ChoicesButton(
+            text = "PICK A RANDOM MOVIE",
+            onClick = { viewModel.onPickRandomButtonClicked() })
+    }
+}
+
+@Composable
+private fun BackGroundImage() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        BackgroundImage(id = R.drawable.background_1)
     }
 }
 
