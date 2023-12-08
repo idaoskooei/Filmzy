@@ -2,6 +2,7 @@ package com.myapp.myapplication.movie
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,30 +36,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
+import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.HorizontalDivider
 import com.myapp.myapplication.composables.ImageView
 import com.myapp.myapplication.home.searchByTerm.movies.MovieResponse
 
 @Composable
-fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
+fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, navController: NavController) {
     val details by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
-    ScreenContent(details)
+    ScreenContent(details, navController)
 }
 
 @Composable
-fun ScreenContent(details: State<MovieResponse?>) {
+fun ScreenContent(details: State<MovieResponse?>, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp)
     ) {
         BackgroundImage(id = R.drawable.untitled_design__19_)
         LazyColumn {
             item {
                 MovieDetailsHeader(details)
-                MovieDetailsInfo(details)
+                MovieDetailsInfo(details, navController)
             }
         }
     }
@@ -66,14 +69,18 @@ fun ScreenContent(details: State<MovieResponse?>) {
 
 @Composable
 fun MovieDetailsHeader(details: State<MovieResponse?>) {
-    ImageView(posterPath = details.value?.fullPosterPath ?: "")
-    Spacer(modifier = Modifier.padding(25.dp))
-    HorizontalDivider()
-    Spacer(modifier = Modifier.padding(10.dp))
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(5.dp)) {
+        ImageView(posterPath = details.value?.fullPosterPath ?: "")
+        Spacer(modifier = Modifier.padding(25.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.padding(10.dp))
+    }
 }
 
 @Composable
-fun MovieDetailsInfo(details: State<MovieResponse?>) {
+fun MovieDetailsInfo(details: State<MovieResponse?>, navController: NavController) {
     details.value?.let {
         TextInfo("Title:  ${it.title}", Icons.Filled.Title)
         TextInfo("Release Date:  ${it.releaseDate}", Icons.Filled.DateRange)
@@ -88,6 +95,9 @@ fun MovieDetailsInfo(details: State<MovieResponse?>) {
             Icons.Filled.Info
         )
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
+    }
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        ActionButton(onClick = { navController.popBackStack() }, text = "Back")
     }
 }
 
@@ -127,8 +137,9 @@ private fun CustomIcon(imageVector: ImageVector) {
 @Preview(showBackground = true)
 @Composable
 fun ScreenContentPreview() {
+    val navController = rememberNavController()
     val sampleDetails = remember { mutableStateOf<MovieResponse?>(generateSampleMovieDetails()) }
-    ScreenContent(details = sampleDetails)
+    ScreenContent(details = sampleDetails, navController = navController)
 }
 
 private fun generateSampleMovieDetails(): MovieResponse {

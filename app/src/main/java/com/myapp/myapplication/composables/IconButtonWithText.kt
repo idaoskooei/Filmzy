@@ -31,13 +31,13 @@ fun IconButtonWithText(
             .fillMaxWidth()
             .padding(10.dp)
             .clip(RoundedCornerShape(20.dp))
-            .border(2.dp, Color.Gray, RoundedCornerShape(20.dp)),
+            .border(2.dp, Color.Gray, RoundedCornerShape(20.dp))
+            .clickable { onClick() },
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Row(
             modifier = Modifier
-                .padding(8.dp)
-                .clickable { onClick() },
+                .padding(8.dp),
             horizontalArrangement = Arrangement.End
         ) {
             Icon(

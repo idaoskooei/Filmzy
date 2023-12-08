@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.update
 import java.io.File
 import java.io.IOException
 
-class AddPicViewModel(
+class EditProfileViewModel(
     private val navController: NavController,
     @SuppressLint("StaticFieldLeak") private val context: Context
 ) : FilmzyViewModel() {
@@ -119,6 +119,10 @@ class AddPicViewModel(
         navController.popBackStack()
     }
 
+    fun onBackButtonClicked() {
+        navController.popBackStack()
+    }
+
     companion object {
 
         const val FAILED_LOADING_CAMERA = "we were not able to open Camera for you.try again!"
@@ -129,7 +133,7 @@ class AddPicViewModel(
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return AddPicViewModel(navController, context) as T
+                return EditProfileViewModel(navController, context) as T
             }
         }
     }

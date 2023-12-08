@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.runtime.Composable
@@ -25,11 +26,12 @@ import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CircularImageView
+import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.composables.IconButtonWithText
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun AddPicScreen(viewModel: AddPicViewModel) {
+fun AddPicScreen(viewModel: EditProfileViewModel) {
 
     val uiState by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
