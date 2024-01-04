@@ -1,7 +1,7 @@
 # Filmzy
 
 ## Overview
-Filmzy is your personalized movie companion, helping you discover and enjoy the perfect films tailored to your taste. This Android app is designed to enhance your movie-watching experience with features like account creation, personalized liking, and various search options.
+Filmzy is your personalized movie companion, helping you discover and enjoy the perfect films tailored to your taste. This Android app is designed to enhance your movie-watching experience with features like account creation and various search options.
 
 ## Features
 - **Account Creation:** Sign up and create your Filmzy account to unlock personalized movie recommendations.
