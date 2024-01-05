@@ -1,4 +1,4 @@
-package com.myapp.myapplication.auth
+package com.myapp.myapplication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.IntroBackgroundImage
 import com.myapp.myapplication.composables.IntroTextView
+import com.myapp.myapplication.navigation.Destinations
 
 @Composable
 fun IntroScreen(navController: NavController) {
@@ -57,11 +58,8 @@ fun IntroScreen(navController: NavController) {
 @Composable
 private fun IntroButtons(navController: NavController) {
     Row {
-        ActionButton(text = "SIGN IN") {
-            navController.navigate("sign_in_screen")
-        }
-        ActionButton(text = "SIGN UP") {
-            navController.navigate("sign_up_screen")
+        ActionButton(text = "LET'S GO") {
+            navController.navigate(Destinations.HOME_ROUTE)
         }
     }
 }
