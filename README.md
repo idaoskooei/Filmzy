@@ -27,7 +27,7 @@ If you would like more help, please contact our support team at idaoskooei@lavis
 ## About the Author
 Filmzy is developed by [Ida Oskooei]. Learn more about me on [www.lavista.studio](www.lavista.studio) or follow me on [Instagram](https://instagram.com/ida.oskooei?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr).
 
-## ScreenShots
+## Screenshots
 ![screenshot](https://github.com/idaoskooei/Filmzy/assets/111448666/295ea093-a633-4fc2-b83d-6f38b3417304)
 
 ## Social Media
