@@ -36,3 +36,8 @@ Stay connected with Filmzy:
 ## Disclaimer
 Filmzy is provided "as is" without warranty of any kind. Use it at your own risk.
 
+## ScreenShots
+
+![screenshot](https://github.com/idaoskooei/Filmzy/assets/111448666/295ea093-a633-4fc2-b83d-6f38b3417304)
+
+
