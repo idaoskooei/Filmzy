@@ -1,8 +1,6 @@
 package com.myapp.myapplication.navigation
 
-import android.net.Uri
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -10,12 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.myapp.myapplication.auth.IntroScreen
-import com.myapp.myapplication.auth.model.AuthRepository
-import com.myapp.myapplication.auth.signin.SignInScreen
-import com.myapp.myapplication.auth.signin.SignInViewModel
-import com.myapp.myapplication.auth.signup.SignUpScreen
-import com.myapp.myapplication.auth.signup.SignUpViewModel
+import com.myapp.myapplication.IntroScreen
 import com.myapp.myapplication.home.HomeScreen
 import com.myapp.myapplication.home.HomeViewModel
 import com.myapp.myapplication.home.categoryList.CategoryScreen
@@ -35,10 +28,6 @@ import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsScreen
 import com.myapp.myapplication.home.searchByTerm.shows.SearchShowsViewModel
 import com.myapp.myapplication.movie.MovieDetailsScreen
 import com.myapp.myapplication.movie.MovieDetailsViewModel
-import com.myapp.myapplication.profile.AddPicScreen
-import com.myapp.myapplication.profile.EditProfileViewModel
-import com.myapp.myapplication.profile.ProfileScreen
-import com.myapp.myapplication.profile.ProfileViewModel
 import com.myapp.myapplication.retrofit
 import com.myapp.myapplication.tvShow.ShowDetailScreen
 import com.myapp.myapplication.tvShow.ShowDetailViewModel
@@ -47,13 +36,8 @@ import retrofit2.create
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
-    authRepository: AuthRepository = AuthRepository()
 ) {
-    val startDestination = if (authRepository.isUserSignedIn()) {
-        Destinations.HOME_ROUTE
-    } else {
-        Destinations.INTRO_ROUTE
-    }
+    val startDestination = Destinations.INTRO_ROUTE
 
     NavHost(
         navController = navController,
@@ -62,26 +46,6 @@ fun NavGraph(
         composable(Destinations.INTRO_ROUTE) {
             IntroScreen(navController = navController)
         }
-        composable(Destinations.SIGN_IN_ROUTE) {
-            SignInScreen(
-                viewModel = viewModel(
-                    factory = SignInViewModel.provideFactory(
-                        navController = navController,
-                        repository = authRepository
-                    )
-                )
-            )
-        }
-        composable(Destinations.SIGN_UP_ROUTE) {
-            SignUpScreen(
-                viewModel = viewModel(
-                    factory = SignUpViewModel.provideFactory(
-                        navController = navController,
-                        repository = authRepository
-                    )
-                )
-            )
-        }
         composable(Destinations.HOME_ROUTE) {
             HomeScreen(
                 viewModel = viewModel(
@@ -89,29 +53,6 @@ fun NavGraph(
                         navController
                     )
                 )
-            )
-        }
-        composable(Destinations.PROFILE_ROUTE) { backStackEntry ->
-
-
-
-
-            val profileViewModel = viewModel<ProfileViewModel>(
-                factory = ProfileViewModel.provideFactory(
-                    navController = navController,
-                    repository = authRepository,
-                )
-            )
-
-            val slectedImageUri = backStackEntry
-                .savedStateHandle
-                .get<Uri>("selectedImage")
-
-            profileViewModel.setSelectedImage(slectedImageUri)
-
-
-            ProfileScreen(
-                viewModel = profileViewModel
             )
         }
         composable(Destinations.SEARCH_MOVIES_SCREEN_ROUTE) {
@@ -259,17 +200,6 @@ fun NavGraph(
                     navController = navController
                 )
             }
-        }
-        composable(route = Destinations.ADD_PIC_SCREEN) {
-            val context = LocalContext.current
-            AddPicScreen(
-                viewModel = viewModel(
-                    factory = EditProfileViewModel.provideFactory(
-                        navController = navController,
-                        context = context
-                    )
-                )
-            )
         }
     }
 }
