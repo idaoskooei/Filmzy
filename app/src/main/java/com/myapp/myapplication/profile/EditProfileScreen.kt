@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.runtime.Composable
@@ -26,7 +25,6 @@ import com.myapp.myapplication.R
 import com.myapp.myapplication.composables.ActionButton
 import com.myapp.myapplication.composables.BackgroundImage
 import com.myapp.myapplication.composables.CircularImageView
-import com.myapp.myapplication.composables.IconButton
 import com.myapp.myapplication.composables.IconButtonWithText
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -48,16 +46,14 @@ fun AddPicScreen(viewModel: EditProfileViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            CircularImageView(bmp = uiState.value.showImage, size = 200.dp) {}
+            CircularImageView(imageUri = uiState.value.showImage.toString(), size = 200.dp) {}
             CameraAndGalleryButtons(
                 onGalleryClick = { viewModel.openGallery() },
                 onCameraClick = { viewModel.openCamera() },
                 cameraPermissionState = cameraPermissionState,
             )
             ActionButton(text = "SAVE", onClick = {
-                uiState.value.showImage?.let { bitmap ->
-                    viewModel.onSaveButtonClicked(bitmap)
-                }
+                    viewModel.onSaveButtonClicked()
             })
         }
     }
