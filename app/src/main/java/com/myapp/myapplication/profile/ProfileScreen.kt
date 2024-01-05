@@ -15,9 +15,11 @@ import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +38,7 @@ import com.myapp.myapplication.composables.ProfileImage
 fun ProfileScreen(viewModel: ProfileViewModel) {
 
     val displayName by remember { mutableStateOf("") }
+    val uiState by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -50,11 +53,11 @@ fun ProfileScreen(viewModel: ProfileViewModel) {
                     .verticalScroll(rememberScrollState())
             ) {
                 NavigationButton(viewModel)
-                ProfileImage()
+                ProfileImage(uiState.value.showProfileImage)
                 UserDetail(displayName = displayName)
                 HorizontalDivider()
                 ProfileContents {
-                    viewModel.onTestClicked()
+                    viewModel.onEditProfileClicked()
                 }
                 SignOutButton(onSignOut = { viewModel.onSignOutButtonClicked() })
             }
@@ -124,7 +127,6 @@ fun ProfilePreview() {
     ProfileScreen(
         viewModel = ProfileViewModel(
             navController = navController,
-            authRepository = authRepository
-        )
+            authRepository = authRepository)
     )
 }

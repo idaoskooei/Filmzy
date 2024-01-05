@@ -35,7 +35,6 @@ class EditProfileViewModel(
         started = SharingStarted.Eagerly,
         initialValue = UiState()
     )
-
     private lateinit var tempImageUri: Uri
 
     private val cameraLauncher: ActivityResultLauncher<Uri> =
@@ -45,7 +44,7 @@ class EditProfileViewModel(
         ) { success ->
             if (success) {
                 _uiState.value = uiState.value.copy(
-                    showImage = getBitmapFromUri(tempImageUri)
+                    showImage = tempImageUri
                 )
             } else {
                 _uiState.update { currentState ->
@@ -63,7 +62,7 @@ class EditProfileViewModel(
         ) { uri: Uri? ->
             if (uri != null) {
                 _uiState.value = uiState.value.copy(
-                    showImage = getBitmapFromUri(uri)
+                    showImage = uri
                 )
             } else {
                 _uiState.update { currentState ->
@@ -111,11 +110,15 @@ class EditProfileViewModel(
 
     data class UiState(
         var errorMessage: String? = null,
-        var showImage: Bitmap? = null,
+        var showImage: Uri? = null,
     )
 
+    fun onSaveButtonClicked() {
 
-    fun onSaveButtonClicked(bitmap: Bitmap) {
+        navController.previousBackStackEntry
+            ?.savedStateHandle
+            ?.set("selectedImage", _uiState.value.showImage)
+// TODO: save profile image in shared preferences
         navController.popBackStack()
     }
 

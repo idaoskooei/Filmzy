@@ -1,6 +1,6 @@
 package com.myapp.myapplication.composables
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfileImage() {
+fun ProfileImage(imageUri: Uri?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(5.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-        CircularImageView(imageUri = "", size = 200.dp) {}
+        CircularImageView(imageUri = imageUri?.toString(), size = 200.dp) {}
     }
 }

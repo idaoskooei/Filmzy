@@ -1,5 +1,6 @@
 package com.myapp.myapplication.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -90,14 +91,27 @@ fun NavGraph(
                 )
             )
         }
-        composable(Destinations.PROFILE_ROUTE) {
-            ProfileScreen(
-                viewModel = viewModel(
-                    factory = ProfileViewModel.provideFactory(
-                        navController = navController,
-                        repository = authRepository
-                    )
+        composable(Destinations.PROFILE_ROUTE) { backStackEntry ->
+
+
+
+
+            val profileViewModel = viewModel<ProfileViewModel>(
+                factory = ProfileViewModel.provideFactory(
+                    navController = navController,
+                    repository = authRepository,
                 )
+            )
+
+            val slectedImageUri = backStackEntry
+                .savedStateHandle
+                .get<Uri>("selectedImage")
+
+            profileViewModel.setSelectedImage(slectedImageUri)
+
+
+            ProfileScreen(
+                viewModel = profileViewModel
             )
         }
         composable(Destinations.SEARCH_MOVIES_SCREEN_ROUTE) {
