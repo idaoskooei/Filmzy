@@ -32,10 +32,9 @@ Filmzy is developed by [Ida Oskooei]. Learn more about me on [www.lavista.studio
 
 ## Social Media
 Stay connected with Filmzy:
-- LinkedIn: [@lavistastudio](https://www.linkedin.com/company/lavistastudio)
-- Instagram: [@studios.lavista](https://instagram.com/studios.lavista?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr)
-- Facebook: [@studios.lavista](https://www.facebook.com/StudioLavista)
-
+- LinkedIn: [@idaoskooei](https://www.linkedin.com/in/ida-oskooei-android-dev/)
+- Instagram: [@ida.oskooei](https://www.instagram.com/ida.oskooei?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr)
+  
 ## Disclaimer
 Filmzy is provided "as is" without warranty of any kind. Use it at your own risk.
 
