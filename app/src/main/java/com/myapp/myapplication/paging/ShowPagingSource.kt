@@ -2,7 +2,7 @@ package com.myapp.myapplication.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.myapp.myapplication.repo.SearchRemoteService
+import com.myapp.myapplication.repo.search.SearchRemoteService
 import com.myapp.myapplication.model.TVShow
 
 class ShowPagingSource(

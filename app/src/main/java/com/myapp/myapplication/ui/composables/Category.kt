@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.myapp.myapplication.ui.categoryList.TmdbGenre
+import com.myapp.myapplication.repo.category.TmdbGenre
 import com.myapp.myapplication.ui.theme.customBackgroundColor
 
 @Composable

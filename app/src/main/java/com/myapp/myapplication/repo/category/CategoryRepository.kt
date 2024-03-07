@@ -1,6 +1,4 @@
-package com.myapp.myapplication.ui.categoryList.repo
-
-import com.myapp.myapplication.ui.categoryList.TmdbGenre
+package com.myapp.myapplication.repo.category
 
 class CategoryRepository(private val remoteService: CategoryRemoteService) {
     suspend fun getGenres(): List<TmdbGenre> {

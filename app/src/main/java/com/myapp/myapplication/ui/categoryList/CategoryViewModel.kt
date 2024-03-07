@@ -3,7 +3,8 @@ package com.myapp.myapplication.ui.categoryList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.myapp.myapplication.ui.categoryList.repo.CategoryRepository
+import com.myapp.myapplication.repo.category.CategoryRepository
+import com.myapp.myapplication.repo.category.TmdbGenre
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

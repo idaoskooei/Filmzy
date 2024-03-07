@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
+import com.myapp.myapplication.repo.category.TmdbGenre
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.CategoryList
 import com.myapp.myapplication.ui.composables.IntroText

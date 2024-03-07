@@ -45,7 +45,7 @@ import com.myapp.myapplication.ui.composables.ActionButton
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.HorizontalDivider
 import com.myapp.myapplication.ui.composables.ImageView
-import com.myapp.myapplication.repo.TVShowResponse
+import com.myapp.myapplication.repo.search.TVShowResponse
 import com.myapp.myapplication.model.Episode
 import com.myapp.myapplication.model.Season
 

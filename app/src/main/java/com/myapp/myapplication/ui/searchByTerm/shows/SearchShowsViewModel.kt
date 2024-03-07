@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
-import com.myapp.myapplication.repo.SearchRepository
+import com.myapp.myapplication.repo.search.SearchRepository
 import com.myapp.myapplication.model.TVShow
 import com.myapp.myapplication.ui.navigation.Destinations
 import kotlinx.coroutines.CoroutineDispatcher

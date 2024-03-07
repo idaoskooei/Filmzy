@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
-import com.myapp.myapplication.repo.MovieResponse
+import com.myapp.myapplication.repo.search.MovieResponse
 import com.myapp.myapplication.ui.composables.ActionButton
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.HorizontalDivider

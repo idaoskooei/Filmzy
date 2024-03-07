@@ -1,6 +1,5 @@
-package com.myapp.myapplication.ui.categoryList.repo
+package com.myapp.myapplication.repo.category
 
-import com.myapp.myapplication.ui.categoryList.TmdbGenreResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

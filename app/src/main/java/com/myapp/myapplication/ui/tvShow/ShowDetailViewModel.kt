@@ -3,8 +3,8 @@ package com.myapp.myapplication.ui.tvShow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.myapp.myapplication.repo.SearchRepository
-import com.myapp.myapplication.repo.TVShowResponse
+import com.myapp.myapplication.repo.search.SearchRepository
+import com.myapp.myapplication.repo.search.TVShowResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

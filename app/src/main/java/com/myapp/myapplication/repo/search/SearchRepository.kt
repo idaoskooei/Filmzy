@@ -1,12 +1,11 @@
-package com.myapp.myapplication.repo
+package com.myapp.myapplication.repo.search
 
 import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.model.TVShow
-import com.myapp.myapplication.paging.MoviePagingSource
-import com.myapp.myapplication.paging.MoviesByGenrePagingSource
+import com.myapp.myapplication.paging.MoviesPagingSource
 import com.myapp.myapplication.paging.PagingUtils.getPagingConfig
 import com.myapp.myapplication.paging.ShowPagingSource
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -17,7 +16,14 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
     @OptIn(DelicateCoroutinesApi::class)
     fun getMoviesSearchResults(searchTerm: String): Flow<PagingData<Movie>> =
         Pager(config = getPagingConfig()) {
-            MoviePagingSource(remoteService, searchTerm)
+//            MoviePagingSource(remoteService, searchTerm)
+            MoviesPagingSource { currentPage ->
+                remoteService.searchMovies(
+                    query = searchTerm, page = currentPage,
+//                includeAdult = true
+                )
+            }
+
         }.flow.cachedIn(GlobalScope)
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -28,7 +34,14 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
 
     @OptIn(DelicateCoroutinesApi::class)
     fun searchMoviesByGenre(id: Int): Flow<PagingData<Movie>> = Pager(config = getPagingConfig()) {
-        MoviesByGenrePagingSource(remoteService, id = id)
+//        MoviesByGenrePagingSource(remoteService, id = id)
+        MoviesPagingSource { currentPage ->
+            remoteService.searchMoviesByGenre(
+                page = currentPage,
+                genreId = id,
+                includeAdult = false
+            )
+        }
     }.flow.cachedIn(GlobalScope)
 
     suspend fun getMovieDetails(id: Int): MovieResponse {

@@ -1,8 +1,8 @@
-package com.myapp.myapplication.repo
+package com.myapp.myapplication.repo.search
 
 import com.google.gson.annotations.SerializedName
 import com.myapp.myapplication.BASE_IMAGE_URL
-import com.myapp.myapplication.ui.categoryList.TmdbGenre
+import com.myapp.myapplication.repo.category.TmdbGenre
 import com.myapp.myapplication.model.Episode
 import com.myapp.myapplication.model.Season
 import com.myapp.myapplication.model.TVShow

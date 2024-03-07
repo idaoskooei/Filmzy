@@ -1,4 +1,4 @@
-package com.myapp.myapplication.repo
+package com.myapp.myapplication.repo.search
 
 import retrofit2.http.GET
 import retrofit2.http.Path
