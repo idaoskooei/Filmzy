@@ -2,7 +2,7 @@ package com.myapp.myapplication.model
 
 import com.google.gson.annotations.SerializedName
 import com.myapp.myapplication.BASE_IMAGE_URL
-import com.myapp.myapplication.home.categoryList.TmdbGenre
+import com.myapp.myapplication.ui.categoryList.TmdbGenre
 
 data class Movie(
     @SerializedName("id") val id: Int,

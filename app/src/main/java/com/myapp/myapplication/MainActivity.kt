@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.myapp.myapplication.navigation.NavGraph
+import com.myapp.myapplication.ui.navigation.NavGraph
 import com.myapp.myapplication.ui.theme.FilmzyTheme
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
