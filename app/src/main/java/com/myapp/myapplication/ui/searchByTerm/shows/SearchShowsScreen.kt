@@ -25,9 +25,9 @@ import com.myapp.myapplication.model.TVShow
 
 @Composable
 fun SearchShowsScreen(
-    viewModel: SearchShowsViewModel = viewModel()
+    vm: SearchShowsViewModel
 ) {
-    val shows by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
+    val shows by rememberUpdatedState(newValue = vm.uiState.collectAsLazyPagingItems())
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -35,10 +35,10 @@ fun SearchShowsScreen(
         Box {
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
-                SearchBar(viewModel)
+                SearchBar(vm)
                 SearchResult(
                     shows = shows,
-                    onClick = { viewModel.onTvShowClicked(it) })
+                    onClick = { vm.onTvShowClicked(it) })
             }
         }
     }
@@ -77,6 +77,6 @@ private fun SearchBar(viewModel: SearchShowsViewModel) {
 @Preview(showBackground = true)
 fun searchShowsPreview() {
     SearchShowsScreen(
-        viewModel = viewModel()
+        vm = viewModel()
     )
 }

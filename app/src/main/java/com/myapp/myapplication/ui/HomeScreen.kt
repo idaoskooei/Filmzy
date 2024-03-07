@@ -24,13 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myapp.myapplication.R
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.theme.blue
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    vm: HomeViewModel
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -47,9 +49,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         .fillMaxWidth()
                         .padding(top = 150.dp)
                 ) {
-                    CategoryButtons(viewModel)
+                    CategoryButtons(vm)
                     Spacer(modifier = Modifier.padding(10.dp))
-                    SearchButtons(viewModel)
+                    SearchButtons(vm)
                 }
             }
         }
@@ -122,9 +124,6 @@ private fun ChoicesButton(text: String, onClick: () -> Unit) {
 )
 @Composable
 fun HomeScreenPreview() {
-    val navController = rememberNavController()
-    HomeScreen(
-        viewModel = HomeViewModel(navController)
-    )
+    HomeScreen( vm = viewModel())
 }
 

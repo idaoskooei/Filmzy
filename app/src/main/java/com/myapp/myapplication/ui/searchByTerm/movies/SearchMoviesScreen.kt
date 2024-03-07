@@ -13,7 +13,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapp.myapplication.R
@@ -24,9 +23,9 @@ import com.myapp.myapplication.model.Movie
 
 @Composable
 fun SearchMoviesScreen(
-    viewModel: SearchMoviesViewModel = viewModel()
+    vm: SearchMoviesViewModel
 ) {
-    val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
+    val movies by rememberUpdatedState(newValue = vm.uiState.collectAsLazyPagingItems())
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -34,10 +33,10 @@ fun SearchMoviesScreen(
         Box {
             BackgroundImage(id = R.drawable.untitled_design)
             Column(Modifier.fillMaxWidth()) {
-                SearchBar(viewModel)
+                SearchBar(vm)
                 SearchResult(
                     movies = movies,
-                    onClick = { viewModel.onMovieClicked(it) })
+                    onClick = { vm.onMovieClicked(it) })
             }
         }
     }

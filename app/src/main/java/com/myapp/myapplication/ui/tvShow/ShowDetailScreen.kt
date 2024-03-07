@@ -38,34 +38,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.R
+import com.myapp.myapplication.model.Episode
+import com.myapp.myapplication.model.Season
+import com.myapp.myapplication.repo.search.TVShowResponse
 import com.myapp.myapplication.ui.composables.ActionButton
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.HorizontalDivider
 import com.myapp.myapplication.ui.composables.ImageView
-import com.myapp.myapplication.repo.search.TVShowResponse
-import com.myapp.myapplication.model.Episode
-import com.myapp.myapplication.model.Season
 
 @Composable
-fun ShowDetailScreen(viewModel: ShowDetailViewModel, navController: NavController) {
-    val details by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
-    ScreenContent(details, navController)
+fun ShowDetailScreen(
+    vm: ShowDetailViewModel
+) {
+    val details by rememberUpdatedState(newValue = vm.uiState.collectAsState())
+    ScreenContent(details) { vm.onBackButtonClicked() }
 }
 
 @Composable
-private fun ScreenContent(details: State<TVShowResponse?>, navController: NavController) {
+private fun ScreenContent(details: State<TVShowResponse?>, onClick: () -> Unit) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         BackgroundImage(id = R.drawable.untitled_design__19_)
         LazyColumn {
             item {
                 ShowDetailHeader(details)
-                ShowDetailsInfo(details, navController)
+                ShowDetailsInfo(details, onClick)
             }
         }
     }
@@ -73,7 +72,11 @@ private fun ScreenContent(details: State<TVShowResponse?>, navController: NavCon
 
 @Composable
 private fun ShowDetailHeader(details: State<TVShowResponse?>) {
-    Column (modifier = Modifier.fillMaxWidth().padding(5.dp)){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
         ImageView(posterPath = details.value?.fullPosterPath ?: "")
         Spacer(modifier = Modifier.padding(25.dp))
         HorizontalDivider()
@@ -82,7 +85,7 @@ private fun ShowDetailHeader(details: State<TVShowResponse?>) {
 }
 
 @Composable
-private fun ShowDetailsInfo(details: State<TVShowResponse?>, navController: NavController) {
+private fun ShowDetailsInfo(details: State<TVShowResponse?>, onClick: () -> Unit) {
     details.value?.let {
         TextInfo("Title:  ${it.name}", Icons.Filled.Title)
         TextInfo("First Air Date:  ${it.firstAirDate}", Icons.Filled.DateRange)
@@ -104,7 +107,7 @@ private fun ShowDetailsInfo(details: State<TVShowResponse?>, navController: NavC
         TextInfo("Overview:   ${it.overview}", Icons.Filled.Description)
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        ActionButton(onClick = { navController.popBackStack() }, text = "Back")
+        ActionButton(onClick = onClick, text = "Back")
     }
 }
 
@@ -144,9 +147,8 @@ private fun CustomIcon(imageVector: ImageVector) {
 @Preview(showBackground = true)
 @Composable
 fun ScreenContentPreview() {
-    val navController = rememberNavController()
     val sampleDetails = remember { mutableStateOf<TVShowResponse?>(generateSampleTvShowDetails()) }
-    ScreenContent(details = sampleDetails, navController = navController)
+    ScreenContent(details = sampleDetails) {}
 }
 
 private fun generateSampleTvShowDetails(): TVShowResponse {

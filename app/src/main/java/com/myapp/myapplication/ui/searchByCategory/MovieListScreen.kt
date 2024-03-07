@@ -16,25 +16,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapp.myapplication.R
+import com.myapp.myapplication.model.Movie
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.IconButton
 import com.myapp.myapplication.ui.composables.MovieItem
-import com.myapp.myapplication.model.Movie
 
 @Composable
 fun MovieListScreen(
-    viewModel: MovieListViewModel
+    vm: MovieListViewModel
 ) {
-    val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
+    val movies by rememberUpdatedState(newValue = vm.uiState.collectAsLazyPagingItems())
 
     MoviesList(
         movies = movies,
-        onMovieClick = { viewModel.onMovieClicked(it) },
-        onHomeClick = { viewModel.onHomeButtonClicked() },
-        onBackClick = { viewModel.onBackButtonClicked() }
+        onMovieClick = { vm.onMovieClicked(it) },
+        onHomeClick = { vm.onHomeButtonClicked() },
+        onBackClick = { vm.onBackButtonClicked() }
     )
 }
 

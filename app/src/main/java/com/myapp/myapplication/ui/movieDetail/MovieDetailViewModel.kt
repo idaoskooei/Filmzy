@@ -1,10 +1,10 @@
-package com.myapp.myapplication.ui.tvShow
+package com.myapp.myapplication.ui.movieDetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myapp.myapplication.repo.search.MovieResponse
 import com.myapp.myapplication.repo.search.SearchRepository
-import com.myapp.myapplication.repo.search.TVShowResponse
 import com.myapp.myapplication.ui.navigation.NavigationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,36 +15,35 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShowDetailViewModel @Inject constructor(
+class MovieDetailsViewModel @Inject constructor(
     private val repository: SearchRepository,
-    val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher,
     private val navigationManager: NavigationManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    fun onBackButtonClicked() {
+        navigationManager.navigateToMoviesList()
+    }
 
-    private val _uiState = MutableStateFlow<TVShowResponse?>(null)
-    val uiState: StateFlow<TVShowResponse?> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<MovieResponse?>(null)
+    val uiState: StateFlow<MovieResponse?> = _uiState.asStateFlow()
 
     init {
-        savedStateHandle.get<Int>(SHOW_ID_ARG)?.let { id ->
+        savedStateHandle.get<Int>(MOVIE_ID_ARG)?.let { id ->
             viewModelScope.launch(dispatcher) {
                 try {
-                    val details = repository.getTvShowDetails(id)
+                    val details = repository.getMovieDetails(id)
                     _uiState.value = details
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
-        } ?: {
-            throw IllegalArgumentException("ShowDetailScreen needs an {id} to operate!!")
+        }?: {
+            throw IllegalArgumentException("MovieDetailScreen needs an {movieId} to operate!!")
         }
     }
 
-    fun onBackButtonClicked() {
-        navigationManager.navigateToShowListResults()
-    }
-
     companion object {
-        const val SHOW_ID_ARG = "showId"
+        const val MOVIE_ID_ARG ="movieId"
     }
 }

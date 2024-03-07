@@ -9,8 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myapp.myapplication.R
 import com.myapp.myapplication.repo.category.TmdbGenre
 import com.myapp.myapplication.ui.composables.BackgroundImage
@@ -20,17 +19,16 @@ import com.myapp.myapplication.ui.composables.IntroText
 
 @Composable
 fun CategoryScreen(
-    viewModel: CategoryViewModel,
-    navController: NavController
+    vm: CategoryViewModel,
 ) {
-    val state = viewModel.uiState.collectAsState()
+    val state = vm.uiState.collectAsState()
 
-    MoviesList(navController = navController, categories = state.value.genres)
+    MoviesList(categories = state.value.genres) { genreId -> vm.onCategoryClicked(genreId) }
 }
 @Composable
 private fun MoviesList(
-    navController: NavController,
     categories: List<TmdbGenre>,
+    onItemClick: (genreId: Int) -> Unit
 ) {
     Box(
         Modifier
@@ -44,7 +42,7 @@ private fun MoviesList(
         ) {
             IntroText(text = "Choose a category to see movie recommendations!")
             CategoryList(
-                onItemClick = { genreId -> navController.navigate("movie_list_screen/$genreId") },
+                onItemClick = onItemClick,
                 categories = categories,
             )
         }
@@ -54,13 +52,10 @@ private fun MoviesList(
 
 
 
-
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    val navController = rememberNavController()
     MoviesList(
-        navController = navController,
         categories = listOf(
             TmdbGenre(1, "comedy"),
             TmdbGenre(3, "romance"),
@@ -69,5 +64,5 @@ fun Preview() {
             TmdbGenre(3, "drama"),
             TmdbGenre(3, "horror")
         )
-    )
+    ) {}
 }

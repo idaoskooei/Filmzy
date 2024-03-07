@@ -11,8 +11,9 @@ import com.myapp.myapplication.paging.ShowPagingSource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SearchRepository(private val remoteService: SearchRemoteService) {
+class SearchRepository @Inject constructor(private val remoteService: SearchRemoteService) {
     @OptIn(DelicateCoroutinesApi::class)
     fun getMoviesSearchResults(searchTerm: String): Flow<PagingData<Movie>> =
         Pager(config = getPagingConfig()) {
@@ -52,7 +53,11 @@ class SearchRepository(private val remoteService: SearchRemoteService) {
         return remoteService.getTvShowDetails(id)
     }
 
-    suspend fun getMovieRecommendationByGenre(id: Int): MovieResponse {
-        return remoteService.getMovieRecommendationByGenre(genreId = id, includeAdult = false)
+    suspend fun getRandomMovie(): MovieResponse {
+        val latestMovie = remoteService.getLatestMovie()
+
+        val randomNumber = (1..latestMovie.movieId).random()
+
+        return remoteService.getMovieDetails(randomNumber)
     }
 }

@@ -1,10 +1,11 @@
 package com.myapp.myapplication.ui.categoryList
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.repo.category.CategoryRepository
 import com.myapp.myapplication.repo.category.TmdbGenre
+import com.myapp.myapplication.ui.navigation.NavigationManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,10 +13,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoryViewModel(
+@HiltViewModel
+class CategoryViewModel @Inject constructor(
     private val repository: CategoryRepository,
-    dispatcher: CoroutineDispatcher
+    dispatcher: CoroutineDispatcher,
+    private val navigationManager: NavigationManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -40,16 +44,8 @@ class CategoryViewModel(
         }
     }
 
-    companion object {
-        fun provideFactory(
-            categoryRepository: CategoryRepository,
-            dispatcher: CoroutineDispatcher
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return CategoryViewModel(categoryRepository, dispatcher) as T
-            }
-        }
+    fun onCategoryClicked(genreId: Int) {
+        navigationManager.navigateToSelectedCategory(genreId)
     }
 }
 

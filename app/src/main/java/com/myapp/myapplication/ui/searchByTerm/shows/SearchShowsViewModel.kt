@@ -2,24 +2,25 @@ package com.myapp.myapplication.ui.searchByTerm.shows
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import androidx.paging.PagingData
-import com.myapp.myapplication.repo.search.SearchRepository
 import com.myapp.myapplication.model.TVShow
-import com.myapp.myapplication.ui.navigation.Destinations
+import com.myapp.myapplication.repo.search.SearchRepository
+import com.myapp.myapplication.ui.navigation.NavigationManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchShowsViewModel(
+@HiltViewModel
+class SearchShowsViewModel @Inject constructor(
     private val repository: SearchRepository,
-    private val navController: NavController,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val navigationManager: NavigationManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PagingData<TVShow>>(PagingData.empty())
@@ -46,22 +47,9 @@ class SearchShowsViewModel(
         viewModelScope.launch {
             try {
                 val showDetails = repository.getTvShowDetails(tvShow.id)
-                navController.navigate("${Destinations.TV_SHOW_DETAIL_SCREEN}/${showDetails.id}")
+                navigationManager.navigateToShowDetails(showDetails.id)
             } catch (e: Exception) {
                 Log.e("WTF", "something wrong when clicked on search in search shows screen")
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(
-            repository: SearchRepository,
-            navController: NavController,
-            dispatcher: CoroutineDispatcher
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SearchShowsViewModel(repository, navController, dispatcher) as T
             }
         }
     }

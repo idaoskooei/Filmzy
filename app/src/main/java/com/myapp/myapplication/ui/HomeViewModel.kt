@@ -1,45 +1,28 @@
 package com.myapp.myapplication.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import com.myapp.myapplication.ui.navigation.Destinations
+import com.myapp.myapplication.ui.navigation.NavigationManager
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel(
-    private val navController: NavController
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val navigationManager: NavigationManager
 ) : ViewModel() {
 
     fun onSearchMoviesButtonClicked() {
-        navController.navigate(Destinations.SEARCH_MOVIES_SCREEN_ROUTE)
+        navigationManager.navigateToMoviesScreenResult()
     }
 
     fun onSearchShowsButtonClicked() {
-        navController.navigate(Destinations.SEARCH_SHOWS_SCREEN_ROUTE)
+        navigationManager.navigateToShowsScreenResult()
     }
 
     fun onCategoryButtonClicked() {
-        navController.navigate(Destinations.CATEGORY_SCREEN_ROUTE)
+        navigationManager.navigateToCategoryScreen()
     }
 
     fun onPickRandomButtonClicked() {
-        navController.navigate(Destinations.CATEGORY_PICKER_SCREEN)
+        navigationManager.navigateToRandomMovieScreen()
     }
-
-    fun onProfileButtonClicked() {
-        navController.navigate(Destinations.PROFILE_ROUTE)
-    }
-
-    companion object {
-        fun provideFactory(
-            navController: NavController
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel(
-                    navController = navController
-                ) as T
-            }
-        }
-    }
-
 }

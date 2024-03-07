@@ -14,14 +14,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.myapp.myapplication.ui.composables.ActionButton
 import com.myapp.myapplication.ui.composables.IntroBackgroundImage
 import com.myapp.myapplication.ui.composables.IntroTextView
-import com.myapp.myapplication.ui.navigation.Destinations
 
 @Composable
-fun IntroScreen(navController: NavController) {
+fun IntroScreen(viewModel: IntroViewModel) {
     Box(modifier = Modifier.fillMaxSize()) {
         IntroBackgroundImage()
         Column(
@@ -50,16 +48,11 @@ fun IntroScreen(navController: NavController) {
                 )
             )
             Spacer(modifier = Modifier.height(70.dp))
-            IntroButtons(navController)
-        }
-    }
-}
-
-@Composable
-private fun IntroButtons(navController: NavController) {
-    Row {
-        ActionButton(text = "LET'S GO") {
-            navController.navigate(Destinations.HOME_ROUTE)
+            Row {
+                ActionButton(text = "LET'S GO") {
+                    viewModel.onProceed()
+                }
+            }
         }
     }
 }

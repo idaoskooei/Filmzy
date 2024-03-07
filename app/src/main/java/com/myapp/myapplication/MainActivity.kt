@@ -5,38 +5,27 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.myapp.myapplication.ui.navigation.NavGraph
+import com.myapp.myapplication.ui.navigation.NavigationManager
+import com.myapp.myapplication.ui.navigation.NavigationManagerImpl
 import com.myapp.myapplication.ui.theme.FilmzyTheme
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             FilmzyTheme {
-                    val navController = rememberNavController()
-                    NavGraph(navController = navController)
+                val navController = rememberNavController()
+                (navigationManager as NavigationManagerImpl).setup(navController)
+                NavGraph(navController = navController)
             }
         }
     }
 }
-
-val client = OkHttpClient.Builder().addNetworkInterceptor(Interceptor { chain ->
-    val request: Request = chain.request()
-
-    val newRequest: Request = request.newBuilder().addHeader("Authorization", API_TOKEN).build()
-    chain.proceed(newRequest)
-})
-    .addInterceptor(HttpLoggingInterceptor().apply {
-        setLevel(HttpLoggingInterceptor.Level.BODY)
-    })
-    .build()
-
-
-val retrofit: Retrofit = Retrofit.Builder().client(client).baseUrl(BASE_URL)
-    .addConverterFactory(GsonConverterFactory.create()).build()

@@ -1,15 +1,14 @@
-package com.myapp.myapplication
+package com.myapp.myapplication.di
 
 import android.app.Application
 import coil.Coil
 import coil.ImageLoader
-import com.google.firebase.FirebaseApp
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-
-        FirebaseApp.initializeApp(this)
 
         Coil.setImageLoader {
             ImageLoader.Builder(this)
