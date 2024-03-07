@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.myapp.myapplication.R
-import com.myapp.myapplication.ui.categoryList.CategoryViewModelBase
+import com.myapp.myapplication.ui.categoryList.CategoryViewModel
 import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.composables.CategoryList
 import com.myapp.myapplication.ui.composables.IntroText
@@ -18,7 +18,7 @@ import com.myapp.myapplication.ui.navigation.Destinations
 
 @Composable
 fun CategoryPicker(
-    viewModel: CategoryViewModelBase,
+    viewModel: CategoryViewModel,
     navController: NavController
 ) {
     val state = viewModel.uiState.collectAsState()

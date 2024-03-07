@@ -30,7 +30,7 @@ import com.myapp.myapplication.ui.composables.BackgroundImage
 import com.myapp.myapplication.ui.theme.blue
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModelBase) {
+fun HomeScreen(viewModel: HomeViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -57,7 +57,7 @@ fun HomeScreen(viewModel: HomeViewModelBase) {
 }
 
 @Composable
-private fun SearchButtons(viewModel: HomeViewModelBase) {
+private fun SearchButtons(viewModel: HomeViewModel) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
@@ -72,7 +72,7 @@ private fun SearchButtons(viewModel: HomeViewModelBase) {
 }
 
 @Composable
-private fun CategoryButtons(viewModel: HomeViewModelBase) {
+private fun CategoryButtons(viewModel: HomeViewModel) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
@@ -124,7 +124,7 @@ private fun ChoicesButton(text: String, onClick: () -> Unit) {
 fun HomeScreenPreview() {
     val navController = rememberNavController()
     HomeScreen(
-        viewModel = HomeViewModelBase(navController)
+        viewModel = HomeViewModel(navController)
     )
 }
 

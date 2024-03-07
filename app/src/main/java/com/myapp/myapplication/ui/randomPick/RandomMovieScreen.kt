@@ -30,7 +30,7 @@ import com.myapp.myapplication.ui.movie.TextInfo
 
 @Composable
 fun RandomMovieScreen(
-    viewModel: RandomMovieViewModelBase,
+    viewModel: RandomMovieViewModel,
     categoryId: Int,
     navController: NavController,
 ) {
@@ -56,7 +56,7 @@ fun RandomMovieScreen(
 }
 @Composable
 private fun ScreenContent(
-    state: RandomMovieViewModelBase.UiState,
+    state: RandomMovieViewModel.UiState,
     navController: NavController
 ) {
     Spacer(modifier = Modifier.padding(25.dp))

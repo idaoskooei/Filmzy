@@ -8,34 +8,37 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.myapp.myapplication.ui.IntroScreen
-import com.myapp.myapplication.ui.HomeScreen
-import com.myapp.myapplication.ui.HomeViewModelBase
-import com.myapp.myapplication.ui.categoryList.CategoryScreen
-import com.myapp.myapplication.ui.categoryList.CategoryViewModelBase
-import com.myapp.myapplication.ui.categoryList.repo.CategoryRemoteService
-import com.myapp.myapplication.ui.categoryList.repo.CategoryRepository
-import com.myapp.myapplication.ui.randomPick.CategoryPicker
-import com.myapp.myapplication.ui.randomPick.RandomMovieScreen
-import com.myapp.myapplication.ui.randomPick.RandomMovieViewModelBase
-import com.myapp.myapplication.ui.searchByCategory.MovieListScreen
-import com.myapp.myapplication.ui.searchByCategory.MovieListViewModelBase
-import com.myapp.myapplication.ui.searchByTerm.movies.SearchMoviesScreen
-import com.myapp.myapplication.ui.searchByTerm.movies.SearchMoviesViewModelBase
 import com.myapp.myapplication.repo.SearchRemoteService
 import com.myapp.myapplication.repo.SearchRepository
-import com.myapp.myapplication.ui.searchByTerm.shows.SearchShowsScreen
-import com.myapp.myapplication.ui.searchByTerm.shows.SearchShowsViewModelBase
-import com.myapp.myapplication.ui.movie.MovieDetailsScreen
-import com.myapp.myapplication.ui.movie.MovieDetailsViewModelBase
 import com.myapp.myapplication.retrofit
+import com.myapp.myapplication.ui.HomeScreen
+import com.myapp.myapplication.ui.HomeViewModel
+import com.myapp.myapplication.ui.IntroScreen
+import com.myapp.myapplication.ui.categoryList.CategoryScreen
+import com.myapp.myapplication.ui.categoryList.CategoryViewModel
+import com.myapp.myapplication.ui.categoryList.repo.CategoryRemoteService
+import com.myapp.myapplication.ui.categoryList.repo.CategoryRepository
+import com.myapp.myapplication.ui.movie.MovieDetailsScreen
+import com.myapp.myapplication.ui.movie.MovieDetailsViewModel
+import com.myapp.myapplication.ui.randomPick.CategoryPicker
+import com.myapp.myapplication.ui.randomPick.RandomMovieScreen
+import com.myapp.myapplication.ui.randomPick.RandomMovieViewModel
+import com.myapp.myapplication.ui.searchByCategory.MovieListScreen
+import com.myapp.myapplication.ui.searchByCategory.MovieListViewModel
+import com.myapp.myapplication.ui.searchByTerm.movies.SearchMoviesScreen
+import com.myapp.myapplication.ui.searchByTerm.movies.SearchMoviesViewModel
+import com.myapp.myapplication.ui.searchByTerm.shows.SearchShowsScreen
+import com.myapp.myapplication.ui.searchByTerm.shows.SearchShowsViewModel
 import com.myapp.myapplication.ui.tvShow.ShowDetailScreen
-import com.myapp.myapplication.ui.tvShow.ShowDetailViewModelBase
+import com.myapp.myapplication.ui.tvShow.ShowDetailViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.create
 
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
+    dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     val startDestination = Destinations.INTRO_ROUTE
 
@@ -49,7 +52,7 @@ fun NavGraph(
         composable(Destinations.HOME_ROUTE) {
             HomeScreen(
                 viewModel = viewModel(
-                    factory = HomeViewModelBase.provideFactory(
+                    factory = HomeViewModel.provideFactory(
                         navController
                     )
                 )
@@ -58,13 +61,14 @@ fun NavGraph(
         composable(Destinations.SEARCH_MOVIES_SCREEN_ROUTE) {
             SearchMoviesScreen(
                 viewModel = viewModel(
-                    factory = SearchMoviesViewModelBase.provideFactory(
+                    factory = SearchMoviesViewModel.provideFactory(
                         navController = navController,
                         repository = SearchRepository(
                             retrofit.create(
                                 SearchRemoteService::class.java
                             )
-                        )
+                        ),
+                        dispatcher = dispatcher
                     )
                 )
             )
@@ -72,13 +76,14 @@ fun NavGraph(
         composable(Destinations.SEARCH_SHOWS_SCREEN_ROUTE) {
             SearchShowsScreen(
                 viewModel = viewModel(
-                    factory = SearchShowsViewModelBase.provideFactory(
+                    factory = SearchShowsViewModel.provideFactory(
                         repository = SearchRepository(
                             retrofit.create(
                                 SearchRemoteService::class.java
                             )
                         ),
-                        navController = navController
+                        navController = navController,
+                        dispatcher = dispatcher
                     )
                 )
             )
@@ -86,12 +91,13 @@ fun NavGraph(
         composable(Destinations.CATEGORY_SCREEN_ROUTE) {
             CategoryScreen(
                 navController = navController, viewModel = viewModel(
-                    factory = CategoryViewModelBase.provideFactory(
+                    factory = CategoryViewModel.provideFactory(
                         CategoryRepository(
                             retrofit.create(
                                 CategoryRemoteService::class.java
                             )
-                        )
+                        ),
+                        dispatcher = dispatcher
                     )
                 )
             )
@@ -99,12 +105,13 @@ fun NavGraph(
         composable(Destinations.CATEGORY_PICKER_SCREEN) {
             CategoryPicker(
                 viewModel = viewModel(
-                    factory = CategoryViewModelBase.provideFactory(
+                    factory = CategoryViewModel.provideFactory(
                         categoryRepository = CategoryRepository(
                             remoteService = retrofit.create(
                                 CategoryRemoteService::class.java
                             )
-                        )
+                        ),
+                        dispatcher = dispatcher
                     )
                 ),
                 navController = navController
@@ -122,11 +129,11 @@ fun NavGraph(
             } else {
                 RandomMovieScreen(
                     viewModel = viewModel(
-                        factory = RandomMovieViewModelBase.provideFactory(
+                        factory = RandomMovieViewModel.provideFactory(
                             repository = SearchRepository(
                                 retrofit.create(SearchRemoteService::class.java)
-
-                            )
+                            ),
+                            dispatcher = dispatcher
                         )
                     ),
                     categoryId = genreId,
@@ -146,12 +153,13 @@ fun NavGraph(
             } else {
                 MovieListScreen(
                     viewModel = viewModel(
-                        factory = MovieListViewModelBase.provideFactory(
+                        factory = MovieListViewModel.provideFactory(
                             repository = SearchRepository(
                                 retrofit.create()
                             ),
                             navController = navController,
-                            genre = genreId
+                            genre = genreId,
+                            dispatcher = dispatcher
                         )
                     )
                 )
@@ -168,11 +176,12 @@ fun NavGraph(
             } else {
                 MovieDetailsScreen(
                     viewModel = viewModel(
-                        factory = MovieDetailsViewModelBase.provideFactory(
+                        factory = MovieDetailsViewModel.provideFactory(
                             id = id,
                             repository = SearchRepository(
                                 retrofit.create(SearchRemoteService::class.java)
-                            )
+                            ),
+                            dispatcher = dispatcher
                         )
                     ),
                     navController = navController
@@ -190,11 +199,12 @@ fun NavGraph(
             } else {
                 ShowDetailScreen(
                     viewModel = viewModel(
-                        factory = ShowDetailViewModelBase.provideFactory(
+                        factory = ShowDetailViewModel.provideFactory(
                             repository = SearchRepository(
                                 retrofit.create(SearchRemoteService::class.java)
                             ),
-                            id = id
+                            id = id,
+                            dispatcher = dispatcher
                         )
                     ),
                     navController = navController

@@ -6,27 +6,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
-import com.myapp.myapplication.ui.BaseFilmzyViewModel
-import com.myapp.myapplication.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
+import com.myapp.myapplication.repo.SearchRepository
 import com.myapp.myapplication.ui.navigation.Destinations
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SearchMoviesViewModelBase(
+class SearchMoviesViewModel(
     private val repository: SearchRepository,
-    private val navController: NavController
-) : BaseFilmzyViewModel() {
+    private val navController: NavController,
+    private val dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
 
     fun onSearchClicked(searchTerm: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             try {
                 if (searchTerm.isNotBlank()) {
                     repository.getMoviesSearchResults(searchTerm).collectLatest { pagingData ->
@@ -55,11 +55,12 @@ class SearchMoviesViewModelBase(
     companion object {
         fun provideFactory(
             repository: SearchRepository,
-            navController: NavController
+            navController: NavController,
+            dispatcher: CoroutineDispatcher
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SearchMoviesViewModelBase(repository, navController) as T
+                return SearchMoviesViewModel(repository, navController, dispatcher) as T
             }
         }
     }

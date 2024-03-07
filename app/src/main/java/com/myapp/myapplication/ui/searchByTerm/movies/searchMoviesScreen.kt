@@ -24,7 +24,7 @@ import com.myapp.myapplication.model.Movie
 
 @Composable
 fun SearchMoviesScreen(
-    viewModel: SearchMoviesViewModelBase = viewModel()
+    viewModel: SearchMoviesViewModel = viewModel()
 ) {
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
@@ -63,7 +63,7 @@ private fun SearchResult(
 }
 
 @Composable
-private fun SearchBar(viewModel: SearchMoviesViewModelBase) {
+private fun SearchBar(viewModel: SearchMoviesViewModel) {
     var search by rememberSaveable { mutableStateOf("") }
     Row {
         SearchTextField(

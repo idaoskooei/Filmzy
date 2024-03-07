@@ -19,7 +19,7 @@ import com.myapp.myapplication.ui.composables.IntroText
 
 @Composable
 fun CategoryScreen(
-    viewModel: CategoryViewModelBase,
+    viewModel: CategoryViewModel,
     navController: NavController
 ) {
     val state = viewModel.uiState.collectAsState()

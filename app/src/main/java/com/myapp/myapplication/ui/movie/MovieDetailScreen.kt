@@ -46,7 +46,7 @@ import com.myapp.myapplication.ui.composables.HorizontalDivider
 import com.myapp.myapplication.ui.composables.ImageView
 
 @Composable
-fun MovieDetailsScreen(viewModel: MovieDetailsViewModelBase, navController: NavController) {
+fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, navController: NavController) {
     val details by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
     ScreenContent(details, navController)
 }

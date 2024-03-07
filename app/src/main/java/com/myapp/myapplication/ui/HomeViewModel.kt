@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.myapp.myapplication.ui.navigation.Destinations
 
-class HomeViewModelBase(
+class HomeViewModel(
     private val navController: NavController
-) : BaseFilmzyViewModel() {
+) : ViewModel() {
 
     fun onSearchMoviesButtonClicked() {
         navController.navigate(Destinations.SEARCH_MOVIES_SCREEN_ROUTE)
@@ -35,7 +35,7 @@ class HomeViewModelBase(
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModelBase(
+                return HomeViewModel(
                     navController = navController
                 ) as T
             }

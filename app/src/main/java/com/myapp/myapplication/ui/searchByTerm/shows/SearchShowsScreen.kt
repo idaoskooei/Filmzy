@@ -25,7 +25,7 @@ import com.myapp.myapplication.model.TVShow
 
 @Composable
 fun SearchShowsScreen(
-    viewModel: SearchShowsViewModelBase = viewModel()
+    viewModel: SearchShowsViewModel = viewModel()
 ) {
     val shows by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 
@@ -60,7 +60,7 @@ private fun SearchResult(
 }
 
 @Composable
-private fun SearchBar(viewModel: SearchShowsViewModelBase) {
+private fun SearchBar(viewModel: SearchShowsViewModel) {
     var search by rememberSaveable { mutableStateOf("") }
     Row {
         SearchTextField(

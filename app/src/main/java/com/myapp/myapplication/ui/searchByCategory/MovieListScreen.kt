@@ -26,7 +26,7 @@ import com.myapp.myapplication.model.Movie
 
 @Composable
 fun MovieListScreen(
-    viewModel: MovieListViewModelBase
+    viewModel: MovieListViewModel
 ) {
     val movies by rememberUpdatedState(newValue = viewModel.uiState.collectAsLazyPagingItems())
 

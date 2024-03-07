@@ -50,7 +50,7 @@ import com.myapp.myapplication.model.Episode
 import com.myapp.myapplication.model.Season
 
 @Composable
-fun ShowDetailScreen(viewModel: ShowDetailViewModelBase, navController: NavController) {
+fun ShowDetailScreen(viewModel: ShowDetailViewModel, navController: NavController) {
     val details by rememberUpdatedState(newValue = viewModel.uiState.collectAsState())
     ScreenContent(details, navController)
 }

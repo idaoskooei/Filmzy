@@ -2,10 +2,10 @@ package com.myapp.myapplication.ui.randomPick
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.myapp.myapplication.ui.BaseFilmzyViewModel
-import com.myapp.myapplication.repo.SearchRepository
+import androidx.lifecycle.viewModelScope
 import com.myapp.myapplication.model.Movie
-import kotlinx.coroutines.Dispatchers
+import com.myapp.myapplication.repo.SearchRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,9 +13,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class RandomMovieViewModelBase(
-    private val repository: SearchRepository
-) : BaseFilmzyViewModel() {
+class RandomMovieViewModel(
+    private val repository: SearchRepository,
+    private val dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
@@ -26,7 +27,7 @@ class RandomMovieViewModelBase(
     )
 
     fun pickRandomMovie(categoryId: Int) {
-        launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             try {
                 val movies = repository.getMovieRecommendationByGenre(categoryId)
 
@@ -60,10 +61,11 @@ class RandomMovieViewModelBase(
     companion object {
         fun provideFactory(
             repository: SearchRepository,
+            dispatcher: CoroutineDispatcher
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return RandomMovieViewModelBase(repository) as T
+                return RandomMovieViewModel(repository, dispatcher) as T
             }
         }
     }

@@ -5,28 +5,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.paging.PagingData
-import com.myapp.myapplication.ui.BaseFilmzyViewModel
-import com.myapp.myapplication.repo.SearchRepository
 import com.myapp.myapplication.model.Movie
+import com.myapp.myapplication.repo.SearchRepository
 import com.myapp.myapplication.ui.navigation.Destinations
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class MovieListViewModelBase(
+class MovieListViewModel(
     private val repository: SearchRepository,
     private val genre: Int,
-    private val navController: NavController
-) : BaseFilmzyViewModel() {
+    private val navController: NavController,
+    dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val uiState: StateFlow<PagingData<Movie>> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             try {
                 repository.searchMoviesByGenre(genre).collectLatest { pagingData ->
                     _uiState.value = pagingData
@@ -60,11 +60,12 @@ class MovieListViewModelBase(
         fun provideFactory(
             repository: SearchRepository,
             genre: Int,
-            navController: NavController
+            navController: NavController,
+            dispatcher: CoroutineDispatcher
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MovieListViewModelBase(repository, genre, navController) as T
+                return MovieListViewModel(repository, genre, navController, dispatcher) as T
             }
         }
     }
