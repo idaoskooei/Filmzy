@@ -19,13 +19,13 @@ Filmzy is designed with simplicity in mind. No accounts or sign-up steps are req
 ### Search Options
 - **Category Search:** Explore movies by categories in the dedicated section.
 - **Text Search:** Use the search bar to find movies and shows by typing their names.
-- **Random pick:** Choose a category of your liking and get a random movie recommendation!
+- **Random pick:** Feeling spontaneous? Click "Random Movie" to get a surprise movie recommendation!
 
 ### Contact Information
 If you would like more help, please contact our support team at idaoskooei@lavista.studio.
 
 ## About the Author
-Filmzy is developed by [Ida Oskooei]. Learn more about me on [www.lavista.studio](www.lavista.studio) or follow me on [Instagram](https://instagram.com/ida.oskooei?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr).
+Filmzy is developed by [Ida Oskooei].follow me on [Instagram](https://instagram.com/ida.oskooei?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr).
 
 ## Screenshots
 ![screenshot](https://github.com/idaoskooei/Filmzy/assets/111448666/295ea093-a633-4fc2-b83d-6f38b3417304)
